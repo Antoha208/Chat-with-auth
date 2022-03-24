@@ -1,0 +1,26 @@
+{
+  "name": "chat-with-auth",
+  "version": "1.0.0",
+  "description": "Real time chat with registration &amp; autorization",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Antoha208/Chat-with-auth.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Antoha208/Chat-with-auth/issues"
+  },
+  "homepage": "https://github.com/Antoha208/Chat-with-auth#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mongoose": "^6.2.8",
+    "nodemon": "^2.0.15"
+  }
+}

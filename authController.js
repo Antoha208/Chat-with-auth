@@ -1,3 +1,4 @@
+
 class authController {
     async registration(req, res) {
         try {

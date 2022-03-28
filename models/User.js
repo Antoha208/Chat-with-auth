@@ -1,4 +1,6 @@
-import { Schema, model } from 'express'
+import pkg from 'mongoose'
+
+const {Schema, model} = pkg
 
 
 const User = new Schema ({

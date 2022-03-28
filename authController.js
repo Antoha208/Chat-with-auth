@@ -1,3 +1,4 @@
+
 import bcryptjs from 'bcryptjs'
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
@@ -57,6 +58,10 @@ class authController {
 
     async getUsers(req, res) {
         try {
+            const userRole = new Role()
+            const adminRole = new Role({value: 'Admin'})
+            await userRole.save()
+            await adminRole.save()
             res.json('server is working')
         } catch (error) {
             console.log(error)

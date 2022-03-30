@@ -51,7 +51,7 @@ class authController {
             const token = generateToken(user._id, user.roles)
             return res.json({token}) 
         } catch (error) {
-            
+            console.log(error)
         }
     }
 

@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 import router from './authRouter.js'
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 3000
 
 const app = express()
 

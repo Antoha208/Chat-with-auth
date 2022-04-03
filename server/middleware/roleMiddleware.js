@@ -28,7 +28,7 @@ export function roleMiddleware(roles) {
             return next()
         } catch (error) {
             console.log(error)
-            return res.status(401).json({message: 'Пользователь не авторизован епта'})
+            return res.status(401).json({message: 'Пользователь не авторизован'})
         }
     }
 }

@@ -1,0 +1,65 @@
+body {
+    background-image: url(./img/bcg.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.title {
+    color: black;
+    font-size: 3rem;
+    text-shadow: 0 0 40px white;
+}
+
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    min-width: 500px;
+    min-height: 300px;
+    padding: 5px;
+    opacity: 0.9;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgb(255, 255, 255);
+}
+
+.card__buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.card__sign {
+    font-size: 1.5rem;
+    padding: 10px;
+    cursor: pointer;
+    margin: 10px;
+    border: 1px gray solid;
+}
+
+.card__reg {
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.card__reg:hover {
+    background-color: aliceblue;
+    transition: 0.3s;
+}
+
+.card__sign:hover {
+    background-color: gray;
+    transition: 0.3s;
+}

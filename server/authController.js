@@ -1,4 +1,5 @@
 import bcryptjs from 'bcrypt'
+
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 

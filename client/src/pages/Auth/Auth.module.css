@@ -14,7 +14,7 @@ body {
     margin: auto;
 }
 
-.title {
+h2 {
     color: black;
     font-size: 3rem;
     text-shadow: 0 0 40px white;

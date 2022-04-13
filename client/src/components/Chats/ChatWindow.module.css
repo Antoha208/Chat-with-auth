@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #fff;
+    margin: 20px;
+    min-width: 96%;
+    box-sizing: border-box;
+}
+
+.card {
+    position: relative;
+    border-radius: 40px;
+    width: 97%;
+    height: 95%;
+    background-color: #fff;
+    box-shadow: inset 5px 5px 15px rgba(133, 132, 132, 0.15),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+                15px 15px 15px rgba(133, 132, 132, 0.15),
+                -5px -5px 15px rgba(255, 255, 255, 0.15);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background-color: transparent;
+    border-radius: 35px;
+}

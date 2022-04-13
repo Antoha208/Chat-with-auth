@@ -1,21 +1,49 @@
-import React from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
-//import Card from '@material-ui/core/Card';
-//import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-//import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import styles from './Auth.module.css'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../../utils/consts";
+import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../../utils/consts";
+import { registration, login } from "../../http/userApi";
+import { useDispatch, useSelector } from "react-redux";
+import { changeIsAuth } from "../../store/authReducer";
+import { setUser } from "../../store/userReducer";
+
 
 const Auth = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const isLogin = location.pathname === LOGIN_ROUTE
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
+  const dispatch = useDispatch()
+  const user = useSelector(state => state.user.user)
+  const isAuth = useSelector(state => state.isAuth.isAuth)  
+
+  const click = async () => {
+    try {
+      let userData;
+      if (isLogin) {
+        userData = await login(username, password)
+      } else {
+        userData = await registration(username, password)
+      }
+      setUsername('')
+      setPassword('')
+
+      dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp))
+      dispatch(changeIsAuth(true))
+      navigate(CHATS_ROUTE)
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+    
+  }
 
   return (
     <div className = { styles.container }>
@@ -27,7 +55,12 @@ const Auth = () => {
               <AccountCircle />
             </Grid>
             <Grid item>
-              <TextField id="input-with-icon-grid" label="Username" />
+              <TextField 
+                id="input-with-icon-grid" 
+                label="Username"
+                value = {username}
+                onChange = {e => setUsername(e.target.value)} 
+              />
             </Grid>
           </Grid>
         </CardContent>
@@ -41,16 +74,20 @@ const Auth = () => {
                 id="filled-password-input"
                 label="Password"
                 type="password"
+                value = {password}
+                onChange = {e => setPassword(e.target.value)}
               />
             </Grid>
           </Grid>    
         </CardContent>
         <div className = { styles.card__buttons }>
-          <div className = { styles.card__sign }>{isLogin ? 'Войти' : 'Регистрация'}</div>
+          <div className = { styles.card__sign }
+            onClick = {click}
+          >{isLogin ? 'Войти' : 'Регистрация'}</div>
           {isLogin ?
             <div className = { styles.card__reg }>Нет аккаунта? <NavLink to = {REGISTRATION_ROUTE}> Зарегистрируйтесь!</NavLink></div>
           :
-            <div className = { styles.card__reg }>Есть аккаунт? <NavLink to = {LOGIN_ROUTE}> Войдите!</NavLink></div>
+            <div className = { styles.card__reg }>Есть аккаунт?  <NavLink to = {LOGIN_ROUTE}> Войдите!</NavLink></div>
           }
         </div>
       </div>

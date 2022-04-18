@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { BrowserRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import AppRouter from "./AppRouter.js";
@@ -15,18 +15,21 @@ const App = () => {
   const isAuth = useSelector(state => state.isAuth.isAuth)
 
   const [loading, setLoading] = useState(true)
-  const [progress, setProgress] = React.useState(0);
-  const [buffer, setBuffer] = React.useState(10);
+  const [progress, setProgress] = useState(0);
+  const [buffer, setBuffer] = useState(10);
+  const localStore = JSON.parse(localStorage.getItem('user'))
 
   useEffect(() => {
     check().then(data => {
-      dispatch(setUser(true))
+      dispatch(setUser(localStore.id, localStore.username, localStore.roles, localStore.iat, localStore.exp))
       dispatch(changeIsAuth(true))
     }).finally(() => setLoading(false))
   }, [])
 
-  const progressRef = React.useRef(() => {});
-  React.useEffect(() => {
+//  localStorage.removeItem('user')
+
+  const progressRef = useRef(() => {});
+  useEffect(() => {
     progressRef.current = () => {
       if (progress > 100) {
         setProgress(0);
@@ -40,7 +43,7 @@ const App = () => {
     };
   });
 
-  React.useEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       progressRef.current();
     }, 500);

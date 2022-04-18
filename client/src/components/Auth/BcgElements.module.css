@@ -1,0 +1,228 @@
+.container {
+    position: absolute;
+    top: 55%;
+    left: 77%;
+}
+
+.cup {
+    position: relative;
+    width: 180px;
+    height: 200px;
+    background: linear-gradient(to right, #2988f4, #2059f4);
+    border-bottom-left-radius: 30%;
+    border-bottom-right-radius: 30%;
+}
+
+.cup__top {
+    position: absolute;
+    left: 0;
+    top: -30px;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to right, #2988f4, #2059f4);
+    border-radius: 50%;
+}
+
+.cup__topCircle {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    height: 50px;
+    width: calc(100% - 20px);
+    background: linear-gradient(to left, #1e2a5f, #0f1262);
+    border-radius: 50%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.cup__topCircleLiquid {
+    position: absolute;
+    top: 25px;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background: linear-gradient(#c57e65, #e28462);
+}
+
+.cup__handle {
+    position: absolute;
+    top: 35px;
+    left: 115px;
+    width: 75px;
+    height: 80px;
+    border-radius: 50%;
+    border: 20px solid #0f1262;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    transform: rotate(44deg);
+}
+
+.plate {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    width: 350px;
+    height: 100px;
+    background: linear-gradient(to right, #131b3c, #0f1262);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 35px 35px rgba(0, 0, 0, 0.2);
+}
+
+.plate::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border-radius: 50%;
+    background: linear-gradient(to left, #131b3c, #0f1262);
+}
+
+.plate::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+    bottom: 30px;
+    border-radius: 50%;
+    background: radial-gradient(rgba(0,0,0,0.2), 25%, transparent, transparent);
+}
+
+.cup__topPar {
+    position: relative;
+    display: flex;
+    z-index: 1;
+    padding: 0 15px;
+}
+
+.cup__topPar span {
+    position: relative;
+    display: block;
+    height: 120px;
+    min-width: 4px;
+    margin: 0 2px 50px;
+    bottom: 50px;
+    border-radius: 50%;
+    background: rgb(255, 255, 255);
+    opacity: 0;
+    filter: blur(8px);
+}
+
+.cup__topParSpan1 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 0.5s;
+}
+
+.cup__topParSpan3 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 0s;
+}
+
+.cup__topParSpan16 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 1.5s;
+}
+
+.cup__topParSpan5 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 2.5s;
+}
+
+.cup__topParSpan13 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 2.0s;
+}
+
+.cup__topParSpan20 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 1.0s;
+}
+
+.cup__topParSpan6 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 3.5s;
+}
+
+.cup__topParSpan7 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 4.5s;
+}
+
+.cup__topParSpan10 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 3.0s;
+}
+
+.cup__topParSpan8 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 2.5s;
+}
+
+.cup__topParSpan17 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 0.5s;
+}
+
+.cup__topParSpan11 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 4.0s;
+}
+
+.cup__topParSpan12 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 5.0s;
+}
+
+.cup__topParSpan14 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 2.5s;
+}
+
+.cup__topParSpan2 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 1.5s;
+}
+
+.cup__topParSpan9 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 3.0s;
+}
+
+.cup__topParSpan15 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 1.0s;
+}
+
+.cup__topParSpan4 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 4.0s;
+}
+
+.cup__topParSpan19 {
+    animation: animatePar 5s linear infinite;
+    animation-delay: 5.0s;
+}
+
+@keyframes animatePar {
+    0% {
+        transform: translateY(0) scaleX(1);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(-150px) scaleX(5);
+    }
+    95% {
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(-300px) scaleX(15);
+    }
+}

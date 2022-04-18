@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -7,11 +7,12 @@ import Grid from '@material-ui/core/Grid';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import styles from './Auth.module.css'
-import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from "../../utils/consts";
-import { registration, login } from "../../http/userApi";
-import { useDispatch, useSelector } from "react-redux";
-import { changeIsAuth } from "../../store/authReducer";
-import { setUser } from "../../store/userReducer";
+import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts';
+import { registration, login } from '../../http/userApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeIsAuth } from '../../store/authReducer';
+import { setUser } from '../../store/userReducer';
+import BcgElements from '../../components/Auth/BcgElements';
 
 
 const Auth = () => {
@@ -37,6 +38,7 @@ const Auth = () => {
       setPassword('')
 
       dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp))
+      localStorage.setItem('user', JSON.stringify(userData))
       dispatch(changeIsAuth(true))
       navigate(CHATS_ROUTE)
     } catch (error) {
@@ -47,6 +49,7 @@ const Auth = () => {
 
   return (
     <div className = { styles.container }>
+      <BcgElements />
       <h2 className = { styles.title }>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
       <div className = { styles.card }>
         <CardContent>

@@ -3,9 +3,10 @@
     justify-content: center;
     align-items: flex-start;
     background-color: #fff;
-    margin: 20px;
-    min-width: 96%;
+    margin: 15px;
+    min-width: 98%;
     box-sizing: border-box;
+    flex-direction: column;
 }
 
 .card {
@@ -26,4 +27,17 @@
     inset: 5px;
     background-color: transparent;
     border-radius: 35px;
+}
+
+.emojiBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.picker {
+    position: absolute;
+    top: -310px;
+    left: -245px;
 }

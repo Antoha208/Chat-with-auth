@@ -10,7 +10,7 @@ const { check } = pkg
 const router = new Router()
 
 router.post('/registration', [
-    check('username', 'Поле Username не может быть пустым').notEmpty(),
+    check('username', 'Поле Username не может быть пустым, должен содержать два слова').matches(/[A-Za-z0-9-]+\s[A-Za-z0-9-]+/gm),
     check('password', 'Пароль должен содержать более 6-и символов и менее 12-и').isLength({min: 6, max: 12})
 ], authController.registration)
 router.post('/login', authController.login)

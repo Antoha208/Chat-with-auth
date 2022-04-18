@@ -1,9 +1,11 @@
 import React from "react";
 
+import NavBar from '../../components/NavBar/NavBar/NavBar.js'
+
 const OneChat = () => {
   return (
     <div>
-      ONECHAT
+      <NavBar />
     </div>
   )
 

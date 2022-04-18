@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom"; 
 
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -9,14 +10,22 @@ import { Card } from "@material-ui/core";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Paper from '@material-ui/core/Paper';
+import InputBase from '@material-ui/core/InputBase';
+import Divider from '@material-ui/core/Divider';
+import SearchIcon from '@material-ui/icons/Search';
 
-import ChatWindow from '../../components/Chats/ChatWindow'
-import AvatarComponent from '../../components/NavBar/Avatar'
+import ChatWindow from '../../components/Chats/ChatWindow';
+import AvatarComponent from '../../components/NavBar/Avatar/Avatar.js';
+//import ChatList from "../../components/Chats/ChatList";
 import styles from './Chats.module.css'
 import useStyles from './makeStyles'
+import logo from '../../components/NavBar/img/logo.png'
+import { PROFILE_ROUTE, SETTINGS_ROUTE, ADMIN_ROUTE, LOGIN_ROUTE } from "../../utils/consts";
+import { changeIsAuth } from "../../store/authReducer";
+import { setUser } from "../../store/userReducer";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,8 +66,14 @@ export default function Chats() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const open = Boolean(anchorEl);
   const username = useSelector(state => state.user.user.username)
+  const roles = useSelector(state => state.user.user.roles)
+  const auth = useSelector(state => state.isAuth.isAuth)
+
+  const checkRole = roles.includes('Admin')
 
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
@@ -71,15 +86,37 @@ export default function Chats() {
   const handleClose = () => {
     setAnchorEl(null);
   }
+
+  const handleProfile = () => {
+    setAnchorEl(null);
+    navigate(PROFILE_ROUTE)
+  }
+
+  const handleSettings = () => {
+    setAnchorEl(null);
+    navigate(SETTINGS_ROUTE)
+  }
+
+  const handleAdmin = () => {
+    setAnchorEl(null);
+    navigate(ADMIN_ROUTE)
+  }
+
+  const logout = () => {
+    dispatch(setUser(null))
+    dispatch(changeIsAuth(false))
+    localStorage.clear()
+    navigate(LOGIN_ROUTE)
+  }
   
   return (
     <Card className={styles.card}>
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar className = {styles.toolbar}>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
+      <div className={styles.upBar}>
+        <AppBar position="static" color='transparent'>
+          <Toolbar className = {classes.toolbar}>
+            <div>
+              <img src = { logo } alt = 'logo' className = { styles.logo } />
+            </div>
             <Typography  variant="h6" className={classes.title}>
               <TabPanel className={classes.selectedChat} value={value} index={0}>
                 Item One
@@ -117,17 +154,11 @@ export default function Chats() {
               <TabPanel className={classes.selectedChat} value={value} index={11}>
                 Item 12
               </TabPanel>
-              <TabPanel className={classes.selectedChat} value={value} index={12}>
-                Item 13
-              </TabPanel>
-              <TabPanel className={classes.selectedChat} value={value} index={13}>
-                Item 14
-              </TabPanel>
             </Typography>
             {(
               <div className = {styles.username__container}>
                 <div className = {styles.username}>
-                  {username}
+                  {username || 'username'}
                 </div>
                 <IconButton
                   aria-label="account of current user"
@@ -153,8 +184,18 @@ export default function Chats() {
                   open={open}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>Settings</MenuItem>
+                  <MenuItem onClick={handleProfile}>Profile</MenuItem>
+                  <MenuItem onClick={handleSettings}>Settings</MenuItem>
+                  {auth ?
+                    <MenuItem onClick={logout}>Log out</MenuItem>
+                  :
+                    <MenuItem />
+                  }
+                  {checkRole ?
+                    <MenuItem onClick={handleAdmin}>Admin Pannel</MenuItem>
+                  :
+                    <MenuItem />
+                  }
                 </Menu>
               </div>
             )}
@@ -162,13 +203,23 @@ export default function Chats() {
         </AppBar>
       </div>
       <div className = {styles.content}>
-        <div className = { classes.root }>
+        <div className = { classes.sideBar }>
+          <Paper component="form" className={classes.root}>
+            <InputBase
+              className={classes.input}
+              placeholder="Search"
+            />
+            <IconButton className={classes.iconButton}>
+              <SearchIcon />
+            </IconButton>
+            <Divider className={classes.divider} orientation="vertical" />
+          </Paper>
           <Tabs
             orientation="vertical"
+            indicatorColor="primary"
             variant="scrollable"
             value={value}
             onChange={handleChangeTab}
-            aria-label="Vertical tabs example"
             className={styles.tabs}
           >
             <Tab label="Item One" {...tabProps(0)} />
@@ -183,8 +234,6 @@ export default function Chats() {
             <Tab label="Item 10" {...tabProps(9)} />
             <Tab label="Item 11" {...tabProps(10)} />
             <Tab label="Item 12" {...tabProps(11)} />
-            <Tab label="Item 13" {...tabProps(12)} />
-            <Tab label="Item 14" {...tabProps(13)} />
           </Tabs>
         </div>
         <div className = {styles.onechat}>

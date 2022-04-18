@@ -1,29 +1,47 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-      //flexGrow: 1,
+    sideBar: {
       backgroundColor: theme.palette.background.paper,
+      width: '18%',
+  },
+    toolbar: {
       display: 'flex',
-      justifyContent: 'space-between',
       alignItems: 'center',
-      flexDirection: 'row'
-      //height: 700,
-      // marginTop: 100,
-      // marginBottom: 100,
-    },
+      justifyContent: 'space-between',
+  },
     tabs: {
-      borderRight: `1px solid ${theme.palette.divider}`,
+      borderRight: `1px solid ${theme.palette.info.main}`,
+      height: 20,
     },
     menuButton: {
       marginRight: theme.spacing(2),
     },
     title: {
-      flexGrow: 1,
+      minWidth: '40%',
     },
-    selectedChat: {
-      marginLeft: '10%',
-    }
-  }));
 
+
+
+    root: {
+      padding: '2px 4px',
+      display: 'flex',
+      alignItems: 'center',
+      width: '90%',
+      backgroundColor: '#1A1B1A',
+      margin: '10px 0px 10px 7px',
+    },
+    input: {
+      marginLeft: theme.spacing(1),
+      flex: 1,
+    },
+    iconButton: {
+      padding: 10,
+    },
+    divider: {
+      height: 40,
+      margin: 4,
+    },
+  }));
+  
   export default useStyles

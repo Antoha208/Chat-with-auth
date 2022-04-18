@@ -21,7 +21,7 @@ class authController {
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).json({message: 'Ошибка! Убедитесь в том, что поле Username не пустое, пароль содержит от 6и до 12и символов.', errors})
+                return res.status(400).json({message: 'Ошибка! Убедитесь в том, что поле Username не пустое, содержит два слова, пароль содержит от 6и до 12и символов.', errors})
             }
             const {username, password} = req.body
             const condidate = await User.findOne({username})

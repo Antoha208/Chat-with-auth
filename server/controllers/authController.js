@@ -3,15 +3,15 @@ import bcryptjs from 'bcrypt'
 import { validationResult } from 'express-validator'
 import jwt from 'jsonwebtoken'
 
-import {secret} from './config.js'
-import Role from './models/Role.js'
-import User from './models/User.js'
+import {secret} from '../config.js'
+import Role from '../models/Role.js'
+import User from '../models/User.js'
 
 const generateToken = (id, username, roles) => {
     const payload = {
         id,
         username,
-        roles
+        roles,
     }
     return jwt.sign(payload, secret, {expiresIn: '6h'})
 }
@@ -33,7 +33,7 @@ class authController {
             const user = new User({username, password: hashedPassword, roles: [userRole.value]})
             await user.save()
             const token = generateToken(user._id, user.username, user.roles)
-            return res.json({token})
+            return res.json({token, user})
         } catch (error) {
             console.log(error)
             res.status(400).json({message: 'Registration failed'})
@@ -52,7 +52,7 @@ class authController {
                 return res.status(400).json({message: 'Пароль введен неверно!'})
             }
             const token = generateToken(user._id, user.username, user.roles)
-            return res.json({token}) 
+            return res.json({token, user}) 
         } catch (error) {
             console.log(error)
         }

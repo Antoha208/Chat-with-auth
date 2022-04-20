@@ -22,7 +22,7 @@ import AvatarComponent from '../../components/NavBar/Avatar/Avatar.js';
 //import ChatList from "../../components/Chats/ChatList";
 import styles from './Chats.module.css'
 import useStyles from './makeStyles'
-import logo from '../../components/NavBar/img/logo.png'
+import logo from '../../components/NavBar/NavBar/img/logo.png'
 import { PROFILE_ROUTE, SETTINGS_ROUTE, ADMIN_ROUTE, LOGIN_ROUTE } from "../../utils/consts";
 import { changeIsAuth } from "../../store/authReducer";
 import { setUser } from "../../store/userReducer";

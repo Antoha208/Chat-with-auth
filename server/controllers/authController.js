@@ -7,11 +7,13 @@ import {secret} from '../config.js'
 import Role from '../models/Role.js'
 import User from '../models/User.js'
 
-const generateToken = (id, username, roles) => {
+const generateToken = (id, username, roles, avatar, registrationDate) => {
     const payload = {
         id,
         username,
         roles,
+        avatar,
+        registrationDate,
     }
     return jwt.sign(payload, secret, {expiresIn: '6h'})
 }
@@ -29,10 +31,12 @@ class authController {
                 return res.status(400).json({message: 'Данный пользователь уже зарегистрирован'})
             }
             const hashedPassword = bcryptjs.hashSync(password, 5)
-            const userRole = await Role.findOne({value: 'User'})
-            const user = new User({username, password: hashedPassword, roles: [userRole.value]})
+            const userRole = await Role.findOne({value: 'Admin'})
+            const avatar = ''
+            const registrationDate = Date.now()
+            const user = new User({username, password: hashedPassword, roles: [userRole.value], avatar: avatar, registrationDate: registrationDate})
             await user.save()
-            const token = generateToken(user._id, user.username, user.roles)
+            const token = generateToken(user._id, user.username, user.roles, user.avatar, user.registrationDate)
             return res.json({token, user})
         } catch (error) {
             console.log(error)
@@ -51,7 +55,7 @@ class authController {
             if (!passwordCheck) {
                 return res.status(400).json({message: 'Пароль введен неверно!'})
             }
-            const token = generateToken(user._id, user.username, user.roles)
+            const token = generateToken(user._id, user.username, user.roles, user.avatar)
             return res.json({token, user}) 
         } catch (error) {
             console.log(error)
@@ -64,6 +68,37 @@ class authController {
             res.json(users)
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    async deleteAllUsers(req, res) {
+        try {
+            await User.deleteMany({})
+            res.json('Users were deleted')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async deleteOneUser(req, res) {
+        try {
+            const {_id} = req.params
+            const user = await User.findOne({_id})
+            await User.deleteOne({user})
+            res.json(`user ${user.username} was deleted`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async updateUser (req, res) {
+        try {
+            const {_id} = req.params
+            const user = req.body
+            const updatedUser = await User.findByIdAndUpdate(_id, user, {new: true})
+            return res.json(updatedUser)
+        } catch (error) {
+            res.status(500).json(error.message)
         }
     }
 

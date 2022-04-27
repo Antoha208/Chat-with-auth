@@ -24,20 +24,28 @@ const useStyles = makeStyles((theme) => ({
 
     infoContainer: {
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'space-around',
       justifyContent: 'center',
       backgroundColor: '#1A1B1A',
       width: 350,
       height: 550,
-      padding: '0 30px',
+      padding: '0px 20px',
       borderRadius: '15px',
     },
 
     paper: {
       padding: theme.spacing(2),
+      marginTop: 5,
       textAlign: 'center',
       color: theme.palette.text.secondary,
-      minHeight: 50,
+      height: 20,
+    },
+
+    paperButton: {
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   }));
 

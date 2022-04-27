@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import moment from 'moment';
 // import { useNavigate } from "react-router-dom"; 
 
 import { Button, Card, InputBase } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 import styles from './Profile.module.css'
 import useStyles from './makeStyles'
@@ -22,17 +21,15 @@ const Profile = () => {
 
   const classes = useStyles()
 
-  const username = useSelector(state => state.user.user.username)
-  const roles = useSelector(state => state.user.user.roles)
+  const userStore = useSelector(state => state.user.user)
 
   const changeText = (e) => {
     setName(e.target.value);
   };
 
-  const selectedFile = (e) => {
-    console.log(e.target.files)
-  }
-  
+  const timestampIat = moment.unix(userStore.iat).format("hh:mm:ss DD.MM.YYYY")
+  const timestampExp = moment.unix(userStore.exp).format("hh:mm:ss DD.MM.YYYY")
+  // const regDate = moment(userStore.registrationDate).format('llll')
 
   return (
     <Card className={styles.container}>
@@ -40,24 +37,11 @@ const Profile = () => {
       <div className={styles.card}>
         <Card className={classes.avatarContainer}>
           <ProfileData />   
-          <IconButton className={classes.iconButton}>
-            <input 
-              accept="image/*" 
-              className={classes.input} 
-              id="icon-button-file" 
-              type="file" 
-            />
-            <label htmlFor="icon-button-file">
-              <IconButton color="primary" aria-label="upload picture" component="span" onClick={selectedFile}>
-                <PhotoCamera />
-              </IconButton>
-            </label>
-          </IconButton>
         </Card>
         <Card className={classes.infoContainer}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Username: {username}</Paper>
+              <Paper className={classes.paper}>Username: {userStore.username}</Paper>
             </Grid>
             <Grid item xs={12}>
               { name === '' ?
@@ -73,14 +57,14 @@ const Profile = () => {
               }  
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>My roles: {roles}</Paper>
+              <Paper className={classes.paper}>My roles: {userStore.roles}</Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Access exp. time: {}</Paper>
+              <Paper className={classes.paper}>Access exp. time: {timestampExp}</Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Last login date: {}</Paper>
-              <Paper className={classes.paper}>Registration date: {}</Paper>
+              <Paper className={classes.paper}>Last login date: {timestampIat}</Paper>
+              {/* <Paper className={classes.paper}>Registration date: {regDate}</Paper> */}
             </Grid>
             <Grid item xs={6} sm={4}>
               <Paper className={classes.paperSmall}>

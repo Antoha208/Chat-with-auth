@@ -1,20 +1,25 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux'
 
-import { useSelector } from 'react-redux';
 import { Avatar } from '@mui/material';
 import { Stack } from '@mui/material';
 
-import ProfileData from '../../Profile/ProfileData';
+// import ProfileData from '../../Profile/ProfileData';
 import useStyles from './makeStyles.js'
 import StyledBadge from './withStyles.js';
-import avatar from '../../Profile/img/avatar.jpg';
 
 
 const AvatarComponent = () => {
-    const [isAvatar, setIsAvatar] = useState(true)
+    // const [isAvatar, setIsAvatar] = useState(false)
     const classes = useStyles();
 
-    const username = useSelector(state => state.user.user.username)   
+    const userStore = useSelector(state => state.user.user)
+
+    // const showAvatar = () => {
+
+    //   }
+
+    const userAvatar = userStore.avatar !== '' ? `${process.env.REACT_APP_URL_API + userStore.avatar}` : ''
 
     function stringToColor(string) {
         let hash = 0;
@@ -39,36 +44,22 @@ const AvatarComponent = () => {
             sx: {
             bgcolor: stringToColor(username),
             },
-            children: `${username.split(' ')[0][0]}${username.split(' ')[1][0]}`,
+            children: `${userStore.username.split(' ')[0][0]}${userStore.username.split(' ')[1][0]}`,
         };
     }
 
     return (
-        <Stack direction="row" spacing={2}>
-            {isAvatar 
-            ?
-                <StyledBadge
-                    overlap="circular"
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                    }}
-                    variant="dot"
-                >
-                    <Avatar src = {avatar} className={classes.small} />
-                </StyledBadge>
-            :
-                <StyledBadge
-                    overlap="circular"
-                    anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'right',
-                    }}
-                    variant="dot"
-                >
-                    <Avatar {...stringAvatar(`${username}`)} />
-                </StyledBadge>
-            }
+        <Stack direction="row" spacing={2}>        
+            <StyledBadge
+                overlap="circular"
+                anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+                }}
+                variant="dot"
+            >
+                <Avatar src = {userAvatar} className={classes.small} {...stringAvatar(`${userStore.username}`)} />
+            </StyledBadge>
         </Stack>
     );
 }

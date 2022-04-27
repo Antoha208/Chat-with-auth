@@ -2,9 +2,11 @@ const defaultState = {
     user: {
         id: null,
         username: null,
-        roles: [],
+        roles: [],       
         iat: null,
-        exp: null
+        exp: null,
+        avatar: null,
+        registrationDate: null
     }
 }
 
@@ -20,14 +22,16 @@ export const userReducer = ( state = defaultState, action ) => {
                     username: action.username,
                     roles: action.roles,
                     iat: action.iat,
-                    exp: action.exp
+                    exp: action.exp,
+                    avatar: action.avatar,
+                    registrationDate: action.registrationDate
                 }
             })
         default:
             return state
     }
 }
-export const setUser = (id, username, roles, iat, exp) => ({type: USER, id, username, roles, iat, exp})
+export const setUser = (id, username, roles, iat, exp, avatar, registrationDate) => ({type: USER, id, username, roles, iat, exp, avatar, registrationDate})
 
 
 

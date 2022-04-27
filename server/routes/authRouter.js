@@ -16,5 +16,8 @@ authRouter.post('/registration', [
 authRouter.post('/login', authController.login)
 authRouter.get('/users', roleMiddleware(['Admin']), authController.getUsers)
 authRouter.get('/auth', authMiddleware, authController.check)
+authRouter.put('/update' + '/:_id', authMiddleware, authController.updateUser)
+authRouter.delete('/deleteAll', authMiddleware, roleMiddleware(['Admin']), authController.deleteAllUsers)
+authRouter.delete('/deleteOne' + '/:_id', authMiddleware, roleMiddleware(['Admin']), authController.deleteOneUser)
 
 export default authRouter

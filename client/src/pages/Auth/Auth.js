@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import CardContent from '@material-ui/core/CardContent';
 import TextField from '@material-ui/core/TextField';
@@ -9,7 +10,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import styles from './Auth.module.css'
 import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts';
 import { registration, login } from '../../http/userApi';
-import { useDispatch, useSelector } from 'react-redux';
 import { changeIsAuth } from '../../store/authReducer';
 import { setUser } from '../../store/userReducer';
 import BcgElements from '../../components/Auth/BcgElements';
@@ -23,23 +23,23 @@ const Auth = () => {
   const [password, setPassword] = useState('')
 
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user.user)
-  const isAuth = useSelector(state => state.isAuth.isAuth)  
 
   const click = async () => {
     try {
       let userData;
       if (isLogin) {
         userData = await login(username, password)
+        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar))
       } else {
         userData = await registration(username, password)
+        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar, userData.registrationDate))
       }
       setUsername('')
       setPassword('')
-
-      dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp))
+      // console.log(userData)
       localStorage.setItem('user', JSON.stringify(userData))
       dispatch(changeIsAuth(true))
+
       navigate(CHATS_ROUTE)
     } catch (error) {
       alert(error.response.data.message)
@@ -94,6 +94,7 @@ const Auth = () => {
           }
         </div>
       </div>
+      <div className = {styles.table}></div>
     </div>
   )
 

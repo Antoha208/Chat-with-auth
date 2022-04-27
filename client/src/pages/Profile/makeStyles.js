@@ -62,10 +62,6 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       minHeight: 50,
     },
-
-    input: {
-      display: 'none',
-    }
   }));
 
   export default useStyles

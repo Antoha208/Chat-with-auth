@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; 
 
 import { Card } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
@@ -9,51 +8,52 @@ import Button from '@material-ui/core/Button';
 
 import styles from './Admin.module.css'
 import useStyles from './makeStyles';
-import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE } from '../../utils/consts';
-import { changeIsAuth } from '../../store/authReducer';
-import { setUser } from '../../store/userReducer';
+import { getUsers } from '../../http/userApi';
+import { setAllUsers } from '../../store/usersListReducer';
+import UsersList from '../../components/Admin/UsersList';
 import AdminPic from '../../components/Admin/AdminPic';
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
 
 const Admin = () => {
-
   const classes = useStyles()
-  const [anchorEl, setAnchorEl] = useState(null);
-  const navigate = useNavigate()
+  const [showButton, setShowButton] = useState(true)
   const dispatch = useDispatch()
-  const open = Boolean(anchorEl);
-  const username = useSelector(state => state.user.user.username)
-  const roles = useSelector(state => state.user.user.roles)
-  const auth = useSelector(state => state.isAuth.isAuth)
+  const user = useSelector(state => state.user.user)
+  const allUsers = useSelector(state => state.users.users)
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
+  const showUsers = async () => {
+    try {
+      let users;
+        users = await getUsers()
+        const usersDB = users.map(user => user.username)
+        const storeUsers = allUsers.map(user => user.username)
+        const matchUsers = storeUsers.some(user => user === usersDB.reduce(element => element))
+        
+
+        
+        // const newObj = users.map(el => Object.assign(el, {iat: '', exp: ''}))
+        // console.log(newObj)
+
+        
+
+        //  console.log(user.username, user.iat, user.exp)
+        //  console.log(users)
+
+        //  console.log(allUsers)
+
+        if (matchUsers) {
+          setShowButton(!showButton)
+        } else {
+          dispatch(setAllUsers(users))
+          setShowButton(!showButton)
+        }
+    } catch (error) {
+      alert(error)
+    }
   }
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  }
-
-  const handleChats = () => {
-    setAnchorEl(null);
-    navigate(CHATS_ROUTE)
-  }
-
-  const handleProfile = () => {
-    setAnchorEl(null);
-    navigate(PROFILE_ROUTE)
-  }
-
-  const handleSettings = () => {
-    setAnchorEl(null);
-    navigate(SETTINGS_ROUTE)
-  }
-
-  const logout = () => {
-    dispatch(setUser(null))
-    dispatch(changeIsAuth(false))
-    localStorage.clear()
-    navigate(LOGIN_ROUTE)
+  const hideUsers = () => {
+    setShowButton(!showButton)
   }
 
   return (
@@ -64,18 +64,24 @@ const Admin = () => {
           <AdminPic />
         </Card>
         <Card className={classes.infoContainer}>
-          <Grid container spacing={3}>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Username: {username}</Paper>
+              <Paper className={classes.paper}>Username: {user.username}</Paper>
             </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>Show all users
-                <Button>Delete user</Button>
-              </Paper>
-            </Grid>
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>Stay Positive</Paper>
-            </Grid>
+            {showButton ?
+              <Grid item xs={12}>
+                <Paper className={classes.paper}>Show all users
+                  <Button onClick={showUsers}>Show users</Button>
+                </Paper>
+              </Grid>
+            :
+              <Grid item xs={12}>
+                <UsersList />
+                <Paper className={classes.paperButton}>
+                  <Button onClick={hideUsers}>Hide users</Button>
+                </Paper>
+              </Grid>
+            }
           </Grid>
         </Card>
       </div>

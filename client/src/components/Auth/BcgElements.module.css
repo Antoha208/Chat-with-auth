@@ -1,4 +1,4 @@
-.container {
+.cupContainer {
     position: absolute;
     top: 55%;
     left: 77%;
@@ -11,6 +11,7 @@
     background: linear-gradient(to right, #2988f4, #2059f4);
     border-bottom-left-radius: 30%;
     border-bottom-right-radius: 30%;
+    box-shadow: 0 35px 35px rgba(0, 0, 0, 0.2);
 }
 
 .cup__top {
@@ -68,7 +69,7 @@
     background: linear-gradient(to right, #131b3c, #0f1262);
     border-radius: 50%;
     transform: translateX(-50%);
-    box-shadow: 0 35px 35px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 35px 35px rgba(0, 0, 0, 0.4);
 }
 
 .plate::before {
@@ -206,6 +207,93 @@
 .cup__topParSpan19 {
     animation: animatePar 5s linear infinite;
     animation-delay: 5.0s;
+}
+
+.clockContainer {
+    position: absolute;
+    top: 55%;
+    left: 7%;
+}
+
+.clock {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(31, 81, 220);
+    min-width: 98%;
+    box-sizing: border-box;
+    flex-direction: column;
+    border-radius: 40px;
+    box-shadow: -35px 0px 35px rgba(0, 0, 0, 0.3);
+    transform: rotateX(10deg) rotateY(-10deg) rotateZ(-1deg);
+}
+
+.clock__inner {
+    position: relative;
+    border-radius: 40px;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #131b3c;
+    box-shadow: inset 5px 5px 15px rgba(133, 132, 132, 0.15),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+                15px 15px 15px rgba(133, 132, 132, 0.15),
+                -5px -5px 15px rgba(255, 255, 255, 0.15);
+}
+
+.clock__inner::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background-color: transparent;
+    border-radius: 35px;
+}
+
+.datetime {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background-color:  #131b3c;
+    border: 4px solid #2988f4;
+    border-radius: 5px;
+    padding: 15px 10px;
+    width: 70%;
+    height: 70%;
+}
+
+.date {
+    font-size: 22px;
+    letter-spacing: 2px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.date span {
+    padding: 0 4px;
+}
+
+.time {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 60px;
+    justify-content: center;
+    letter-spacing: 4px;
+}
+
+.hours {
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 0 0;
+    font-size: 30px;
 }
 
 @keyframes animatePar {

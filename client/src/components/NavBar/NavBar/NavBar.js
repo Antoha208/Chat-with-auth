@@ -7,6 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
 
 import useStyles from './makeStyles';
 import styles from './NavBar.module.css'
@@ -68,9 +69,11 @@ const NavBar = () => {
     <div className={classes.upBar}>
       <AppBar position="static" color='transparent'>
         <Toolbar className = {styles.toolbar}>
+          {/* <Button className = {styles.imgButton} onClick={handleChats}> */}
           <div>
-            <img src = { logo } alt = 'logo' className = { styles.logo } />
+            <img  src = { logo } onClick={handleChats} alt = 'logo' className = { styles.logo } />
           </div>
+          {/* </Button> */}
           {(
             <div className = {styles.username__container}>
               <div className = {styles.username}>

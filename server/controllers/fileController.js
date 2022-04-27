@@ -24,7 +24,7 @@ class fileController {
         try {
             const user = await User.findById(req.user.id)
             fs.unlinkSync('static' + '\\' + user.avatar)
-            user.avatar = null
+            user.avatar = ''
             await user.save()
             res.json({message: 'Avatar deleted', user})
         } catch (error) {

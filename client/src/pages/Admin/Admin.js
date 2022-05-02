@@ -28,18 +28,7 @@ const Admin = () => {
         const usersDB = users.map(user => user.username)
         const storeUsers = allUsers.map(user => user.username)
         const matchUsers = storeUsers.some(user => user === usersDB.reduce(element => element))
-        
-
-        
-        // const newObj = users.map(el => Object.assign(el, {iat: '', exp: ''}))
-        // console.log(newObj)
-
-        
-
-        //  console.log(user.username, user.iat, user.exp)
-        //  console.log(users)
-
-        //  console.log(allUsers)
+        console.log(users)
 
         if (matchUsers) {
           setShowButton(!showButton)

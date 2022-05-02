@@ -24,6 +24,7 @@ export const userReducer = ( state = defaultState, action ) => {
                     iat: action.iat,
                     exp: action.exp,
                     avatar: action.avatar,
+                    about: action.about,
                     registrationDate: action.registrationDate
                 }
             })
@@ -31,7 +32,7 @@ export const userReducer = ( state = defaultState, action ) => {
             return state
     }
 }
-export const setUser = (id, username, roles, iat, exp, avatar, registrationDate) => ({type: USER, id, username, roles, iat, exp, avatar, registrationDate})
+export const setUser = (id, username, roles, iat, exp, avatar, about, registrationDate) => ({type: USER, id, username, roles, iat, exp, avatar, about, registrationDate})
 
 
 

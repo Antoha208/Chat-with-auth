@@ -14,10 +14,17 @@ authRouter.post('/registration', [
     check('password', 'Пароль должен содержать более 6-и символов и менее 12-и').isLength({min: 6, max: 12})
 ], authController.registration)
 authRouter.post('/login', authController.login)
+authRouter.post('/addLogInfo', authMiddleware, authController.addLogInfo)
+authRouter.post('/addAboutInfo', [
+    check('about', 'Максимум 20 символов').isLength({max: 20})
+], authMiddleware, authController.addAboutInfo)
 authRouter.get('/users', roleMiddleware(['Admin']), authController.getUsers)
+authRouter.get('/oneUser' + '/:_id', authMiddleware, authController.getOneUser)
 authRouter.get('/auth', authMiddleware, authController.check)
 authRouter.put('/update' + '/:_id', authMiddleware, authController.updateUser)
+// authRouter.delete('/removeAboutInfo', authMiddleware, authController.removeAboutInfo)
+authRouter.delete('/removeLogInfo', authMiddleware, authController.removeLogInfo)
 authRouter.delete('/deleteAll', authMiddleware, roleMiddleware(['Admin']), authController.deleteAllUsers)
-authRouter.delete('/deleteOne' + '/:_id', authMiddleware, roleMiddleware(['Admin']), authController.deleteOneUser)
+authRouter.delete('/deleteOne' + '/:_id', authMiddleware, authController.deleteOneUser)
 
 export default authRouter

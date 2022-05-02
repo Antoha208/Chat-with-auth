@@ -39,8 +39,9 @@ const useStyles = makeStyles((theme) => ({
     paperButton: {
       width: '100%',
       display: 'flex',
-      justifyContent: 'center',
+      justifyContent: 'space-around',
       alignItems: 'center',
+      minHeight: '56px',
     },
   }));
 

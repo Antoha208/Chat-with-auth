@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     small: {
-      width: theme.spacing(6),
-      height: theme.spacing(6),
+      width: theme.spacing(5),
+      height: theme.spacing(5),
     },
   }));
 

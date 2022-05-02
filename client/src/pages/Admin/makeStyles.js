@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 
     infoContainer: {
       display: 'flex',
-      alignItems: 'space-around',
+      alignItems: 'flex-start',
       justifyContent: 'center',
       backgroundColor: '#1A1B1A',
       width: 350,

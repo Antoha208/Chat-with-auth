@@ -15,33 +15,32 @@ import { setUser } from '../../store/userReducer';
 
 
 const ProfileData = () => {
-    const classes = useStyles();
-    const [avatar, setAvatar] = useState('')
+  const userStore = useSelector(state => state.user.user)
+  const classes = useStyles();
+  const [avatar, setAvatar] = useState(userStore.avatar)
 
-    const dispatch = useDispatch()
-    const userStore = useSelector(state => state.user.user)
 
-    const userAvatar = userStore.avatar !== '' ? `${process.env.REACT_APP_URL_API + userStore.avatar}` : ''
+  const dispatch = useDispatch()
 
-    const upload = async (e) => {
-      try {
-        const file = e.target.files[0]
-        await uploadAvatar(file)
-        const avatar = JSON.parse(localStorage.getItem('avatar'))
-        dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, avatar))
-        setAvatar(avatar)
-      } catch (error) {
-        alert(error.message)
-      }
-      
-    }
-
-    const deleteFile = () => {
-      deleteAvatar()
+  const upload = async (e) => {
+    try {
+      const file = e.target.files[0]
+      await uploadAvatar(file)
+      const avatar = JSON.parse(localStorage.getItem('avatar'))
+      dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, avatar, userStore.about))
       setAvatar(avatar)
-      dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, ''))
-      localStorage.removeItem('avatar')
+    } catch (error) {
+      alert(error.message)
     }
+    
+  }
+
+  const deleteFile = () => {
+    deleteAvatar()
+    setAvatar(avatar)
+    dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, '', userStore.about))
+    localStorage.removeItem('avatar')
+  }
 
   return (
     <div className={classes.root}>
@@ -53,7 +52,11 @@ const ProfileData = () => {
         }}
         variant="dot"
       >
-        <Avatar src={userAvatar} className={classes.large} />
+        {userStore.avatar === '' || undefined || null ? 
+          <Avatar className={classes.large} />
+        :
+          <Avatar className={classes.large} src={`${process.env.REACT_APP_URL_API}` + userStore.avatar} />
+        }
       </StyledBadge>
       <Paper className={classes.buttons}>
         <IconButton className={classes.iconButton}>

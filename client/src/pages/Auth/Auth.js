@@ -9,7 +9,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import styles from './Auth.module.css'
 import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts';
-import { registration, login } from '../../http/userApi';
+import { registration, login, addLogInfo } from '../../http/userApi';
 import { changeIsAuth } from '../../store/authReducer';
 import { setUser } from '../../store/userReducer';
 import BcgElements from '../../components/Auth/BcgElements';
@@ -29,13 +29,14 @@ const Auth = () => {
       let userData;
       if (isLogin) {
         userData = await login(username, password)
-        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar))
+        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar, userData.about))
       } else {
         userData = await registration(username, password)
-        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar, userData.registrationDate))
+        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar, userData.about, userData.registrationDate))
       }
-      setUsername('')
-      setPassword('')
+
+      await addLogInfo(userData.iat, userData.exp)
+
       // console.log(userData)
       localStorage.setItem('user', JSON.stringify(userData))
       dispatch(changeIsAuth(true))

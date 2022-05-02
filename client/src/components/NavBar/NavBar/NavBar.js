@@ -7,7 +7,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Button from '@material-ui/core/Button';
 
 import useStyles from './makeStyles';
 import styles from './NavBar.module.css'
@@ -16,6 +15,7 @@ import logo from './img/logo.png';
 import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../../../utils/consts';
 import { changeIsAuth } from '../../../store/authReducer';
 import { setUser } from '../../../store/userReducer';
+import { removeLogInfo } from '../../../http/userApi'
 
 const NavBar = () => {
 
@@ -58,7 +58,8 @@ const NavBar = () => {
     navigate(ADMIN_ROUTE)
   }
 
-  const logout = () => {
+  const logout = async () => {
+    await removeLogInfo()
     dispatch(setUser(null))
     dispatch(changeIsAuth(false))
     localStorage.clear()
@@ -69,11 +70,9 @@ const NavBar = () => {
     <div className={classes.upBar}>
       <AppBar position="static" color='transparent'>
         <Toolbar className = {styles.toolbar}>
-          {/* <Button className = {styles.imgButton} onClick={handleChats}> */}
           <div>
             <img  src = { logo } onClick={handleChats} alt = 'logo' className = { styles.logo } />
           </div>
-          {/* </Button> */}
           {(
             <div className = {styles.username__container}>
               <div className = {styles.username}>

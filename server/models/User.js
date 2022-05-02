@@ -7,7 +7,10 @@ const User = new Schema ({
     password: {type: String, required: true},
     roles: [{type: String, ref: 'Role'}],
     avatar: {type: String},
-    registrationDate: {type: Date, required: true, default: Date.now()}
+    about: {type: String, maxlength: 20},
+    registrationDate: {type: Date, required: true, default: Date.now()},
+    iat: {type: Number, required: true, default: 0},
+    exp: {type: Number, required: true, default: 0}
 })
 
 export default model('User', User)

@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-around',
-    }
+    },
   }));
 
 export default useStyles

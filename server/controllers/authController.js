@@ -7,13 +7,14 @@ import {secret} from '../config.js'
 import Role from '../models/Role.js'
 import User from '../models/User.js'
 
-const generateToken = (id, username, roles, avatar, registrationDate) => {
+const generateToken = (id, username, roles, avatar, about, registrationDate) => {
     const payload = {
         id,
         username,
         roles,
         avatar,
-        registrationDate,
+        about,
+        registrationDate
     }
     return jwt.sign(payload, secret, {expiresIn: '6h'})
 }
@@ -33,10 +34,11 @@ class authController {
             const hashedPassword = bcryptjs.hashSync(password, 5)
             const userRole = await Role.findOne({value: 'Admin'})
             const avatar = ''
+            const about = ''
             const registrationDate = Date.now()
-            const user = new User({username, password: hashedPassword, roles: [userRole.value], avatar: avatar, registrationDate: registrationDate})
+            const user = new User({username, password: hashedPassword, roles: [userRole.value], avatar: avatar, about: about, registrationDate: registrationDate, })
             await user.save()
-            const token = generateToken(user._id, user.username, user.roles, user.avatar, user.registrationDate)
+            const token = generateToken(user._id, user.username, user.roles, user.avatar, user.about, user.registrationDate)
             return res.json({token, user})
         } catch (error) {
             console.log(error)
@@ -55,17 +57,75 @@ class authController {
             if (!passwordCheck) {
                 return res.status(400).json({message: 'Пароль введен неверно!'})
             }
-            const token = generateToken(user._id, user.username, user.roles, user.avatar)
+            const token = generateToken(user._id, user.username, user.roles, user.avatar, user.about)
             return res.json({token, user}) 
         } catch (error) {
             console.log(error)
         }
     }
 
+    async addLogInfo(req, res) {
+        try {
+            const {iat, exp} = req.body
+            const user = await User.findById(req.user.id)
+            user.iat = iat
+            user.exp = exp
+            await user.save()
+            res.json({message: 'Information added', user})
+        } catch (error) {
+            res.status(400).json({message: 'Information adding error'})
+        }
+    }
+
+    async removeLogInfo(req, res) {
+        try {
+            const user = await User.findById(req.user.id)
+            user.iat = 0
+            user.exp = 0
+            await user.save()
+            res.json({message: 'Information removed', user})
+        } catch (error) {
+            res.status(400).json({message: 'Information removing error'})
+        }
+    }
+
+    async addAboutInfo(req, res) {
+        try {
+            const {about} = req.body
+            const user = await User.findById(req.user.id)
+            user.about = about
+            await user.save()
+            res.json({message: 'Information added', user})
+        } catch (error) {
+            res.status(400).json({message: 'Information adding error'})
+        }
+    }
+
+    // async removeAboutInfo(req, res) {
+    //     try {
+    //         const user = await User.findById(req.user.id)
+    //         user.about = ''
+    //         await user.save()
+    //         res.json({message: 'Information removed', user})
+    //     } catch (error) {
+    //         res.status(400).json({message: 'Information removing error'})
+    //     }
+    // }
+
     async getUsers(req, res) {
         try {
             const users = await User.find()
             res.json(users)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async getOneUser(req, res) {
+        try {
+            const {_id} = req.params
+            const user = await User.findOne({_id})
+            res.json(user)
         } catch (error) {
             console.log(error)
         }
@@ -103,7 +163,7 @@ class authController {
     }
 
     async check(req, res) {
-        const token = generateToken(req.user._id, req.user.username, req.user.roles)
+        const token = generateToken(req.user.id, req.user.username, req.user.roles, req.user.avatar, req.user.about)
         return res.json({token})
     }
 }

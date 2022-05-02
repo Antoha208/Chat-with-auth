@@ -45,10 +45,22 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2),
       textAlign: 'left',
       color: theme.palette.text.primary,
-      minHeight: 25,
+      minHeight: 20,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+    },
+
+    paperAbout: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+
+    button: {
+      padding: 0,
+      margin: 0,
     },
 
     about: {

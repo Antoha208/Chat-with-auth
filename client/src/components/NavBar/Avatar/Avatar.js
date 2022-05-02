@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux'
 
 import { Avatar } from '@mui/material';
 import { Stack } from '@mui/material';
 
-// import ProfileData from '../../Profile/ProfileData';
 import useStyles from './makeStyles.js'
 import StyledBadge from './withStyles.js';
 
 
 const AvatarComponent = () => {
-    // const [isAvatar, setIsAvatar] = useState(false)
     const classes = useStyles();
 
     const userStore = useSelector(state => state.user.user)
-
-    // const showAvatar = () => {
-
-    //   }
-
-    const userAvatar = userStore.avatar !== '' ? `${process.env.REACT_APP_URL_API + userStore.avatar}` : ''
 
     function stringToColor(string) {
         let hash = 0;
@@ -58,7 +50,11 @@ const AvatarComponent = () => {
                 }}
                 variant="dot"
             >
-                <Avatar src = {userAvatar} className={classes.small} {...stringAvatar(`${userStore.username}`)} />
+                {userStore.avatar === '' || undefined || null ? 
+                    <Avatar className={classes.large} {...stringAvatar(`${userStore.username}`)} />
+                :
+                    <Avatar className={classes.large} src={`${process.env.REACT_APP_URL_API}` + userStore.avatar} />
+                }
             </StyledBadge>
         </Stack>
     );

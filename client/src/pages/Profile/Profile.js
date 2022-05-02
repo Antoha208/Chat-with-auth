@@ -1,35 +1,65 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
-// import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom"; 
 
 import { Button, Card, InputBase } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import SpellcheckRoundedIcon from '@material-ui/icons/SpellcheckRounded';
 
 import styles from './Profile.module.css'
 import useStyles from './makeStyles'
 import ProfileData from '../../components/Profile/ProfileData'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
-import telegram from '../../components/Profile/img/telegram.png'
-import whatsapp from '../../components/Profile/img/whatsapp.png'
-import vk from '../../components/Profile/img/vk.png'
+import { addAboutInfo, deleteOneUser, getOneUser } from "../../http/userApi";
+import { REGISTRATION_ROUTE } from "../../utils/consts";
+import { setUser } from '../../store/userReducer'
 
 const Profile = () => {
-  const [name, setName] = useState('');
+  const userStore = useSelector(state => state.user.user)
+  const dispatch = useDispatch()
 
+  useEffect( () => {
+    getOneUser(userStore.id).then(data => dispatch(setUser(userStore.id, data.username, data.roles, data.iat, data.exp, data.avatar, data.about)))
+  }, [])
+
+  //const userStoreUpdated = useSelector(state => state.user.user)
+
+  const [name, setName] = useState(userStore.about)
+  const [isText, setIsText] = useState(false)
+  const navigate = useNavigate()
   const classes = useStyles()
 
-  const userStore = useSelector(state => state.user.user)
-
-  const changeText = (e) => {
-    setName(e.target.value);
-  };
-
+  // useEffect(() => {
+  // }, [name]);
+  
   const timestampIat = moment.unix(userStore.iat).format("hh:mm:ss DD.MM.YYYY")
   const timestampExp = moment.unix(userStore.exp).format("hh:mm:ss DD.MM.YYYY")
-  // const regDate = moment(userStore.registrationDate).format('llll')
+  const aboutLS = JSON.parse(localStorage.getItem('about'))
+  
+  const changeText = (e) => {
+    setIsText(true)
+    setName(e.target.value)
+    dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, userStore.avatar, name))
+  }
+
+  const acceptText = async () => {
+    await addAboutInfo(name)
+    console.log(name)
+    if (name === undefined) {
+      localStorage.setItem('about', JSON.stringify('Add some text...'))
+    } else {
+      localStorage.setItem('about', JSON.stringify(name))
+    }
+    setIsText(false)
+  }
+
+  const deleteAccount = async () => {
+    await deleteOneUser(userStore.id)
+    navigate(REGISTRATION_ROUTE)
+  } 
 
   return (
     <Card className={styles.container}>
@@ -44,16 +74,26 @@ const Profile = () => {
               <Paper className={classes.paper}>Username: {userStore.username}</Paper>
             </Grid>
             <Grid item xs={12}>
-              { name === '' ?
-              <Paper className={classes.paper}>About:
-                <Button onClick = {changeText}>
-                  <EditRoundedIcon />
-                </Button>
-              </Paper>  
+              { !isText ?
+                <Paper className={classes.paper}>
+                  <div>About: {aboutLS}</div>
+                  <Button onClick = {changeText}>
+                    <EditRoundedIcon />
+                  </Button>
+                </Paper>  
               :
-              <Paper className={classes.paper}>About: 
-                  <InputBase className={classes.about} value={name} onChange={changeText} />
-              </Paper>  
+                <Paper className={classes.paperAbout}>About: 
+                  <InputBase
+                    className={classes.about} 
+                    value={name} 
+                    onChange={(e) => changeText(e)}   
+                  />
+                  <div>
+                    <Button onClick = {acceptText}>
+                      <SpellcheckRoundedIcon />
+                    </Button>
+                  </div>
+                </Paper>  
               }  
             </Grid>
             <Grid item xs={12}>
@@ -64,21 +104,10 @@ const Profile = () => {
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>Last login date: {timestampIat}</Paper>
-              {/* <Paper className={classes.paper}>Registration date: {regDate}</Paper> */}
             </Grid>
-            <Grid item xs={6} sm={4}>
-              <Paper className={classes.paperSmall}>
-                <img src = { telegram } alt = 'telegram' className = { styles.telegram } />
-              </Paper>
-            </Grid>
-            <Grid item xs={6} sm={4}>
-              <Paper className={classes.paperSmall}>
-              <img src = { whatsapp } alt = 'whatsapp' className = { styles.whatsapp } />
-              </Paper>
-            </Grid>
-            <Grid item xs={6} sm={4}>
-              <Paper className={classes.paperSmall}>
-              <img src = { vk } alt = 'vk' className = { styles.vk } />
+            <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Button className={styles.button}  onClick={deleteAccount}>Delete account</Button>
               </Paper>
             </Grid>
           </Grid>

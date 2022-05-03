@@ -24,10 +24,10 @@ const Profile = () => {
   useEffect( () => {
     getOneUser(userStore.id).then(data => dispatch(setUser(userStore.id, data.username, data.roles, data.iat, data.exp, data.avatar, data.about)))
   }, [])
+  
+  const checkingName = userStore.about === undefined ? 'Add some text...' : userStore.about
 
-  //const userStoreUpdated = useSelector(state => state.user.user)
-
-  const [name, setName] = useState(userStore.about)
+  const [name, setName] = useState(checkingName)
   const [isText, setIsText] = useState(false)
   const navigate = useNavigate()
   const classes = useStyles()
@@ -37,7 +37,6 @@ const Profile = () => {
   
   const timestampIat = moment.unix(userStore.iat).format("hh:mm:ss DD.MM.YYYY")
   const timestampExp = moment.unix(userStore.exp).format("hh:mm:ss DD.MM.YYYY")
-  const aboutLS = JSON.parse(localStorage.getItem('about'))
   
   const changeText = (e) => {
     setIsText(true)
@@ -47,12 +46,8 @@ const Profile = () => {
 
   const acceptText = async () => {
     await addAboutInfo(name)
-    console.log(name)
-    if (name === undefined) {
-      localStorage.setItem('about', JSON.stringify('Add some text...'))
-    } else {
-      localStorage.setItem('about', JSON.stringify(name))
-    }
+    console.log(checkingName)
+    dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, userStore.avatar, name))
     setIsText(false)
   }
 
@@ -76,7 +71,7 @@ const Profile = () => {
             <Grid item xs={12}>
               { !isText ?
                 <Paper className={classes.paper}>
-                  <div>About: {aboutLS}</div>
+                  <div>About: {userStore.avatar === undefined ? 'Add some text...' : name}</div>
                   <Button onClick = {changeText}>
                     <EditRoundedIcon />
                   </Button>

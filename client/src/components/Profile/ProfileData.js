@@ -16,6 +16,7 @@ import { setUser } from '../../store/userReducer';
 
 const ProfileData = () => {
   const userStore = useSelector(state => state.user.user)
+
   const classes = useStyles();
   const [avatar, setAvatar] = useState(userStore.avatar)
 
@@ -26,6 +27,7 @@ const ProfileData = () => {
     try {
       const file = e.target.files[0]
       await uploadAvatar(file)
+      console.log(userStore.avatar)
       const avatar = JSON.parse(localStorage.getItem('avatar'))
       dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, avatar, userStore.about))
       setAvatar(avatar)

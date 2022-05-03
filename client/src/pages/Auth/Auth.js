@@ -37,10 +37,7 @@ const Auth = () => {
 
       await addLogInfo(userData.iat, userData.exp)
 
-      // console.log(userData)
-      localStorage.setItem('user', JSON.stringify(userData))
       dispatch(changeIsAuth(true))
-
       navigate(CHATS_ROUTE)
     } catch (error) {
       alert(error.response.data.message)

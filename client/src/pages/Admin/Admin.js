@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import styles from './Admin.module.css'
 import useStyles from './makeStyles';
 import { getUsers } from '../../http/userApi';
-import { setAllUsers } from '../../store/usersListReducer';
+import { setAllUsers, resetAllUsers } from '../../store/usersListReducer';
 import UsersList from '../../components/Admin/UsersList';
 import AdminPic from '../../components/Admin/AdminPic';
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
@@ -18,7 +18,7 @@ const Admin = () => {
   const classes = useStyles()
   const [showButton, setShowButton] = useState(true)
   const dispatch = useDispatch()
-  const user = useSelector(state => state.user.user)
+  const userStore = useSelector(state => state.user.user)
   const allUsers = useSelector(state => state.users.users)
 
   const showUsers = async () => {
@@ -28,7 +28,7 @@ const Admin = () => {
         const usersDB = users.map(user => user.username)
         const storeUsers = allUsers.map(user => user.username)
         const matchUsers = storeUsers.some(user => user === usersDB.reduce(element => element))
-        console.log(users)
+
 
         if (matchUsers) {
           setShowButton(!showButton)
@@ -36,6 +36,7 @@ const Admin = () => {
           dispatch(setAllUsers(users))
           setShowButton(!showButton)
         }
+
     } catch (error) {
       alert(error)
     }
@@ -43,6 +44,7 @@ const Admin = () => {
 
   const hideUsers = () => {
     setShowButton(!showButton)
+    dispatch(resetAllUsers())
   }
 
   return (
@@ -55,7 +57,7 @@ const Admin = () => {
         <Card className={classes.infoContainer}>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Username: {user.username}</Paper>
+              <Paper className={classes.paper}>Username: {userStore.username}</Paper>
             </Grid>
             {showButton ?
               <Grid item xs={12}>

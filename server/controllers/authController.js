@@ -32,7 +32,7 @@ class authController {
                 return res.status(400).json({message: 'Данный пользователь уже зарегистрирован'})
             }
             const hashedPassword = bcryptjs.hashSync(password, 5)
-            const userRole = await Role.findOne({value: 'Admin'})
+            const userRole = await Role.findOne({value: 'User'})
             const avatar = ''
             const about = ''
             const registrationDate = Date.now()

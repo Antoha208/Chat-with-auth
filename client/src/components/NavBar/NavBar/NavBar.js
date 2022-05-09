@@ -13,9 +13,9 @@ import styles from './NavBar.module.css'
 import AvatarComponent from '../Avatar/Avatar';
 import logo from './img/logo.png';
 import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../../../utils/consts';
-import { changeIsAuth } from '../../../store/authReducer';
-import { setUser } from '../../../store/userReducer';
+import { resetApp } from '../../../store/index';
 import { removeLogInfo } from '../../../http/userApi'
+
 
 const NavBar = () => {
 
@@ -60,8 +60,7 @@ const NavBar = () => {
 
   const logout = async () => {
     await removeLogInfo()
-    dispatch(setUser(null))
-    dispatch(changeIsAuth(false))
+    dispatch(resetApp())
     localStorage.clear()
     navigate(LOGIN_ROUTE)
   }

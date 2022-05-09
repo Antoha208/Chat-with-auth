@@ -71,7 +71,6 @@ const UsersList = () => {
         navigate(REGISTRATION_ROUTE)
       } else {
         await deleteOneUser(checked[1]._id)
-        console.log(`user ${checked[1].username} was deleted`)
       }
     } 
     

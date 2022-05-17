@@ -20,6 +20,11 @@ export const check = async () => {
     return jwt_decode(data.token)
 }
 
+export const checkPassword = async (_id, password) => {
+    const {data} = await $authHost.post('/api/checkPassword/' + _id, {password})
+    return data
+}
+
 export const addAboutInfo = async (about) => {
     const {data} = await $authHost.post('/api/addAboutInfo', {about})
     return data 
@@ -57,6 +62,27 @@ export const deleteAllUsers = async () => {
 
 export const deleteOneUser = async (_id) => {
     const {data} = await $authHost.delete('/api/deleteOne/' + _id)
+    return data
+} 
+
+export const updateCheckedUserUsername = async (_id, username) => {
+    const {data} = await $authHost.put('/api/updateUsername/' + _id, {username})
+    localStorage.setItem('token', data.token)
+    return jwt_decode(data.token)
+} 
+
+export const updateCheckedUserPassword = async (_id, password) => {
+    const {data} = await $authHost.put('/api/updatePassword/' + _id, {password})
+    return data
+} 
+
+export const setTheme = async (_id) => {
+    const {data} = await $authHost.put('/api/updateTheme/' + _id)
+    return data
+} 
+
+export const setLanguage = async (_id) => {
+    const {data} = await $authHost.put('/api/updateLanguage/' + _id)
     return data
 } 
 

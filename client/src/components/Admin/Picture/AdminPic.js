@@ -1,6 +1,6 @@
 import React from 'react';
 
-import admin from './img/admin.png'
+import admin from '../img/admin.png'
 import styles from './AdminPic.module.css'
 
 const AdminPic = () => {

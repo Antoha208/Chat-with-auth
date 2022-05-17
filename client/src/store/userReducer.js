@@ -2,7 +2,9 @@ const defaultState = {
     user: {
         id: null,
         username: null,
-        roles: [],       
+        roles: [],
+        theme: [],
+        language: [],       
         iat: null,
         exp: null,
         avatar: null,
@@ -21,6 +23,8 @@ export const userReducer = ( state = defaultState, action ) => {
                     id: action.id,
                     username: action.username,
                     roles: action.roles,
+                    theme: action.theme,
+                    language: action.language,
                     iat: action.iat,
                     exp: action.exp,
                     avatar: action.avatar,
@@ -32,7 +36,7 @@ export const userReducer = ( state = defaultState, action ) => {
             return state
     }
 }
-export const setUser = (id, username, roles, iat, exp, avatar, about, registrationDate) => ({type: USER, id, username, roles, iat, exp, avatar, about, registrationDate})
+export const setUser = (id, username, roles, theme, language, iat, exp, avatar, about, registrationDate) => ({type: USER, id, username, roles, theme, language, iat, exp, avatar, about, registrationDate})
 
 
 

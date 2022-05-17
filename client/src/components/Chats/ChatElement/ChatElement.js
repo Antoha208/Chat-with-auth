@@ -1,10 +1,10 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React from 'react'
+import { useSelector } from 'react-redux'
 
 
-import Avatar from '@material-ui/core/Avatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 
 import styles from './ChatElement.module.css'
 

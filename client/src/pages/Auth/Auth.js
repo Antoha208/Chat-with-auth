@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -16,6 +17,7 @@ import BcgElements from '../../components/Auth/BcgElements';
 
 
 const Auth = () => {
+  const { t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const isLogin = location.pathname === LOGIN_ROUTE
@@ -29,10 +31,30 @@ const Auth = () => {
       let userData;
       if (isLogin) {
         userData = await login(username, password)
-        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar, userData.about))
+        dispatch(setUser(
+          userData.id, 
+          userData.username, 
+          userData.roles, 
+          userData.theme, 
+          userData.language, 
+          userData.iat, 
+          userData.exp, 
+          userData.avatar, 
+          userData.about
+        ))
       } else {
         userData = await registration(username, password)
-        dispatch(setUser(userData.id, userData.username, userData.roles, userData.iat, userData.exp, userData.avatar, userData.about, userData.registrationDate))
+        dispatch(setUser(
+          userData.id, 
+          userData.username,
+          userData.roles,
+          userData.theme,
+          userData.language,
+          userData.iat,
+          userData.exp, 
+          userData.avatar, 
+          userData.about, 
+          userData.registrationDate))
       }
 
       await addLogInfo(userData.iat, userData.exp)
@@ -46,53 +68,53 @@ const Auth = () => {
   }
 
   return (
-    <div className = { styles.container }>
-      <BcgElements />
-      <h2 className = { styles.title }>{isLogin ? 'Авторизация' : 'Регистрация'}</h2>
-      <div className = { styles.card }>
-        <CardContent>
-          <Grid container spacing={1} alignItems="flex-end">
-            <Grid item>
-              <AccountCircle />
+    <div className = { styles.wrapper }>
+      <div className = { styles.container }>
+        <BcgElements />
+        <h2 className = { styles.title }>{isLogin ? <div>{t ('description.AuthSignInCaps')}</div> : <div>{t ('description.AuthSignUpAccountCaps')}</div>}</h2>
+        <div className = { styles.card }>
+          <CardContent>
+            <Grid container spacing={1} alignItems="flex-end">
+              <Grid item>
+                <AccountCircle className = {styles.icon} />
+              </Grid>
+              <Grid item>
+                <TextField 
+                  label="Username"
+                  value = {username}
+                  onChange = {e => setUsername(e.target.value)} 
+                />
+              </Grid>
             </Grid>
-            <Grid item>
-              <TextField 
-                id="input-with-icon-grid" 
-                label="Username"
-                value = {username}
-                onChange = {e => setUsername(e.target.value)} 
-              />
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardContent>
-          <Grid container spacing={1} alignItems="flex-end">
-            <Grid item>
-              <AccountCircle />
-            </Grid>
-            <Grid item>
-              <TextField
-                id="filled-password-input"
-                label="Password"
-                type="password"
-                value = {password}
-                onChange = {e => setPassword(e.target.value)}
-              />
-            </Grid>
-          </Grid>    
-        </CardContent>
-        <div className = { styles.card__buttons }>
-          <div className = { styles.card__sign }
-            onClick = {click}
-          >{isLogin ? 'Войти' : 'Регистрация'}</div>
-          {isLogin ?
-            <div className = { styles.card__reg }>Нет аккаунта? <NavLink to = {REGISTRATION_ROUTE}> Зарегистрируйтесь!</NavLink></div>
-          :
-            <div className = { styles.card__reg }>Есть аккаунт?  <NavLink to = {LOGIN_ROUTE}> Войдите!</NavLink></div>
-          }
+          </CardContent>
+          <CardContent>
+            <Grid container spacing={1} alignItems="flex-end">
+              <Grid item>
+                <AccountCircle className = {styles.icon} />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Password"
+                  type="password"
+                  value = {password}
+                  onChange = {e => setPassword(e.target.value)}
+                />
+              </Grid>
+            </Grid>    
+          </CardContent>
+          <div className = { styles.card__buttons }>
+            <div className = { styles.card__sign }
+              onClick = {click}
+            >{isLogin ? <div>{t ('description.AuthSignIn')}</div> : <div>{t ('description.AuthSignUpAccount')}</div>}</div>
+            {isLogin ?
+              <div className = { styles.card__reg }>{t ('description.AuthNeedAccount')} <NavLink to = {REGISTRATION_ROUTE}> {t ('description.AuthSignUpAccount')}</NavLink></div>
+            :
+              <div className = { styles.card__reg }>{t ('description.AuthHasAccount')}  <NavLink to = {LOGIN_ROUTE}> {t ('description.AuthSignIn')}</NavLink></div>
+            }
+          </div>
         </div>
+        <div className = {styles.table}></div>
       </div>
-      <div className = {styles.table}></div>
     </div>
   )
 

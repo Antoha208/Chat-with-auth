@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector, useDispatch } from 'react-redux'
 
 
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import IconButton from '@material-ui/core/IconButton';
-import Divider from '@material-ui/core/Divider';
-import SearchIcon from '@material-ui/icons/Search';
-import AddRoundedIcon from '@material-ui/icons/AddRounded';
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded';
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Box from '@material-ui/core/Box'
+import Tabs from '@material-ui/core/Tabs'
+import Tab from '@material-ui/core/Tab'
+import Paper from '@material-ui/core/Paper'
+import InputBase from '@material-ui/core/InputBase'
+import IconButton from '@material-ui/core/IconButton'
+import Divider from '@material-ui/core/Divider'
+import SearchIcon from '@material-ui/icons/Search'
+import AddRoundedIcon from '@material-ui/icons/AddRounded'
+import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
 
 
-import useStyles from './ChatListMakeStyles';
+import useStyles from './makeStyles'
 import styles from './ChatList.module.css'
-import { getUsers } from "../../../http/userApi";
-import { resetAllUsers, setAllUsers } from "../../../store/usersListReducer";
+import { getUsers } from '../../../http/userApi'
+import { resetAllUsers, setAllUsers } from '../../../store/usersListReducer'
 import ChatElement from '../ChatElement/ChatElement'
-import SelectCompanion from "../SelectCompanion/SelectCompanion";
+import SelectCompanion from '../SelectCompanion/SelectCompanion'
 import { Context } from '../context'
 
 
@@ -30,6 +31,7 @@ const ChatList = () => {
     const userStore = useSelector(state => state.user.user)
     const allUsers = useSelector(state => state.users.users)
     const selectedUser = useSelector(state => state.companion.companion)
+    const { t } = useTranslation()
     const classes = useStyles()
     const [value, setValue] = useState(0)
     const [search, setSearch] = useState('')
@@ -40,16 +42,6 @@ const ChatList = () => {
         console.log(data)
         dispatch(setAllUsers(data))
       })
-
-      
-    // {
-    //     const names = data.map(el => el.username)
-    //     const check = names.some(user => allUsers.includes(user))
-    //     console.log(check)
-    //     if (!check) {
-    //       dispatch(setAllUsers(data))
-    //     }
-    //   }) 
     }, [])
 
     const addChatWith = async () => {
@@ -99,7 +91,7 @@ const ChatList = () => {
             >
               {value === index && (
                 <Box p={2}>
-                  <Typography>{children}</Typography>
+                  {children}
                 </Box>
               )}
             </div>
@@ -134,20 +126,20 @@ const ChatList = () => {
           <Paper component="form" className={classes.root}>
             <InputBase
               className={classes.input}
-              placeholder="Search"
+              placeholder={t ('description.ChatListSearch')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
             <IconButton disabled className={classes.iconButton}>
-              <SearchIcon />
+              <SearchIcon className={styles.icon__disabled} />
             </IconButton>
             {!plus ?
               <IconButton className={classes.iconButton} onClick={addChatWith}>
-                <AddRoundedIcon />
+                <AddRoundedIcon className={styles.icon} />
               </IconButton>
             :
               <IconButton className={classes.iconButton} onClick={closeBar}>
-                <ClearRoundedIcon />
+                <ClearRoundedIcon className={styles.icon} />
               </IconButton>
             }
             

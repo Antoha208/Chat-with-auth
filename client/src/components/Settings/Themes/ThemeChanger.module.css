@@ -1,0 +1,25 @@
+.mode__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mode {
+    display: flex;
+    justify-content: center;
+}
+
+.mode__icon {
+    display: flex;
+    max-width: 20%;
+    max-height: 20%;
+    opacity: .3;
+    transition: .5s ease-in-out;
+}
+
+.mode__icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
+}
+

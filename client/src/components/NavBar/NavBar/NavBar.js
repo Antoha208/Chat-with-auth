@@ -1,25 +1,26 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom"; 
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import IconButton from '@material-ui/core/IconButton'
+import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@material-ui/core/Menu'
 
-import useStyles from './makeStyles';
+import useStyles from './makeStyles'
 import styles from './NavBar.module.css'
-import AvatarComponent from '../Avatar/Avatar';
+import AvatarComponent from '../Avatar/Avatar'
 import logo from './img/logo.png';
-import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../../../utils/consts';
-import { resetApp } from '../../../store/index';
+import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../../../utils/consts'
+import { resetApp } from '../../../store/index'
 import { removeLogInfo } from '../../../http/userApi'
 
 
 const NavBar = () => {
-
   const classes = useStyles()
+  const { t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -78,8 +79,6 @@ const NavBar = () => {
                 {username || 'username'}
               </div>
               <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleMenu}
                 color="inherit"
@@ -87,7 +86,6 @@ const NavBar = () => {
                 <AvatarComponent />
               </IconButton>
               <Menu
-                id="menu-appbar"
                 anchorEl={anchorEl}
                 anchorOrigin={{
                   vertical: 'top',
@@ -101,18 +99,18 @@ const NavBar = () => {
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleChats}>Chats</MenuItem>
-                <MenuItem onClick={handleProfile}>Profile</MenuItem>
-                <MenuItem onClick={handleSettings}>Settings</MenuItem>
+                <MenuItem onClick={handleChats}>{t ('description.NavBarChats')}</MenuItem>
+                <MenuItem onClick={handleProfile}>{t ('description.NavBarProfile')}</MenuItem>
+                <MenuItem onClick={handleSettings}>{t ('description.NavBarSettings')}</MenuItem>
                 {auth ?
-                  <MenuItem onClick={logout}>Log out</MenuItem>
+                  <MenuItem onClick={logout}>{t ('description.NavBarLogout')}</MenuItem>
                 :
                   <MenuItem />
                 }
                 {checkRole ?
-                  <MenuItem onClick={handleAdmin}>Admin Pannel</MenuItem>
+                  <MenuItem onClick={handleAdmin}>{t ('description.NavBarAdmin')}</MenuItem>
                 :
-                  <MenuItem />
+                  ''
                 }
               </Menu>
             </div>

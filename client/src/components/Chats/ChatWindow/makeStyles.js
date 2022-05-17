@@ -6,21 +6,24 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
       alignItems: 'center',
       width: '95%',
-      backgroundColor: '#1A1B1A',
       margin: '15px 0px 10px 7px',
     },
+
     input: {
       display: 'none',
       marginLeft: theme.spacing(1),
       flex: 1,
     },
+
     iconButton: {
       padding: 10,
     },
+
     divider: {
       height: 40,
       margin: 4,
     },
+    
   }));
 
   export default useStyles

@@ -2,7 +2,7 @@ const defaultState = {
     companion: {
         id: null,
         username: null,
-        roles: [],       
+        roles: [],     
         iat: null,
         exp: null,
         avatar: null,

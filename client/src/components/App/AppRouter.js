@@ -6,7 +6,6 @@ import { authRoutes, allRoutes } from "./routes";
 import {REGISTRATION_ROUTE} from '../../utils/consts'
 
 const AppRouter = () => {
-  //const isAuth = false
   const isAuth = useSelector(state => state.isAuth.isAuth)
  
   return (

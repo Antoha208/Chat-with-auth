@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 //import Picker from 'emoji-picker-react'
 import InputEmoji from 'react-input-emoji'
 
-import useStyles from './ChatWindowMakeStyles';
+import useStyles from './makeStyles';
 import Paper from '@material-ui/core/Paper';
 //import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
@@ -15,6 +16,7 @@ import SendRoundedIcon from '@material-ui/icons/SendRounded';
 import styles from './ChatWindow.module.css'
 
 const ChatWindow = () => {
+  const { t } = useTranslation()
   //const [chosenEmoji, setChosenEmoji] = useState(null)
   const [ text, setText ] = useState('')
   //const [showEmoji, setShowEmoji] = useState(null)
@@ -50,7 +52,7 @@ const ChatWindow = () => {
           onChange={setText}
           cleanOnEnter
           onEnter={handleOnEnter}
-          placeholder="Type a message"
+          placeholder={t ('description.ChatWindowInput')}
         />
           {/* {chosenEmoji ? (
             <span>You chose: {chosenEmoji.emoji}</span>
@@ -76,21 +78,21 @@ const ChatWindow = () => {
             <EmojiEmotionsRoundedIcon />
           }
         </IconButton> */}
-        <IconButton className={classes.iconButton}>
+        <div className={classes.iconButton}>
           <input 
             accept="image/*" 
-            className={classes.input} 
-            id="icon-button-file" 
+            className={classes.input}
+            id="icon-button-file"  
             type="file" 
           />
           <label htmlFor="icon-button-file">
             <IconButton color="primary" aria-label="upload picture" component="span">
-              <AttachFileRoundedIcon />
+              <AttachFileRoundedIcon className={styles.icon} />
             </IconButton>
           </label>
-        </IconButton>
+        </div>
         <IconButton className={classes.iconButton}>
-          <SendRoundedIcon />
+          <SendRoundedIcon className={styles.icon} />
         </IconButton>
         <Divider className={classes.divider} orientation="vertical" />
       </Paper>

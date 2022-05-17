@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from "react-redux";
 import moment from 'moment';
 import { useNavigate } from "react-router-dom"; 
@@ -20,12 +21,23 @@ import { setUser } from '../../store/userReducer'
 const Profile = () => {
   const userStore = useSelector(state => state.user.user)
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   useEffect( () => {
-    getOneUser(userStore.id).then(data => dispatch(setUser(userStore.id, data.username, data.roles, data.iat, data.exp, data.avatar, data.about)))
+    getOneUser(userStore.id).then(data => dispatch(setUser(
+      userStore.id, 
+      data.username, 
+      data.roles,
+      userStore.theme,
+      userStore.language, 
+      data.iat, 
+      data.exp, 
+      data.avatar, 
+      data.about
+    )))
   }, [])
   
-  const checkingName = userStore.about === undefined ? 'Add some text...' : userStore.about
+  const checkingName = userStore.about === undefined ? <div>{t ('description.ProfileAddAbout')}</div> : userStore.about
 
   const [name, setName] = useState(checkingName)
   const [isText, setIsText] = useState(false)
@@ -41,13 +53,33 @@ const Profile = () => {
   const changeText = (e) => {
     setIsText(true)
     setName(e.target.value)
-    dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, userStore.avatar, name))
+    dispatch(setUser(
+      userStore.id, 
+      userStore.username, 
+      userStore.roles, 
+      userStore.theme, 
+      userStore.language, 
+      userStore.iat, 
+      userStore.exp, 
+      userStore.avatar,  
+      name
+    ))
   }
 
   const acceptText = async () => {
     await addAboutInfo(name)
     console.log(checkingName)
-    dispatch(setUser(userStore.id, userStore.username, userStore.roles, userStore.iat, userStore.exp, userStore.avatar, name))
+    dispatch(setUser(
+      userStore.id, 
+      userStore.username, 
+      userStore.roles, 
+      userStore.theme, 
+      userStore.language, 
+      userStore.iat, 
+      userStore.exp, 
+      userStore.avatar,  
+      name
+    ))
     setIsText(false)
   }
 
@@ -66,43 +98,43 @@ const Profile = () => {
         <Card className={classes.infoContainer}>
           <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Username: {userStore.username}</Paper>
+              <Paper className={classes.paper}>{t ('description.ProfileUsername')} {userStore.username}</Paper>
             </Grid>
             <Grid item xs={12}>
               { !isText ?
                 <Paper className={classes.paper}>
-                  <div>About: {userStore.avatar === undefined ? 'Add some text...' : name}</div>
+                  <div className={styles.about__container}>{t ('description.ProfileAbout')} {userStore.about === undefined ? <div>{t ('description.ProfileAddAbout')}</div> : name}</div>
                   <Button onClick = {changeText}>
-                    <EditRoundedIcon />
+                    <EditRoundedIcon className={styles.icon} />
                   </Button>
                 </Paper>  
               :
-                <Paper className={classes.paperAbout}>About: 
+                <Paper className={classes.paperAbout}>{t ('description.ProfileAbout')} 
                   <InputBase
                     className={classes.about} 
-                    value={name} 
+                    value={name || ''} 
                     onChange={(e) => changeText(e)}   
                   />
                   <div>
                     <Button onClick = {acceptText}>
-                      <SpellcheckRoundedIcon />
+                      <SpellcheckRoundedIcon className={styles.icon} />
                     </Button>
                   </div>
                 </Paper>  
               }  
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>My roles: {userStore.roles}</Paper>
+              <Paper className={classes.paper}>{t ('description.ProfileRoles')} {userStore.roles}</Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Access exp. time: {timestampExp}</Paper>
+              <Paper className={classes.paper}>{t ('description.ProfileAccess')} {timestampExp}</Paper>
             </Grid>
             <Grid item xs={12}>
-              <Paper className={classes.paper}>Last login date: {timestampIat}</Paper>
+              <Paper className={classes.paper}>{t ('description.ProfileLastLogin')} {timestampIat}</Paper>
             </Grid>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Button className={styles.button}  onClick={deleteAccount}>Delete account</Button>
+                <Button onClick={deleteAccount}>{t ('description.ProfileDeleteAcc')}</Button>
               </Paper>
             </Grid>
           </Grid>
@@ -114,4 +146,4 @@ const Profile = () => {
 }
 
 
-export default Profile;
+export default Profile

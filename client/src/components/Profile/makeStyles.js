@@ -8,13 +8,20 @@ const useStyles = makeStyles((theme) => ({
       },
       flexDirection: 'column',
     },
+
     large: {
       width: theme.spacing(30),
       height: theme.spacing(30),
     },
+    
+    avatarContainer: {
+      borderRadius: '50%',
+    },
+
     input: {
       display: 'none',
     },
+
     buttons: {
       display: 'flex',
       flexDirection: 'row',

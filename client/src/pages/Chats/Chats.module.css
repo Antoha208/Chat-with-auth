@@ -1,7 +1,3 @@
-* {
-    color: white;
-}
-
 .card {
     width: 100%;
     height: 100vh;
@@ -15,35 +11,8 @@
     flex-wrap: nowrap;
 }
 
-/* .upBar {
-    background-color: #1049A9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
 .onechat {
     display: flex;
     flex-grow: 1;
     min-height: 93vh;
 }
-
-/* .logo {
-    position: absolute;
-    top: 0;
-    left: 2%;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%; 
-}*/
-
-/* .username__container {
-    max-width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.username {
-    font-size: 1.4rem;
-} */

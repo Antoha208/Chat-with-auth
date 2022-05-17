@@ -4,7 +4,8 @@ import { LOGIN_ROUTE,
          CHATS_ROUTE, 
          ONECHAT_ROUTE, 
          PROFILE_ROUTE, 
-         SETTINGS_ROUTE } from '../../utils/consts'
+         SETTINGS_ROUTE,
+        } from '../../utils/consts'
 
 import Admin from '../../pages/Admin/Admin'
 import Chats from '../../pages/Chats/Chats'

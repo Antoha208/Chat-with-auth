@@ -10,8 +10,8 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 400,
       maxHeight: 400,
       backgroundColor: theme.palette.background.paper,
-      overflow: 'auto',
       padding: '2px 0px',
+      overflow: 'hidden',
     },
 
     listItem: {
@@ -29,19 +29,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: '#1A1B1A',
       margin: '2px 5px',
     },
+
     input: {
       marginLeft: theme.spacing(1),
       flex: 1,
     },
+    
     iconButton: {
       padding: 10,
-    },
-    paperButton: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      minHeight: '56px',
     },
   }));
 

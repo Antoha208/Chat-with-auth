@@ -1,30 +1,32 @@
 import React, { useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next'
 // import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 
 
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import InputBase from '@material-ui/core/InputBase';
-import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
+import List from '@material-ui/core/List'
+import ListItem from '@material-ui/core/ListItem'
+import ListItemText from '@material-ui/core/ListItemText'
+import ListItemAvatar from '@material-ui/core/ListItemAvatar'
+import Button from '@material-ui/core/Button'
+import Paper from '@material-ui/core/Paper'
+import InputBase from '@material-ui/core/InputBase'
+import SearchIcon from '@material-ui/icons/Search'
+import IconButton from '@material-ui/core/IconButton'
+import Avatar from '@material-ui/core/Avatar'
 
 import styles from './SelectCompanion.module.css'
-import useStyles from './SelectCompanionMakeStyles'
+import useStyles from './makeStyles'
 // import ChatElement from '../ChatElement/ChatElement'
 import { Context } from '../context'
-import { setCompanion } from "../../../store/companionReducer";
-import { setAllUsers } from '../../../store/usersListReducer';
+import { setCompanion } from '../../../store/companionReducer'
+import { setAllUsers } from '../../../store/usersListReducer'
 
 
 const SelectCompanion = () => {
   const dispatch = useDispatch()
   const classes = useStyles();
+  const { t } = useTranslation()
   // const userStore = useSelector(state => state.user.user)
   const allUsers = useSelector(state => state.users.users)
   // const selectedUser = useSelector(state => state.companion.companion)
@@ -63,12 +65,12 @@ const SelectCompanion = () => {
       <Paper component="form" className={classes.inputWrap}>
         <InputBase
           className={classes.input}
-          placeholder="Search"
+          placeholder={t ('description.SelectCompanionSearch')}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
         <IconButton disabled className={classes.iconButton}>
-          <SearchIcon />
+          <SearchIcon className={styles.icon} />
         </IconButton>
       </Paper>
         {filterUsers.map((user, index) => {

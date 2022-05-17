@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    background-color: #fff;
     margin: 15px;
     min-width: 98%;
     box-sizing: border-box;
@@ -29,15 +28,14 @@
     border-radius: 35px;
 }
 
-.emojiBar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+.icon {
+    opacity: .3;
+    transition: .5s ease-in-out;
+    width: 25px;
 }
 
-.picker {
-    position: absolute;
-    top: -310px;
-    left: -245px;
+.icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
 }

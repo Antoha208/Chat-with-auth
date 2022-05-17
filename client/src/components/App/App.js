@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+
+import { ThemeProvider } from '@material-ui/core/styles';
+
+
 import AppRouter from "./AppRouter.js";
 import styles from './App.module.css'
 import { changeIsAuth } from "../../store/authReducer";
-// import { setUser } from "../../store/userReducer";
-
 import { check } from "../../http/userApi.js";
 import Loader from "./Loader.js";
+import { themeDark, themeLight } from '../Settings/Themes/Themes';
 
 const App = () => {
   const dispatch = useDispatch()
+  const userStore = useSelector(state => state.user.user)
 
   const [loading, setLoading] = useState(true)
 
@@ -30,9 +35,11 @@ const App = () => {
   }
 
   return (
-    <BrowserRouter>
-      <AppRouter />
-    </BrowserRouter>
+    <ThemeProvider theme = {userStore.theme === 'Dark' ? themeLight : themeDark}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </ThemeProvider>
   )
 
 }

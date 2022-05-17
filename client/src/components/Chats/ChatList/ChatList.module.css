@@ -1,6 +1,16 @@
-/* .tabs {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    min-width: 100%;
-} */
+.icon__disabled {
+    width: 30px;
+}
+
+.icon {
+    opacity: .3;
+    transition: .5s ease-in-out;
+    width: 30px;
+
+}
+
+.icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
+}

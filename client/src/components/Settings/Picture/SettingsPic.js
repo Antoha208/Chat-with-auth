@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-import settings from './img/settings.png'
+
+import settings from '../img/settings.png'
 import styles from './SettingsPic.module.css'
 
 const SettingsPic = () => {

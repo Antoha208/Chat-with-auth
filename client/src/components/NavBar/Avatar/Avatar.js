@@ -51,9 +51,9 @@ const AvatarComponent = () => {
                 variant="dot"
             >
                 {userStore.avatar === '' || undefined || null ? 
-                    <Avatar className={classes.large} {...stringAvatar(`${userStore.username}`)} />
+                    <Avatar className={classes.small} {...stringAvatar(`${userStore.username}`)} />
                 :
-                    <Avatar className={classes.large} src={`${process.env.REACT_APP_URL_API}` + userStore.avatar} />
+                    <Avatar className={classes.small} src={`${process.env.REACT_APP_URL_API}` + userStore.avatar} />
                 }
             </StyledBadge>
         </Stack>

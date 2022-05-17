@@ -1,4 +1,7 @@
 body {
+    margin: 0;
+}
+.wrapper {
     background-image: url(./img/bcg.jpg);
     background-size: cover;
     background-repeat: no-repeat;
@@ -47,6 +50,10 @@ h2 {
     cursor: pointer;
     margin: 10px;
     border: 1px gray solid;
+}
+
+.icon {
+    width: 40px;
 }
 
 .card__reg {

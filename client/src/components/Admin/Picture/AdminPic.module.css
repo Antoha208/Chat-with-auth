@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 550px;
+    width: 350px;
+}
+
+.admin {
+    width: 200px;
+    padding: 0px 15px;
+    background-color: transparent;
+}

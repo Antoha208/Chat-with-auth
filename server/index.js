@@ -5,6 +5,7 @@ import fileUpload from 'express-fileupload'
 
 import userRouter from './routes/userRouter.js'
 import fileRouter from './routes/fileRouter.js'
+import errorHandler from './middleware/ErrorHandlerMiddleware.js'
 
 const PORT = process.env.PORT || 4000
 
@@ -18,6 +19,7 @@ app.use(fileUpload({}))
 app.use(express.static('static'))
 app.use('/api', userRouter)
 app.use('/api/files', fileRouter)
+app.use(errorHandler)
 
 const startApp = async () => {
     try {

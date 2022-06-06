@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from "react-redux";
-import moment from 'moment';
-import { useNavigate } from "react-router-dom"; 
+import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import moment from 'moment'
+import { useNavigate } from 'react-router-dom'
 
-import { Button, Card, InputBase } from "@material-ui/core";
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import EditRoundedIcon from '@material-ui/icons/EditRounded';
-import SpellcheckRoundedIcon from '@material-ui/icons/SpellcheckRounded';
+import { Button, Card, InputBase } from '@material-ui/core'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import EditRoundedIcon from '@material-ui/icons/EditRounded'
+import SpellcheckRoundedIcon from '@material-ui/icons/SpellcheckRounded'
 
 import styles from './Profile.module.css'
 import useStyles from './makeStyles'
 import ProfileData from '../../components/Profile/ProfileData'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
-import { addAboutInfo, deleteOneUser, getOneUser } from "../../http/userApi";
-import { REGISTRATION_ROUTE } from "../../utils/consts";
+import { addAboutInfo, deleteOneUser, getOneUser } from '../../http/userApi'
+import { REGISTRATION_ROUTE } from '../../utils/consts'
 import { setUser } from '../../store/userReducer'
 
 const Profile = () => {

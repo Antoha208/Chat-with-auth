@@ -11,9 +11,12 @@
 .card {
     position: relative;
     border-radius: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
     width: 97%;
     height: 95%;
-    background-color: #fff;
+    /* background-color: #fff; */
     box-shadow: inset 5px 5px 15px rgba(133, 132, 132, 0.15),
                 inset -5px -5px 15px rgba(255, 255, 255, 0.15),
                 15px 15px 15px rgba(133, 132, 132, 0.15),
@@ -26,6 +29,32 @@
     inset: 5px;
     background-color: transparent;
     border-radius: 35px;
+}
+
+.text {
+    height: 89%;
+    max-height: 470px;
+    width: 100%;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.sample {
+    position: absolute;
+    top: 0;
+}
+
+.message__container {
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
 }
 
 .icon {

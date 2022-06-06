@@ -11,7 +11,7 @@ import styles from './ThemeChanger.module.css'
 
 
 const ThemeChanger = () => {
-    const { darkTheme, changeThemeOrLanguage, setSelected } = useContext(Context)
+    const { changeThemeOrLanguage, setSelected } = useContext(Context)
 
     const openModal = (e) => {
         changeThemeOrLanguage()
@@ -23,11 +23,7 @@ const ThemeChanger = () => {
     return (
         <div className = { styles.mode__container }>
             <div className = { styles.mode }>
-                <Button className = 
-                    { classnames ({
-                        [styles.mode__icon]: true,
-                        [styles.selected__mode]: darkTheme
-                    }) } 
+                <Button className ={styles.mode__icon} 
                     onClick = {openModal}
                     id='theme'
                 >

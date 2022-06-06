@@ -16,7 +16,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
     box-shadow: inset 5px 5px 15px rgba(133, 132, 132, 0.15),
                 inset -5px -5px 15px rgba(255, 255, 255, 0.15),
                 15px 15px 15px rgba(133, 132, 132, 0.15),

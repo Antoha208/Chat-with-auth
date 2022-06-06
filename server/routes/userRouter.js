@@ -20,7 +20,7 @@ userRouter.post('/addAboutInfo', [
 ], authMiddleware, userController.addAboutInfo)
 userRouter.post('/checkPassword' + '/:_id', userController.checkPassword)
 
-userRouter.get('/users', roleMiddleware(['Admin']), userController.getUsers)
+userRouter.get('/users', userController.getUsers)
 userRouter.get('/oneUser' + '/:_id', authMiddleware, userController.getOneUser)
 userRouter.get('/auth', authMiddleware, userController.check)
 

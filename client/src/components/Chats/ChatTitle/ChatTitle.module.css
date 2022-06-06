@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    text-transform: capitalize;
+    border: 1px solid rgb(5, 5, 5);
+    border-radius: 15px;
+    padding: 3px;
+    box-shadow: inset 5px 5px 15px rgba(36, 36, 36, 0.15),
+                inset -5px -5px 15px rgba(19, 17, 17, 0.15),
+                15px 15px 15px rgba(6, 5, 5, 0.5),
+                -5px -5px 15px rgba(11, 11, 11, 0.15);
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background-color: transparent;
+    border-radius: 35px;
+}
+
+.content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.icon {
+    opacity: .3;
+    transition: .5s ease-in-out;
+    width: 30px;
+
+}
+
+.icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
+}

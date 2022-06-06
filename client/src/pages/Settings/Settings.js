@@ -31,7 +31,6 @@ const Settings = () => {
   const [openAcceptModal, setOpenAcceptModal] = useState(false)
   const [openShortcutsModal, setOpenShortcutsModal] = useState(false)
   const [selected, setSelected] = useState('')
-  const [darkTheme, setDarkTheme] = useState(userStore.theme)
 
   
   const changeDataUsername = (e) => {
@@ -53,13 +52,6 @@ const Settings = () => {
   }
 
   const acceptTheme = () => {
-
-    if (darkTheme === 'Light') {
-        setDarkTheme('Dark')
-    } else {
-        setDarkTheme('Light')
-    }
-
     alert('Тема изменена')
     
     setOpenAcceptModal(false)
@@ -92,7 +84,8 @@ const Settings = () => {
   
   return (
     <Context.Provider value = {{
-      openCheckModal, selected, openAcceptModal, darkTheme, openShortcutsModal, setSelected, changeThemeOrLanguage, acceptTheme, acceptLanguage, shortcuts, closeCheckBar, closeAcceptBar, closeShortcuts 
+      openCheckModal, selected, openAcceptModal, openShortcutsModal, 
+      setSelected, changeThemeOrLanguage, acceptTheme, acceptLanguage, shortcuts, closeCheckBar, closeAcceptBar, closeShortcuts 
     }}
     >
       <Card className={styles.container}>

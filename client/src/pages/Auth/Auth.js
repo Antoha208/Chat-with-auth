@@ -105,11 +105,12 @@ const Auth = () => {
           <div className = { styles.card__buttons }>
             <div className = { styles.card__sign }
               onClick = {click}
-            >{isLogin ? <div>{t ('description.AuthSignIn')}</div> : <div>{t ('description.AuthSignUpAccount')}</div>}</div>
+            >
+              {isLogin ? <div>{t ('description.AuthSignIn')}</div> : <div>{t ('description.AuthSignUpAccount')}</div>}</div>
             {isLogin ?
-              <div className = { styles.card__reg }>{t ('description.AuthNeedAccount')} <NavLink to = {REGISTRATION_ROUTE}> {t ('description.AuthSignUpAccount')}</NavLink></div>
+              <div className = { styles.card__reg }>{t ('description.AuthNeedAccount')} <NavLink to = {REGISTRATION_ROUTE} className = { styles.card__reg }> {t ('description.AuthSignUpAccount')}</NavLink></div>
             :
-              <div className = { styles.card__reg }>{t ('description.AuthHasAccount')}  <NavLink to = {LOGIN_ROUTE}> {t ('description.AuthSignIn')}</NavLink></div>
+              <div className = { styles.card__reg }>{t ('description.AuthHasAccount')}  <NavLink to = {LOGIN_ROUTE} className = { styles.card__reg }> {t ('description.AuthSignIn')}</NavLink></div>
             }
           </div>
         </div>

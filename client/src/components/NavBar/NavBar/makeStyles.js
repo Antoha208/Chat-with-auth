@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     upBar: {
-      backgroundColor: '#1049A9',
+      backgroundColor: '#053b98',
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

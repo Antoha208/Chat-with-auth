@@ -22,28 +22,40 @@ const AcceptModal = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const userStore = useSelector(state => state.user.user )
-  const { closeAcceptBar, acceptTheme, darkTheme, acceptLanguage, selected } = useContext(Context)
+  const { closeAcceptBar, acceptTheme, acceptLanguage, selected } = useContext(Context)
   
-
   const accept = async () => {
 
     if (selected === 'theme') {
       acceptTheme()
-      await setTheme(userStore.id)
-      
-      dispatch(setUser(
-        userStore.id, 
-        userStore.username, 
-        userStore.roles, 
-        darkTheme, 
-        userStore.language, 
-        userStore.iat, 
-        userStore.exp, 
-        userStore.avatar, 
-        userStore.about
-      ))
+      await setTheme(userStore.id).then(data => {
+        if (data.includes('Dark')) {
+          dispatch(setUser(
+            userStore.id, 
+            userStore.username, 
+            userStore.roles, 
+            ['Light'], 
+            userStore.language, 
+            userStore.iat, 
+            userStore.exp, 
+            userStore.avatar, 
+            userStore.about
+          ))
+        } else {
+          dispatch(setUser(
+            userStore.id, 
+            userStore.username, 
+            userStore.roles, 
+            ['Dark'], 
+            userStore.language, 
+            userStore.iat, 
+            userStore.exp, 
+            userStore.avatar, 
+            userStore.about
+          ))
+        }
+      })
     } else if (selected === 'lang') {
-      
       acceptLanguage()
       await setLanguage(userStore.id).then(data => {
         dispatch(setUser(
@@ -58,6 +70,8 @@ const AcceptModal = () => {
           userStore.about
         ))
       })
+    } else if (selected === '') {
+      alert('Something wrong. Try again')
     }
 
     closeAcceptBar()

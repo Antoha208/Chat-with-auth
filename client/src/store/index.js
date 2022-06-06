@@ -4,14 +4,19 @@ import { authReducer } from './authReducer'
 import { userReducer } from './userReducer'
 import { usersListReducer } from './usersListReducer'
 import { companionReducer } from './companionReducer'
+import { chatsReducer } from './chatsReducer'
+import { messagesReducer } from './messagesReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+
 
 const rootReducer = combineReducers({
     isAuth: authReducer,
     user: userReducer,
     companion: companionReducer,
     users: usersListReducer,
+    chats: chatsReducer,
+    messages: messagesReducer
 })
 
 const RESET = 'RESET'
@@ -30,7 +35,7 @@ const persistConfig = {
     storage,
   }
 
-  const persistedReducer = persistReducer(persistConfig, wrapRootReducer)
+const persistedReducer = persistReducer(persistConfig, wrapRootReducer)
 
 export const resetApp = () => ({type: RESET})
 export const store = createStore(persistedReducer, composeWithDevTools())

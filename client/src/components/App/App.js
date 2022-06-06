@@ -35,7 +35,7 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme = {userStore.theme === 'Dark' ? themeLight : themeDark}>
+    <ThemeProvider theme = {userStore.theme.includes('Dark') ? themeLight : themeDark}>
       <BrowserRouter>
         <AppRouter />
       </BrowserRouter>

@@ -46,6 +46,10 @@ export const themeDark = createTheme({
       MuiCard: {
         elevation: 7
       },
+
+      MuiCardContent: {
+        elevation: 7
+      },
   
       MuiButton: {
         disableRipple: true

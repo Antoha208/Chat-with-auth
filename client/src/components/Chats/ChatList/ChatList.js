@@ -4,10 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import Box from '@material-ui/core/Box'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
@@ -15,32 +12,44 @@ import Divider from '@material-ui/core/Divider'
 import SearchIcon from '@material-ui/icons/Search'
 import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
+import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded'
 
 
 import useStyles from './makeStyles'
 import styles from './ChatList.module.css'
 import { getUsers } from '../../../http/userApi'
-import { resetAllUsers, setAllUsers } from '../../../store/usersListReducer'
-import ChatElement from '../ChatElement/ChatElement'
+import { setAllUsers } from '../../../store/usersListReducer'
+import { resetAllChats, setAllChats } from '../../../store/chatsReducer'
 import SelectCompanion from '../SelectCompanion/SelectCompanion'
+import ChatTitle from '../ChatTitle/ChatTitle'
+import ChatElement from '../ChatElement/ChatElement'
 import { Context } from '../context'
+import { getChats, deleteAllChats } from '../../../http/chatsApi'
 
 
 const ChatList = () => {
     const dispatch = useDispatch()
     const userStore = useSelector(state => state.user.user)
     const allUsers = useSelector(state => state.users.users)
-    const selectedUser = useSelector(state => state.companion.companion)
+    const chatsStore = useSelector(state => state.chats.chats)
     const { t } = useTranslation()
     const classes = useStyles()
     const [value, setValue] = useState(0)
     const [search, setSearch] = useState('')
     const [plus, setPlus] = useState(false)
+    const [chosenTab, setChosenTab] = useState('')
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
 
     useEffect( () => {
-      getUsers().then(data => {
-        console.log(data)
-        dispatch(setAllUsers(data))
+      getChats(userStore.id).then(data => {
+        const chatsDB = data.map(el=> el._id)
+        const check = chatsStore.some(elem => chatsDB.includes(elem._id))
+        if (!check) {
+          dispatch(setAllChats(data))
+        } else {
+          console.log(data)
+        }
       })
     }, [])
 
@@ -48,80 +57,90 @@ const ChatList = () => {
       try {
         let users;
           users = await getUsers()
-          const usersDB = users.map(user => user.username)
+          const apartMe = users.filter(el => el.username !== userStore.username)
+          const usersDB = apartMe.map(user => user.username)
           const storeUsers = allUsers.map(user => user.username)
-          const matchUsers = storeUsers.some(user => user === usersDB.reduce(element => element))
+          const matchUsers = storeUsers.some(user => usersDB.includes(user))
   
           if (matchUsers) {
             setPlus(true)
           } else {
-            dispatch(setAllUsers(users))
+            dispatch(setAllUsers(apartMe))
             setPlus(true)
           }
+      } catch (error) {
+        alert(error)
+      }
+    }
 
+    const deleteAll = async () => {
+      try {
+        await deleteAllChats(userStore.id)
+
+        dispatch(resetAllChats())
+        setAnchorEl(null)
       } catch (error) {
         alert(error)
       }
     }
 
     const closeBar = () => {
-      setPlus(false)
-      // dispatch(resetAllUsers()) // в дальнейшем убрать, чтобы сохранять весь массив чатов в сторе
+      if (plus) {
+        setPlus(false)
+      } else if (open) {
+        setAnchorEl(null)
+      }      
     }
-
-    const filterUsers = allUsers.filter(user => {
-        return user.username.toLowerCase().includes(search.toLowerCase())
-      })
+    console.log(allUsers)
+    const filterChats = chatsStore.filter(chat => {
+      return chat.usernames.find(el => el !== userStore.username).toLowerCase().includes(search.toLowerCase())
+    })
+    console.log(filterChats)
 
     const handleChangeTab = (event, newValue) => {
-        setValue(newValue);
-      }
+      setValue(newValue)
+      const tab = filterChats.find((el, index) => index === newValue)
+      setChosenTab(tab)
+    }
 
-      function TabPanel(props) {
-        const { children, value, index, ...other } = props;
-      
-        return (
-          <div>
-            <div
-              role="tabpanel"
-              hidden={value !== index}
-              id={`vertical-tabpanel-${index}`}
-              aria-labelledby={`vertical-tab-${index}`}
-              {...other}
-            >
-              {value === index && (
-                <Box p={2}>
-                  {children}
-                </Box>
-              )}
-            </div>
+    function TabPanel(props) {
+      const { children, value, index, ...other } = props;
+
+      return (
+        <div>
+          <div
+            role="tabpanel" 
+            hidden={value !== index}
+            id={`vertical-tabpanel-${index}`}
+            aria-labelledby={`vertical-tab-${index}`}
+            {...other}
+          >
+            {value === index && (
+              <Box p={2}>
+                {children}
+              </Box>
+            )}
           </div>
-        );
+        </div>
+      )
+    }
+
+    function tabProps(index) {
+      return {
+        id: `vertical-tab-${index}`,
+        'aria-controls': `vertical-tabpanel-${index}`,
       }
-      
-      function tabProps(index) {
-        return {
-          id: `vertical-tab-${index}`,
-          'aria-controls': `vertical-tabpanel-${index}`,
-        };
-      }
+    }
 
   return (
       <Context.Provider value = {{
-        closeBar
+        closeBar, TabPanel, tabProps, handleChangeTab, setAnchorEl, setChosenTab,
+        value, anchorEl,  filterChats, open, chosenTab,  
       }}
       >
         <div className = { classes.sideBar }>
           <Toolbar className = {classes.toolbar}>
-            <Typography  variant="h6" className={classes.title}>
-                {filterUsers.map((user, index) => {
-                  return (
-                    <TabPanel key={index} value={value} index={filterUsers.indexOf(user)}>
-                        <ChatElement />
-                    </TabPanel>
-                  )
-                 })}
-            </Typography>
+            <ChatTitle />
           </Toolbar>  
           <Paper component="form" className={classes.root}>
             <InputBase
@@ -132,6 +151,9 @@ const ChatList = () => {
             />
             <IconButton disabled className={classes.iconButton}>
               <SearchIcon className={styles.icon__disabled} />
+            </IconButton>
+            <IconButton className={classes.iconButton} onClick={deleteAll}>
+              <RemoveCircleOutlineRoundedIcon className={styles.icon} />
             </IconButton>
             {!plus ?
               <IconButton className={classes.iconButton} onClick={addChatWith}>
@@ -148,33 +170,12 @@ const ChatList = () => {
           {plus ?
             <SelectCompanion />
           :
-            <div className={classes.rootTabs}>
-              <Tabs
-                orientation="vertical"
-                indicatorColor="primary"
-                variant="scrollable"
-                value={value}
-                onChange={handleChangeTab}
-                className={classes.tabs}
-              >
-                {filterUsers.map((user, index) => {
-                    return (
-                      <Tab 
-                        label={<ChatElement />} 
-                        {...tabProps(filterUsers.indexOf(user))} 
-                        className={classes.listItem} 
-                        key={index}>
-                      </Tab>    
-                    )
-                })}
-              </Tabs>
-            </div>       
+            <ChatElement />
           } 
         </div>
       </Context.Provider>
     )
 
 }
-
 
 export default ChatList

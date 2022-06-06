@@ -12,7 +12,8 @@ const User = new Schema ({
     about: {type: String, maxlength: 20},
     registrationDate: {type: Date, required: true, default: Date.now()},
     iat: {type: Number, required: true, default: 0},
-    exp: {type: Number, required: true, default: 0}
+    exp: {type: Number, required: true, default: 0},
+    chats: [{type: String, ref: 'Chat'}]
 })
 
 export default model('User', User)

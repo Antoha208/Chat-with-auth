@@ -9,7 +9,7 @@ import User from '../models/User.js'
 import Theme from '../models/Theme.js'
 import Language from '../models/Language.js'
 
-const generateToken = (id, username, roles, theme, language, avatar, about, registrationDate) => {
+const generateToken = (id, username, roles, theme, language, avatar, about, registrationDate, chats) => {
     const payload = {
         id,
         username,
@@ -18,7 +18,8 @@ const generateToken = (id, username, roles, theme, language, avatar, about, regi
         language,
         avatar,
         about,
-        registrationDate
+        registrationDate,
+        chats
     }
     return jwt.sign(payload, secret, {expiresIn: '6h'})
 }
@@ -42,6 +43,8 @@ class userController {
             const avatar = ''
             const about = ''
             const registrationDate = Date.now()
+            // const chats = await Chat.find()
+            const chats = []
             const user = new User({
                 username, 
                 password: hashedPassword, 
@@ -50,7 +53,8 @@ class userController {
                 language: [userLanguage.value],
                 avatar: avatar, 
                 about: about, 
-                registrationDate: registrationDate 
+                registrationDate: registrationDate,
+                chats: chats
             })
             await user.save()
             const token = generateToken(
@@ -61,7 +65,8 @@ class userController {
                 user.language, 
                 user.avatar, 
                 user.about, 
-                user.registrationDate
+                user.registrationDate,
+                user.chats
             )
             return res.json({token, user})
         } catch (error) {
@@ -247,12 +252,14 @@ class userController {
                 const theme = await Theme.findOne({value: 'Light'})
                 const string = theme.toString().match(/\b[D-L]\w+/gm)
                 const updatedUser = await user.updateOne({$set: {theme: string}})
-                return res.json({updatedUser})
+                await user.save()
+                return res.json(user.theme)
             } else {
                 const theme = await Theme.findOne({value: 'Dark'})
                 const string = theme.toString().match(/\b[D-L]\w+/gm)
                 const updatedUser = await user.updateOne({$set: {theme: string}})
-                return res.json({updatedUser})
+                await user.save()
+                return res.json(user.theme)
             }
         } catch (error) {
             res.status(500).json(error.message)
@@ -288,7 +295,8 @@ class userController {
             req.user.theme,
             req.user.language,
             req.user.avatar, 
-            req.user.about
+            req.user.about,
+            req.user.chats
         )
         return res.json({token})
     }

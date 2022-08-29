@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
-import classnames from 'classnames'
+import { useTranslation } from 'react-i18next'
 
 
 import Brightness4RoundedIcon from '@material-ui/icons/Brightness4Rounded'
 import { Button } from '@material-ui/core'
+import Tooltip from '@material-ui/core/Tooltip'
 
 
 import { Context } from '../context'
@@ -12,6 +13,7 @@ import styles from './ThemeChanger.module.css'
 
 const ThemeChanger = () => {
     const { changeThemeOrLanguage, setSelected } = useContext(Context)
+    const { t } = useTranslation()
 
     const openModal = (e) => {
         changeThemeOrLanguage()
@@ -27,7 +29,9 @@ const ThemeChanger = () => {
                     onClick = {openModal}
                     id='theme'
                 >
-                    <Brightness4RoundedIcon id='theme' />
+                    <Tooltip title={t ('description.MessageEditTooltip')} arrow>
+                        <Brightness4RoundedIcon id='theme' />
+                    </Tooltip>
                 </Button>
             </div>
         </div>

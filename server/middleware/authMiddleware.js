@@ -15,7 +15,6 @@ export function authMiddleware(req, res, next) {
         req.user = decodedToken
         return next()
     } catch (error) {
-        console.log(error)
         return res.status(401).json({message: 'Пользователь не авторизован'})
     }
 }

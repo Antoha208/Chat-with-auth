@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
-import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import CardContent from '@material-ui/core/CardContent'
+import TextField from '@material-ui/core/TextField'
+import Grid from '@material-ui/core/Grid'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded'
 
 import styles from './Auth.module.css'
-import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts';
-import { registration, login, addLogInfo } from '../../http/userApi';
-import { changeIsAuth } from '../../store/authReducer';
-import { setUser } from '../../store/userReducer';
-import BcgElements from '../../components/Auth/BcgElements';
+import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../utils/consts'
+import { registration, login, addLogInfo } from '../../http/userApi'
+import { changeIsAuth } from '../../store/authReducer'
+import { setUser } from '../../store/userReducer'
+import BcgElements from '../../components/Auth/BcgElements'
 
 
 const Auth = () => {
@@ -23,6 +24,7 @@ const Auth = () => {
   const isLogin = location.pathname === LOGIN_ROUTE
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [visible, setVisible] = useState(true)
 
   const dispatch = useDispatch()
 
@@ -36,7 +38,8 @@ const Auth = () => {
           userData.username, 
           userData.roles, 
           userData.theme, 
-          userData.language, 
+          userData.language,
+          userData.chats, 
           userData.iat, 
           userData.exp, 
           userData.avatar, 
@@ -50,6 +53,7 @@ const Auth = () => {
           userData.roles,
           userData.theme,
           userData.language,
+          userData.chats,
           userData.iat,
           userData.exp, 
           userData.avatar, 
@@ -90,12 +94,13 @@ const Auth = () => {
           <CardContent>
             <Grid container spacing={1} alignItems="flex-end">
               <Grid item>
-                <AccountCircle className = {styles.icon} />
+                <VisibilityRoundedIcon className = {styles.icon__visible} onClick={() => setVisible(!visible)} />
               </Grid>
               <Grid item>
                 <TextField
+                  className = {styles.password}
                   label="Password"
-                  type="password"
+                  type={visible && ("password")}
                   value = {password}
                   onChange = {e => setPassword(e.target.value)}
                 />

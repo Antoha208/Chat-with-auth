@@ -8,50 +8,61 @@ import Box from '@material-ui/core/Box'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
 import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
 import Divider from '@material-ui/core/Divider'
 import SearchIcon from '@material-ui/icons/Search'
 import AddRoundedIcon from '@material-ui/icons/AddRounded'
 import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded'
+import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded';
 
 
 import useStyles from './makeStyles'
 import styles from './ChatList.module.css'
-import { getUsers } from '../../../http/userApi'
+import { Context } from '../context'
 import { setAllUsers } from '../../../store/usersListReducer'
-import { resetAllChats, setAllChats } from '../../../store/chatsReducer'
+import { resetAllChats, setChat, setArrayChats, resetChat } from '../../../store/chatsReducer'
+import { setCompanion } from '../../../store/companionReducer'
+import { setArrayMessages, resetAllMessages } from '../../../store/messagesReducer'
+import { getUsers, getOneUser } from '../../../http/userApi'
+import { getChats, deleteAllChats } from '../../../http/chatsApi'
+import { getMessages } from '../../../http/messagesApi'
 import SelectCompanion from '../SelectCompanion/SelectCompanion'
 import ChatTitle from '../ChatTitle/ChatTitle'
 import ChatElement from '../ChatElement/ChatElement'
-import { Context } from '../context'
-import { getChats, deleteAllChats } from '../../../http/chatsApi'
+import CHATS from './img/chats.png'
 
 
-const ChatList = () => {
+const ChatList = ({chats, setChats, showRequest, setShowRequest, showDelRequest, setShowDelRequest}) => {
     const dispatch = useDispatch()
     const userStore = useSelector(state => state.user.user)
+    const compStore = useSelector(state => state.companion.companion)
     const allUsers = useSelector(state => state.users.users)
     const chatsStore = useSelector(state => state.chats.chats)
+    const messagesStore = useSelector(state => state.messages.messages)
     const { t } = useTranslation()
     const classes = useStyles()
     const [value, setValue] = useState(0)
     const [search, setSearch] = useState('')
     const [plus, setPlus] = useState(false)
-    const [chosenTab, setChosenTab] = useState('')
+    const [chosenTab, setChosenTab] = useState({})
+    const [haveChat, setHaveChat] = useState(false)
     const [anchorEl, setAnchorEl] = useState(null)
+    const [menuOpen, setMenuOpen] = useState(false)
     const open = Boolean(anchorEl)
+
 
     useEffect( () => {
       getChats(userStore.id).then(data => {
-        const chatsDB = data.map(el=> el._id)
-        const check = chatsStore.some(elem => chatsDB.includes(elem._id))
-        if (!check) {
-          dispatch(setAllChats(data))
-        } else {
-          console.log(data)
-        }
+        if (data.length !== 0) {
+          const chatsDB = data.map(el => el._id)
+          const check = chatsStore.some(elem => chatsDB.includes(elem._id))
+          if (!check) {
+            dispatch(setArrayChats(data))
+          } 
+        } 
       })
-    }, [])
+    }, [chats])
 
     const addChatWith = async () => {
       try {
@@ -75,10 +86,16 @@ const ChatList = () => {
 
     const deleteAll = async () => {
       try {
-        await deleteAllChats(userStore.id)
+        // if (messagesStore.some(el => el.event === 'disconnect' && el.username === compStore.username)) { // слишком могущественная кнопка. Условие удаления надо повесомее
+        //   alert(`${t ('description.ChatListDeleteAll')}`)
+        // } else {
+          await deleteAllChats(userStore.id)
 
-        dispatch(resetAllChats())
-        setAnchorEl(null)
+          dispatch(resetAllMessages())
+          dispatch(resetAllChats())
+          setAnchorEl(null)
+          setChats([])
+        // }
       } catch (error) {
         alert(error)
       }
@@ -91,16 +108,35 @@ const ChatList = () => {
         setAnchorEl(null)
       }      
     }
-    console.log(allUsers)
+
     const filterChats = chatsStore.filter(chat => {
       return chat.usernames.find(el => el !== userStore.username).toLowerCase().includes(search.toLowerCase())
     })
-    console.log(filterChats)
 
-    const handleChangeTab = (event, newValue) => {
+    const handleChangeTab = async (event, newValue) => {
       setValue(newValue)
       const tab = filterChats.find((el, index) => index === newValue)
       setChosenTab(tab)
+      
+      const findChat = chatsStore.find(el => el.usernames.includes(event.target.innerHTML))
+      
+      await getOneUser(findChat.ids.find(el => el !== userStore.id)).then(data => 
+        dispatch(setCompanion(
+          data._id,
+          data.username,
+          data.roles, 
+          data.iat, 
+          data.exp, 
+          data.avatar, 
+          data.about,
+          data.registrationDate
+        ))
+      )
+      dispatch(resetAllMessages())
+      
+      await getMessages(findChat._id).then(data =>
+        dispatch(setArrayMessages(data))
+      )
     }
 
     function TabPanel(props) {
@@ -152,25 +188,56 @@ const ChatList = () => {
             <IconButton disabled className={classes.iconButton}>
               <SearchIcon className={styles.icon__disabled} />
             </IconButton>
-            <IconButton className={classes.iconButton} onClick={deleteAll}>
-              <RemoveCircleOutlineRoundedIcon className={styles.icon} />
-            </IconButton>
-            {!plus ?
-              <IconButton className={classes.iconButton} onClick={addChatWith}>
-                <AddRoundedIcon className={styles.icon} />
-              </IconButton>
+            {!menuOpen ?
+              <Tooltip title={t ('description.NavBarMenuTooltip')} arrow>
+                <IconButton className={classes.iconButton} onMouseEnter={() => setMenuOpen(true)}>
+                  <MenuOpenRoundedIcon className={styles.icon} />
+                </IconButton>
+              </Tooltip>
             :
-              <IconButton className={classes.iconButton} onClick={closeBar}>
-                <ClearRoundedIcon className={styles.icon} />
-              </IconButton>
+              <div onMouseLeave={() => setMenuOpen(false)}>
+                {chatsStore.length !== 0 && (
+                  <Tooltip title={t ('description.ChatListDeleteAllTooltip')} arrow>
+                    <IconButton className={classes.iconButton} onClick={deleteAll} >
+                      <RemoveCircleOutlineRoundedIcon className={styles.icon} />
+                    </IconButton>
+                  </Tooltip>
+                )}
+                {!plus ?
+                  <Tooltip title={t ('description.ChatListAddTooltip')} arrow>
+                    <IconButton className={classes.iconButton} onClick={addChatWith}>
+                      <AddRoundedIcon className={styles.icon} />
+                    </IconButton>
+                  </Tooltip>
+                :
+                  <Tooltip title={t ('description.ChatListCloseTooltip')} arrow>
+                    <IconButton className={classes.iconButton} onClick={closeBar}>
+                      <ClearRoundedIcon className={styles.icon} />
+                    </IconButton>
+                  </Tooltip>
+                }
+              </div>
             }
-            
             <Divider className={classes.divider} orientation="vertical" />
           </Paper>
           {plus ?
-            <SelectCompanion />
+            <SelectCompanion 
+              chats={chats} 
+              setChats={setChats} 
+              showRequest={showRequest} 
+              setShowRequest={setShowRequest} 
+            />
           :
-            <ChatElement />
+            chatsStore.length === 0 ?
+              <div className = {styles.chats__wrapper}>
+                <img 
+                  className = {styles.chats} 
+                  src = {CHATS}
+                />
+                <div className={styles.chats__text}>{t ('description.ChatListEmpty')}</div>
+              </div>
+            :
+              <ChatElement />
           } 
         </div>
       </Context.Provider>

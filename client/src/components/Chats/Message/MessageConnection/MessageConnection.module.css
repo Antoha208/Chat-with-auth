@@ -1,0 +1,11 @@
+.message__connect {
+    display: flex;
+    background-color: black;
+    width: 100%;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 15px;
+    opacity: 0.6;
+    margin: 5px;
+    font-size: 1.3rem;
+}

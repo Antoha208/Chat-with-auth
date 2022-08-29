@@ -31,14 +31,15 @@ const UsernameModal = () => {
       let userData;
         userData = await updateCheckedUserUsername(userStore.id, username)
       console.log(userData)
-        alert('Логин изменен')
+        alert(`${t ('description.UsernameModalAlert')}`)
       
       dispatch(setUser(
         userStore.id, 
         username, 
         userStore.roles, 
         userStore.theme, 
-        userStore.language, 
+        userStore.language,
+        userStore.chats, 
         userStore.iat, 
         userStore.exp, 
         userStore.avatar, 

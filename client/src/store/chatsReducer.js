@@ -2,21 +2,27 @@ const defaultState = {
     chats: []
 }
 
-const ALLCHATS = 'ALLCHATS'
+const CHAT = 'CHAT'
+const ARRAY_CHATS = 'ARRAY_CHATS'
 const RESET_CHAT = 'RESET_CHAT'
-const RESET_ALLCHATS = 'RESET_ALLCHATS'
+const RESET_ALL_CHATS = 'RESET_ALL_CHATS'
 
 export const chatsReducer = ( state = defaultState, action ) => {
     switch (action.type) {
-        case ALLCHATS:
+        case CHAT:
             return {
                 ...state, chats: state.chats.concat(action.chat)
+            }
+        case ARRAY_CHATS:
+            return { 
+                ...state,
+                chats: (action.chats).concat(state.chats)
             }
         case RESET_CHAT:
             return {
                 ...state, chats: state.chats.filter(el => el._id !== action.chat._id)
             }
-        case RESET_ALLCHATS: 
+        case RESET_ALL_CHATS: 
             return {
                 ...state, chats: []
             }
@@ -24,6 +30,7 @@ export const chatsReducer = ( state = defaultState, action ) => {
             return state
     }
 }
-export const setAllChats = (chat) => ({type: ALLCHATS, chat})
+export const setChat = (chat) => ({type: CHAT, chat})
+export const setArrayChats = (chats) => ({type: ARRAY_CHATS, chats})
 export const resetChat = (chat) => ({type: RESET_CHAT, chat})
-export const resetAllChats = () => ({type: RESET_ALLCHATS})
+export const resetAllChats = () => ({type: RESET_ALL_CHATS})

@@ -2,8 +2,9 @@ body {
     margin: 0;
 }
 .wrapper {
-    background-image: url(./img/bcg.jpg);
+    background-image: url(./img/bcg.png);
     background-size: cover;
+    background-position: right calc(65%);
     background-repeat: no-repeat;
     margin: 0;
 }
@@ -52,8 +53,21 @@ h2 {
     border: 1px gray solid;
 }
 
+.icon__visible {
+    cursor: pointer;
+    left: 0;
+    width: 30px;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
 .icon {
     width: 40px;
+}
+
+.icon__visible:hover {
+    opacity: 1;
+    transition: 0.5s;
 }
 
 .card__reg {

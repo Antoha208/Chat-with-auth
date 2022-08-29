@@ -1,5 +1,6 @@
 import User from '../models/User.js'
 import Chat from '../models/Chat.js'
+import Message from '../models/Message.js'
 
 
 class chatsController {
@@ -8,9 +9,12 @@ class chatsController {
             const {_id} = req.params
             const {ids, usernames, avatars} = req.body
             const user = await User.findOne({_id})
-            const chatsColl = await Chat.find()
+            const compId = ids.find(id => id !== _id)
+            const comp = await User.findById(compId)
+            const chatsColl = await Chat.find({'ids': _id})
 
             const newChat = new Chat()
+            // newChat.ids.push(ids)
             ids.forEach(id => {
                 newChat.ids.push(id)
             })
@@ -29,12 +33,14 @@ class chatsController {
 
             if (!match) {
                 user.chats.push(newChat._id)
+                comp.chats.push(newChat._id)
                 const addToColl = await newChat.save()
                 await user.save()
+                await comp.save()
+                return res.json(newChat)
             } else {
-                res.json('This chat has already created')
+                res.json('This chat has already been created back')
             }
-            return res.json(newChat) 
         } catch (error) {
             console.log(error)
         }
@@ -45,11 +51,14 @@ class chatsController {
             const {_id} = req.params
             const {chats} = await User.findById({_id})
             const chatColl = await Chat.find()
+            // const messColl = await Message.find()
             const getUserChats = chatColl.filter(elem => chats.includes(elem.id))
+            const idsOfAllChats = getUserChats.map(element => element._id)
             const deleteFromChats = await Chat.deleteMany({_id: {$in : getUserChats}})
 
             const user = await User.findOne({_id})
             const deleteFromUser = await user.updateOne({$pullAll: {chats}})
+            const deleteFromMessage = await Message.deleteMany({chatId: {$in : idsOfAllChats}})
             await user.save()
             res.json('All your chats is deleted')
         } catch (error) {
@@ -64,7 +73,8 @@ class chatsController {
             const deleteFromUser = await user.updateOne({$pull: {chats: objectId}})
             await user.save()
             const deleteFromChats = await Chat.findOneAndDelete({_id: objectId})
-            res.json({message: 'Chat deleted'})
+            const deleteFromMessage = await Message.deleteMany({chatId: objectId})
+            res.json({message: 'Chat is deleted'})
         } catch (error) {
             console.log(error)
         }
@@ -74,17 +84,9 @@ class chatsController {
     //     try {
     //         const {_id} = req.params
     //         const {password} = req.body
-    //         const errors = validationResult(req)
-    //         if (!errors.isEmpty()) {
-    //             return res.status(400).json({message: 
-    //                 'Ошибка! Убедитесь в том, что поле password содержит от 6и до 12и символов.', errors})
-    //         }
+            
     //         const user = await User.findById(_id)
-    //         const passwordCheck = bcryptjs.compareSync(password, user.password)
-    //         if (passwordCheck) {
-    //             return res.status(400).json({message: 'Поле password не было изменено'})
-    //         }
-    //         const newHashedPassword = bcryptjs.hashSync(password, 5)
+            
     //         const updatedUser = await user.updateOne({$set: {password: newHashedPassword}})
     //         return res.json(updatedUser)
     //     } catch (error) {

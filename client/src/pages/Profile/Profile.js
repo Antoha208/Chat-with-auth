@@ -5,6 +5,7 @@ import moment from 'moment'
 import { useNavigate } from 'react-router-dom'
 
 import { Button, Card, InputBase } from '@material-ui/core'
+import Tooltip from '@material-ui/core/Tooltip'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import EditRoundedIcon from '@material-ui/icons/EditRounded'
@@ -15,11 +16,15 @@ import useStyles from './makeStyles'
 import ProfileData from '../../components/Profile/ProfileData'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
 import { addAboutInfo, deleteOneUser, getOneUser } from '../../http/userApi'
+import { resetApp } from '../../store/index'
 import { REGISTRATION_ROUTE } from '../../utils/consts'
 import { setUser } from '../../store/userReducer'
+import { deleteAllChats } from '../../http/chatsApi'
+import { deleteAllMessages } from '../../http/messagesApi'
 
 const Profile = () => {
   const userStore = useSelector(state => state.user.user)
+  const chatsStore = useSelector(state => state.chats.chats)
   const dispatch = useDispatch()
   const { t } = useTranslation()
 
@@ -29,7 +34,8 @@ const Profile = () => {
       data.username, 
       data.roles,
       userStore.theme,
-      userStore.language, 
+      userStore.language,
+      userStore.chats, 
       data.iat, 
       data.exp, 
       data.avatar, 
@@ -58,7 +64,8 @@ const Profile = () => {
       userStore.username, 
       userStore.roles, 
       userStore.theme, 
-      userStore.language, 
+      userStore.language,
+      userStore.chats, 
       userStore.iat, 
       userStore.exp, 
       userStore.avatar,  
@@ -74,7 +81,8 @@ const Profile = () => {
       userStore.username, 
       userStore.roles, 
       userStore.theme, 
-      userStore.language, 
+      userStore.language,
+      userStore.chats,
       userStore.iat, 
       userStore.exp, 
       userStore.avatar,  
@@ -84,8 +92,15 @@ const Profile = () => {
   }
 
   const deleteAccount = async () => {
-    await deleteOneUser(userStore.id)
-    navigate(REGISTRATION_ROUTE)
+    try {
+      await deleteAllChats(userStore.id)
+      await deleteOneUser(userStore.id)
+      dispatch(resetApp())
+      localStorage.clear()
+      navigate(REGISTRATION_ROUTE)
+    } catch (error) {
+      alert(error)
+    }
   } 
 
   return (
@@ -105,7 +120,9 @@ const Profile = () => {
                 <Paper className={classes.paper}>
                   <div className={styles.about__container}>{t ('description.ProfileAbout')} {userStore.about === undefined ? <div>{t ('description.ProfileAddAbout')}</div> : name}</div>
                   <Button onClick = {changeText}>
-                    <EditRoundedIcon className={styles.icon} />
+                    <Tooltip title={t ('description.ProfileChangeTooltip')} arrow>
+                      <EditRoundedIcon className={styles.icon} />
+                    </Tooltip>
                   </Button>
                 </Paper>  
               :
@@ -117,7 +134,9 @@ const Profile = () => {
                   />
                   <div>
                     <Button onClick = {acceptText}>
-                      <SpellcheckRoundedIcon className={styles.icon} />
+                      <Tooltip title={t ('description.MessageAcceptTooltip')} arrow>
+                        <SpellcheckRoundedIcon className={styles.icon} />
+                      </Tooltip>
                     </Button>
                   </div>
                 </Paper>  

@@ -35,7 +35,8 @@ const AcceptModal = () => {
             userStore.username, 
             userStore.roles, 
             ['Light'], 
-            userStore.language, 
+            userStore.language,
+            userStore.chats,  
             userStore.iat, 
             userStore.exp, 
             userStore.avatar, 
@@ -47,7 +48,8 @@ const AcceptModal = () => {
             userStore.username, 
             userStore.roles, 
             ['Dark'], 
-            userStore.language, 
+            userStore.language,
+            userStore.chats,  
             userStore.iat, 
             userStore.exp, 
             userStore.avatar, 
@@ -64,6 +66,7 @@ const AcceptModal = () => {
           userStore.roles, 
           userStore.theme, 
           data,
+          userStore.chats,
           userStore.iat, 
           userStore.exp, 
           userStore.avatar, 
@@ -71,7 +74,7 @@ const AcceptModal = () => {
         ))
       })
     } else if (selected === '') {
-      alert('Something wrong. Try again')
+      alert(`${t ('description.AcceptModalAlert')}`)
     }
 
     closeAcceptBar()

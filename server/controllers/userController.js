@@ -168,9 +168,8 @@ class userController {
     async deleteOneUser(req, res) {
         try {
             const {_id} = req.params
-            const user = await User.findOne({_id})
-            await User.deleteOne({user})
-            res.json(`user ${user.username} was deleted`)
+            const user = await User.findOneAndDelete({_id})
+            res.json(`user was deleted`)
         } catch (error) {
             console.log(error)
         }
@@ -294,9 +293,11 @@ class userController {
             req.user.roles, 
             req.user.theme,
             req.user.language,
+            req.user.chats,
+            req.user.iat,
+            req.user.exp,
             req.user.avatar, 
             req.user.about,
-            req.user.chats
         )
         return res.json({token})
     }

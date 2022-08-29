@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { Card, IconButton } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import Tooltip from '@material-ui/core/Tooltip'
 import EditRoundedIcon from '@material-ui/icons/EditRounded'
 
 
@@ -52,7 +53,7 @@ const Settings = () => {
   }
 
   const acceptTheme = () => {
-    alert('Тема изменена')
+    alert(`${t ('description.SettingsAlert')}`)
     
     setOpenAcceptModal(false)
   }
@@ -99,14 +100,18 @@ const Settings = () => {
               <Grid item xs={12}>
                 <Paper className={classes.paper}>{t ('description.SettingsUsername')} {userStore.username}
                   <IconButton onClick={changeDataUsername} id='username'>
-                    <EditRoundedIcon className={styles.icon} id='username' />
+                    <Tooltip title={t ('description.MessageEditTooltip')} arrow>
+                      <EditRoundedIcon className={styles.icon} id='username' />
+                    </Tooltip>
                   </IconButton>
                 </Paper>
               </Grid>
               <Grid item xs={12}>
                 <Paper className={classes.paper}>{t ('description.SettingsPassword')}
                   <IconButton onClick={changeDataPassword} id='password'>
-                    <EditRoundedIcon className={styles.icon} id='password' />
+                    <Tooltip title={t ('description.MessageEditTooltip')} arrow>
+                      <EditRoundedIcon className={styles.icon} id='password' />
+                    </Tooltip>
                   </IconButton>
                 </Paper>
               </Grid>

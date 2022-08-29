@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded';
-import Paper from '@material-ui/core/Paper';
+import Avatar from '@material-ui/core/Avatar'
+import IconButton from '@material-ui/core/IconButton'
+import Tooltip from '@material-ui/core/Tooltip'
+import PhotoCamera from '@material-ui/icons/PhotoCamera'
+import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded'
+import Paper from '@material-ui/core/Paper'
 
 import StyledBadge from './withStyles.js'
 import useStyles from './makeStyles.js'
@@ -16,11 +18,9 @@ import { setUser } from '../../store/userReducer'
 
 const ProfileData = () => {
   const userStore = useSelector(state => state.user.user)
-
-  const classes = useStyles();
+  const classes = useStyles()
+  const { t } = useTranslation()
   const [avatar, setAvatar] = useState(userStore.avatar)
-
-
   const dispatch = useDispatch()
 
   const upload = async (e) => {
@@ -32,7 +32,8 @@ const ProfileData = () => {
           userStore.username, 
           userStore.roles, 
           userStore.theme, 
-          userStore.language, 
+          userStore.language,
+          userStore.chats, 
           userStore.iat, 
           userStore.exp, 
           data, 
@@ -55,6 +56,7 @@ const ProfileData = () => {
       userStore.roles, 
       userStore.theme, 
       userStore.language, 
+      userStore.chats, 
       userStore.iat, 
       userStore.exp, 
       '', 
@@ -91,12 +93,16 @@ const ProfileData = () => {
           />
           <label htmlFor="icon-button-file">
             <IconButton color="primary" aria-label="upload picture" component="span">
-              <PhotoCamera className={styles.icon} />
+              <Tooltip title={t ('description.ProfileUploadTooltip')} arrow>
+                <PhotoCamera className={styles.icon} />
+              </Tooltip>
             </IconButton>
           </label>
         </div>
         <IconButton color="primary" component="span" onClick={deleteFile}>
-          <DeleteForeverRoundedIcon className={styles.icon} />
+          <Tooltip title={t ('description.ProfileDeleteTooltip')} arrow>
+            <DeleteForeverRoundedIcon className={styles.icon} />
+          </Tooltip>
         </IconButton>
       </Paper>
     </div>

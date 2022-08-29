@@ -30,10 +30,10 @@ const PasswordModal = () => {
       let userData;
       if (password === confPassword) {
         userData = await updateCheckedUserPassword(userStore.id, password)
-        alert('Пароль изменен')
+        alert(`${t ('description.PasswordModalAlert1')}`)
         closeCheckBar()
       } else {
-        alert('Пароли не совпадают')
+        alert(`${t ('description.PasswordModalAlert2')}`)
       }
     
     } catch (error) {

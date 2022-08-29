@@ -8,6 +8,7 @@ import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
+import Tooltip from '@material-ui/core/Tooltip'
 
 import useStyles from './makeStyles'
 import styles from './NavBar.module.css'
@@ -16,6 +17,8 @@ import logo from './img/logo.png';
 import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../../../utils/consts'
 import { resetApp } from '../../../store/index'
 import { removeLogInfo } from '../../../http/userApi'
+import { resetCompanion } from '../../../store/companionReducer'
+import { resetAllMessages } from '../../../store/messagesReducer'
 
 
 const NavBar = () => {
@@ -41,21 +44,28 @@ const NavBar = () => {
 
   const handleChats = () => {
     setAnchorEl(null)
+    dispatch(resetAllMessages())
     navigate(CHATS_ROUTE)
   }
 
   const handleProfile = () => {
     setAnchorEl(null)
+    dispatch(resetCompanion())
+    dispatch(resetAllMessages())
     navigate(PROFILE_ROUTE)
   }
 
   const handleSettings = () => {
     setAnchorEl(null)
+    dispatch(resetCompanion())
+    dispatch(resetAllMessages())
     navigate(SETTINGS_ROUTE)
   }
 
   const handleAdmin = () => {
     setAnchorEl(null)
+    dispatch(resetCompanion())
+    dispatch(resetAllMessages())
     navigate(ADMIN_ROUTE)
   }
 
@@ -78,13 +88,15 @@ const NavBar = () => {
               <div className = {styles.username}>
                 {username || 'username'}
               </div>
-              <IconButton
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AvatarComponent />
-              </IconButton>
+              <Tooltip title={t ('description.NavBarMenuTooltip')} arrow>
+                <IconButton
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AvatarComponent />
+                </IconButton>
+              </Tooltip>
               <Menu
                 anchorEl={anchorEl}
                 anchorOrigin={{

@@ -32,7 +32,7 @@ export const companionReducer = ( state = defaultState, action ) => {
             })
         case RESET_COMPANION:
             return {
-                ...state, companion: defaultState
+                ...state, companion: defaultState.companion
             }
         default:
             return state

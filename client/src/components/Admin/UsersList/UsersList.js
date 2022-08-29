@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Checkbox from '@material-ui/core/Checkbox'
 import Button from '@material-ui/core/Button'
+import Tooltip from '@material-ui/core/Tooltip'
 import Paper from '@material-ui/core/Paper'
 import InputBase from '@material-ui/core/InputBase'
 import SearchIcon from '@material-ui/icons/Search'
@@ -105,10 +106,12 @@ const UsersList = () => {
                 </ListItemAvatar>
                 <ListItemText>{user.username}</ListItemText>
                   <ListItemSecondaryAction>
-                  <Checkbox
-                      onChange={choseeUser(user)}
-                      checked={checked.indexOf(user) !== -1}
-                  />
+                    <Tooltip title={t ('description.AdminUsersCheckBoxTooltip')} arrow>
+                      <Checkbox
+                          onChange={choseeUser(user)}
+                          checked={checked.indexOf(user) !== -1}
+                      />
+                    </Tooltip>
                   </ListItemSecondaryAction>
               </div>
               <div className = {styles.user__info}>

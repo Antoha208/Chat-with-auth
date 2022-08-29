@@ -105,63 +105,13 @@
     position: relative;
     display: block;
     height: 120px;
-    min-width: 4px;
+    min-width: 7px;
     margin: 0 2px 50px;
     bottom: 50px;
     border-radius: 50%;
     background: rgb(255, 255, 255);
     opacity: 0;
     filter: blur(8px);
-}
-
-.cup__topParSpan1 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 0.5s;
-}
-
-.cup__topParSpan3 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 0s;
-}
-
-.cup__topParSpan16 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 1.5s;
-}
-
-.cup__topParSpan5 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 2.5s;
-}
-
-.cup__topParSpan13 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 2.0s;
-}
-
-.cup__topParSpan20 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 1.0s;
-}
-
-.cup__topParSpan6 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 3.5s;
-}
-
-.cup__topParSpan7 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 4.5s;
-}
-
-.cup__topParSpan10 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 3.0s;
-}
-
-.cup__topParSpan8 {
-    animation: animatePar 5s linear infinite;
-    animation-delay: 2.5s;
 }
 
 .cup__topParSpan17 {

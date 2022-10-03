@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 import admin from '../img/admin.png'
 import styles from './AdminPic.module.css'

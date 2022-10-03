@@ -5,6 +5,7 @@ const defaultState = {
 const MESSAGE = 'MESSAGE'
 const ARRAY_MESSAGES = 'ARRAY_MESSAGES'
 const UPDATE_MESSAGE = 'UPDATE_MESSAGE'
+const CANCEL_UPDATING = 'CANCEL_UPDATING'
 const REMOVE_MESSAGE = 'REMOVE_MESSAGE'
 const RESET_ALL_MESSAGES = 'RESET_ALL_MESSAGES'
 
@@ -23,9 +24,19 @@ export const messagesReducer = ( state = defaultState, action ) => {
             return {
                 ...state, messages: state.messages.map(el => el.key === action.message.key ? {
                     ...el,
+                        event: 'message',
                         message: action.message.message,
                         attachment: action.message.attachment,
+                        isUpdated: true,
                         updatedAt: Date.now()
+                }
+                : el)
+            }
+        case CANCEL_UPDATING:
+            return {
+                ...state, messages: state.messages.map(el => el.key === action.message.key ? {
+                    ...el,
+                        isUpdating: false,
                 }
                 : el)
             }
@@ -45,5 +56,6 @@ export const messagesReducer = ( state = defaultState, action ) => {
 export const setArrayMessages = (messages) => ({type: ARRAY_MESSAGES, messages})
 export const setMessage = (message) => ({type: MESSAGE, message})
 export const updateMessage = (message) => ({type: UPDATE_MESSAGE, message})
+export const cancelUpdating = (message) => ({type: CANCEL_UPDATING, message})
 export const removeMessage = (message) => ({type: REMOVE_MESSAGE, message})
 export const resetAllMessages = () => ({type: RESET_ALL_MESSAGES})

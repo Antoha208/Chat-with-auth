@@ -1,0 +1,91 @@
+.card__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.card__regWrap {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.card__reg {
+    display: inline-block;
+    text-align: center;
+    font-size: 1rem;
+    width: 200px;
+    transition: all 0.5s;
+    margin: 5px 0;
+}
+
+.card__reg span {
+    cursor: pointer;
+    width: 90px;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    border-radius: 4px;
+    background-color: #9dacfe;
+    padding: 5px 0;
+    transition: 0.5s;
+}
+  
+.card__reg span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 5;
+    right: 10px;
+    transition: 0.5s;
+}
+
+.card__reg:hover span {
+    padding-right: 5px;
+}
+
+.card__reg:hover span:after {
+    opacity: 1;
+    right: 12px;
+}
+
+.card__sign {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #9dacfe;
+    border: none;
+    text-align: center;
+    font-size: 25px;
+    padding: 15px;
+    width: 200px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .card__sign span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .card__sign span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .card__sign:hover span {
+    padding-right: 25px;
+  }
+  
+  .card__sign:hover span:after {
+    opacity: 1;
+    right: 0;
+  }

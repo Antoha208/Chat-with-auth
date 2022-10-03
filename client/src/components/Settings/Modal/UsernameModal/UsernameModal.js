@@ -15,7 +15,7 @@ import useStyles from './makeStyles'
 import styles from './UsernameModal.module.css'
 import { Context } from '../../context'
 import { updateCheckedUserUsername } from '../../../../http/userApi'
-import { setUser } from '../../../../store/userReducer'
+import { changeUsername } from '../../../../store/userReducer'
 
 
 const UsernameModal = () => {
@@ -26,29 +26,27 @@ const UsernameModal = () => {
   const { closeCheckBar } = useContext(Context)
   const [username, setUsername] = useState('')
   
-  const changeUsername = async () => {
+  const editUsername = async () => {
     try {
       let userData;
-        userData = await updateCheckedUserUsername(userStore.id, username)
+      userData = await updateCheckedUserUsername(userStore.id, username)
       console.log(userData)
-        alert(`${t ('description.UsernameModalAlert')}`)
+      alert(`${t ('description.UsernameModalAlert')}`)
       
-      dispatch(setUser(
-        userStore.id, 
-        username, 
-        userStore.roles, 
-        userStore.theme, 
-        userStore.language,
-        userStore.chats, 
-        userStore.iat, 
-        userStore.exp, 
-        userStore.avatar, 
-        userStore.about
-      ))
+      dispatch(changeUsername(userData.username))
 
       closeCheckBar()
     } catch (error) {
-      alert(error)
+      switch (error.response.data.message) {
+        case 'Ошибка! Убедитесь в том, что поле Username не пустое и содержит два слова.':
+          alert(`${t ('description.BackendErrorUsernameModal1')}`)
+          break;
+        case 'Поле username не было изменено или занято':
+          alert(`${t ('description.BackendErrorUsernameModal2')}`)
+          break;
+        default:
+          break;
+      }     
     }
   }
 
@@ -78,11 +76,11 @@ const UsernameModal = () => {
               />
             </Grid>
           </Grid>
-          <Button className={classes.button} onClick={changeUsername}>{t ('description.UsernameModalAccept')}</Button>
+          <Button className={classes.button} onClick={editUsername}>{t ('description.UsernameModalAccept')}</Button>
         </CardContent>
       </div>
     </div>
-  );
+  )
 }
 
 export default UsernameModal

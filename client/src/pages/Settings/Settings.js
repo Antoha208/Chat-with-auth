@@ -1,92 +1,58 @@
-import React, { useState } from 'react'
-import { useTranslation } from 'react-i18next';
+import React, { useCallback, useReducer } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 
-import { Card, IconButton } from '@material-ui/core'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import Tooltip from '@material-ui/core/Tooltip'
-import EditRoundedIcon from '@material-ui/icons/EditRounded'
+import { Card } from '@material-ui/core'
 
 
 import styles from './Settings.module.css'
 import useStyles from './makeStyles'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
 import SettingsPic from '../../components/Settings/Picture/SettingsPic'
-import RootModal from '../../components/Settings/Modal/RootModal'
-import ThemeChanger from '../../components/Settings/Themes/ThemeChanger'
-import LanguageChanger from '../../components/Settings/Language/LanguageChanger'
-import i18n from "../../components/Settings/Language/i18n"
-import Shortcuts from '../../components/Settings/Shortcuts/Shortcuts'
+import SettingsTools from '../../components/Settings/SettingsTools/SettingsTools'
 import { Context } from '../../components/Settings/context'
-
+import localReducer from './localReducer'
 
 const Settings = () => {
-
-  const userStore = useSelector(state => state.user.user)
-
   const classes = useStyles()
   const { t } = useTranslation()
-  const [openCheckModal, setOpenCheckModal] = useState(false)
-  const [openAcceptModal, setOpenAcceptModal] = useState(false)
-  const [openShortcutsModal, setOpenShortcutsModal] = useState(false)
-  const [selected, setSelected] = useState('')
+  const userStore = useSelector(state => state.user.user)
+  const [states, localDispatch] = useReducer(localReducer, {openCheckModal: false, openAcceptModal: false, openShortcutsModal: false, selected: ''})
 
+  const changeThemeOrLanguage = useCallback((e) => {
+    localDispatch({type: 'acceptModal'})
+  }, [states.openAcceptModal])
+
+  const acceptTheme = useCallback(() => {
+    alert(`${t ('description.SettingsAlertTheme')}`)
+  }, [userStore.theme])
+
+  const acceptLanguage = useCallback(() => {
+    alert(`${t ('description.SettingsAlertLang')}`)
+  }, [userStore.language])
   
-  const changeDataUsername = (e) => {
-    setOpenCheckModal(true)
-    const target = e.target.id
-    console.log(target)
-    setSelected(target)
-  }
+  const shortcuts = useCallback(() => {
+    localDispatch({type: 'shortcutsModal'})
+  }, [states.openShortcutsModal])
 
-  const changeDataPassword = (e) => {
-    setOpenCheckModal(true)
-    const target = e.target.id
-    console.log(target)
-    setSelected(target)
-  }
+  const closeCheckBar = useCallback(() => {
+    localDispatch({type: 'checkModal'})
+  }, [states.openCheckModal])
 
-  const changeThemeOrLanguage = (e) => {
-    setOpenAcceptModal(true)
-  }
+  const closeAcceptBar = useCallback(() => {
+    localDispatch({type: 'acceptModal'})
+  }, [states.openAcceptModal])
 
-  const acceptTheme = () => {
-    alert(`${t ('description.SettingsAlert')}`)
-    
-    setOpenAcceptModal(false)
-  }
+  const closeShortcuts = useCallback(() => {
+    localDispatch({type: 'shortcutsModal'})
+  }, [states.openShortcutsModal])
 
-  const acceptLanguage = () => {
-    if (userStore.language.includes('English')) {
-      i18n.changeLanguage('ru')
-    } else if (userStore.language.includes('Russian')) {
-      i18n.changeLanguage('en')
-    }
-  }
-  
-  const shortcuts = () => {
-    setOpenShortcutsModal(true)
-  }
-
-  const closeCheckBar = () => {
-    setOpenCheckModal(false)
-  }
-
-  const closeAcceptBar = () => {
-    setOpenAcceptModal(false)
-  }
-
-  const closeShortcuts = () => {
-    setOpenShortcutsModal(false)
-  }
-
-  
   return (
     <Context.Provider value = {{
-      openCheckModal, selected, openAcceptModal, openShortcutsModal, 
-      setSelected, changeThemeOrLanguage, acceptTheme, acceptLanguage, shortcuts, closeCheckBar, closeAcceptBar, closeShortcuts 
+      states, localDispatch, 
+      changeThemeOrLanguage, acceptTheme, acceptLanguage, shortcuts,
+      closeCheckBar, closeAcceptBar, closeShortcuts 
     }}
     >
       <Card className={styles.container}>
@@ -95,48 +61,7 @@ const Settings = () => {
           <Card className={classes.avatarContainer}>
             <SettingsPic />
           </Card>
-          <Card className={classes.infoContainer}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>{t ('description.SettingsUsername')} {userStore.username}
-                  <IconButton onClick={changeDataUsername} id='username'>
-                    <Tooltip title={t ('description.MessageEditTooltip')} arrow>
-                      <EditRoundedIcon className={styles.icon} id='username' />
-                    </Tooltip>
-                  </IconButton>
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>{t ('description.SettingsPassword')}
-                  <IconButton onClick={changeDataPassword} id='password'>
-                    <Tooltip title={t ('description.MessageEditTooltip')} arrow>
-                      <EditRoundedIcon className={styles.icon} id='password' />
-                    </Tooltip>
-                  </IconButton>
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>{t ('description.SettingsTheme')}
-                  <ThemeChanger />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>{t ('description.SettingsLanguage')}
-                  <LanguageChanger />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper className={classes.paper}>{t ('description.SettingsShortcuts')}
-                  <Shortcuts />
-                </Paper>
-              </Grid>
-            </Grid>
-            {openCheckModal || openAcceptModal  || openShortcutsModal ?
-              <RootModal />
-            :
-              ''
-            }
-          </Card>
+          <SettingsTools />
         </div>
       </Card>
     </Context.Provider>

@@ -1,41 +1,36 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
 
-import Avatar from '@material-ui/core/Avatar'
 import ListItemText from '@material-ui/core/ListItemText'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 
 
 import styles from './MessageRegular.module.css'
 import PictureAttachment from './PictureAttachment/PictureAttachment'
 import OtherAttachment from './OtherAttachment/OtherAttachment'
+import AvatarComp from './AvatarComp/AvatarComp'
 
-
-const MessageFromComp = ({mess, zoom, setZoom}) => {
-    const compStore = useSelector(state => state.companion.companion)
+const MessageFromComp = ({mess, states, localDispatch}) => {
+    const { t } = useTranslation()
 
     return (    
         <div className = {styles.content}>
-            <ListItemAvatar>
-                <Avatar
-                    src={ compStore.avatar !== '' ?
-                        `${process.env.REACT_APP_URL_API + compStore.avatar}`
-                    :
-                        ''
-                    }
-                />
-            </ListItemAvatar>
+            <AvatarComp />
             <div className = {styles.text__container}>
                 <ListItemText>{mess.username}</ListItemText>
-                <div className = {styles.text__message}>{mess.message}</div>
+                <div className = {styles.text__message}>
+                    {mess.message}
+                    {mess.updatedAt !== undefined && (
+                        <div className = {styles.text__correctTime}>{t ('description.MessageCorrectTime')} {moment(mess.updatedAt).format('hh:mm A')}</div>
+                    )}
+                </div>
                 {mess.attachment !== '' && (
                     mess.attachment.fileName.match(/[^.]+$/gm)[0] === 'jpg' || mess.attachment.fileName.match(/[^.]+$/gm)[0] === 'png' ?
                         <PictureAttachment 
                             mess={mess}
-                            zoom={zoom}
-                            setZoom={setZoom}
+                            zoom={states.zoom}
+                            localDispatch={localDispatch}
                         />
                     :
                         <OtherAttachment 
@@ -43,7 +38,9 @@ const MessageFromComp = ({mess, zoom, setZoom}) => {
                         />
                 )}
             </div>
-            <div className = {styles.text__time}>{moment(mess.key).format('hh:mm A')}</div>
+            {mess.updatedAt === undefined && (
+                <div className = {styles.text__time}>{moment(mess.key).format('hh:mm A')}</div>
+            )}
         </div>
     )
 }

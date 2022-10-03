@@ -1,0 +1,15 @@
+.about__container {
+    display: flex;
+}
+
+.icon {
+    opacity: .3;
+    transition: .5s ease-in-out;
+    width: 40px;
+}
+
+.icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
+}

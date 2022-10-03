@@ -1,0 +1,94 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 15px;
+    min-width: 98%;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.card {
+    position: relative;
+    border-radius: 40px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 97%;
+    height: 95%;
+    box-shadow: inset 5px 5px 15px rgba(133, 132, 132, 0.15),
+                inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+                15px 15px 15px rgba(133, 132, 132, 0.15),
+                -5px -5px 15px rgba(255, 255, 255, 0.15);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    inset: 5px;
+    background-color: transparent;
+    border-radius: 35px;
+}
+
+.text {
+    height: 89%;
+    max-height: 470px;
+    width: 100%;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+    padding: 30px;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
+    scrollbar-width: var(--scrollbarWidth);
+    scrollbar-color: var(--scrollbarThumb) var(--scrollbarBg);
+}
+
+.text > div > div:last-child {
+    scroll-snap-align: end;
+  }
+
+.text::-webkit-scrollbar {
+    width: var(--scrollbarWidth);
+}
+
+.text::-webkit-scrollbar-track {
+    background: var(--scrollbarBg);
+    border-radius: var(--scrollbarBorderRadius);
+    margin: 15px 0;
+}
+
+.text::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbarThumb);
+    border-radius: var(--scrollbarBorderRadius);
+    border: var(--scrollbarBorder);
+}
+
+.message__container {
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+.img {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 5px;
+    margin: 10px;
+    opacity: 1;
+    transition: 0.5s;
+    z-index: 3;
+}
+
+.img:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+    transition: 0.5s;
+}
+
+

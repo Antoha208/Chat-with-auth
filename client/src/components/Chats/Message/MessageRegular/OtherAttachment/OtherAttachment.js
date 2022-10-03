@@ -10,14 +10,14 @@ import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded'
 
 
 import styles from './../MessageRegular.module.css'
-import ANY from './../../img/ANY.png'
-import DOC from './../../img/DOC.png'
-import MP4 from './../../img/MP4.png'
-import PDF from './../../img/PDF.png'
-import TIF from './../../img/TIF.png'
-import TXT from './../../img/TXT.png'
-import WMA from './../../img/WMA.png'
-import XLS from './../../img/XLS.png'
+import ANY from './../img/ANY.png'
+import DOC from './../img/DOC.png'
+import MP4 from './../img/MP4.png'
+import PDF from './../img/PDF.png'
+import TIF from './../img/TIF.png'
+import TXT from './../img/TXT.png'
+import WMA from './../img/WMA.png'
+import XLS from './../img/XLS.png'
 
 
 const OtherAttachment = ({mess}) => {

@@ -13,7 +13,7 @@ import ShortcutsModal from './ShortcutsModal/ShortcutsModal'
 
 const RootModal = () => {
   const classes = useStyles()
-  const { openCheckModal, openAcceptModal, openShortcutsModal, closeCheckBar, closeAcceptBar, closeShortcuts } = useContext(Context)
+  const { states, closeCheckBar, closeAcceptBar, closeShortcuts } = useContext(Context)
   const [modalStyle] = useState(getModalStyle)
 
   const handleCloseCheck = () => {
@@ -32,14 +32,14 @@ const RootModal = () => {
       top: `${top}%`,
       left: `${left}%`,
       transform: `translate(-${top}%, -${left}%)`,
-    };
+    }
   }
 
   return (
     <div>
-      {openAcceptModal ?
+      {states.openAcceptModal ?
         <Modal
-          open={openAcceptModal}
+          open={states.openAcceptModal}
           onClose={handleCloseAccept}
         >
           <div style={modalStyle} className={classes.paper}>
@@ -47,9 +47,9 @@ const RootModal = () => {
           </div>
         </Modal>
       :
-        openCheckModal ? 
+        states.openCheckModal ? 
           <Modal
-            open={openCheckModal}
+            open={states.openCheckModal}
             onClose={handleCloseCheck}
           >
             <div style={modalStyle} className={classes.paper}>
@@ -57,9 +57,9 @@ const RootModal = () => {
             </div>
           </Modal>
         :
-          openShortcutsModal ?
+          states.openShortcutsModal ?
             <Modal
-              open={openShortcutsModal}
+              open={states.openShortcutsModal}
               onClose={closeShortcuts}
             >
               <div style={modalStyle} className={classes.paper}>
@@ -70,7 +70,7 @@ const RootModal = () => {
             ''
       }   
     </div>
-  );
+  )
 }
 
 export default RootModal

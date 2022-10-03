@@ -1,0 +1,37 @@
+.container {
+    max-height: 450px;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
+    scrollbar-width: var(--scrollbarWidth);
+    scrollbar-color: var(--scrollbarThumb) var(--scrollbarBg);
+  }
+  
+  .container > div > div:last-child {
+    scroll-snap-align: end;
+  }
+  
+  :root {
+    --scrollbarBg: rgb(16, 16, 16);
+    --scrollbarThumb: rgba(92, 91, 91, 0.8);
+    --scrollbarWidth: 12px;
+    --scrollbarBorder: 3px solid var(--scrollbarBg);
+    --scrollbarBorderRadius: calc(var(--scrollbarWidth) / 2);
+  }
+  
+  .container::-webkit-scrollbar {
+    width: var(--scrollbarWidth);
+  }
+  
+  .container::-webkit-scrollbar-track {
+    background: var(--scrollbarBg);
+    border-radius: var(--scrollbarBorderRadius);
+    margin: 15px 0;
+  }
+  
+  .container::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbarThumb);
+    border-radius: var(--scrollbarBorderRadius);
+    border: var(--scrollbarBorder);
+  }
+  

@@ -37,7 +37,16 @@ const PasswordModal = () => {
       }
     
     } catch (error) {
-      alert(error)
+      switch (error.response.data.message) {
+        case 'Ошибка! Убедитесь в том, что поле password содержит от 6и до 12и символов.':
+          alert(`${t ('description.BackendErrorPasswordModal1')}`)
+          break;
+        case 'Поле password не было изменено':
+          alert(`${t ('description.BackendErrorPasswordModal2')}`)
+          break;
+        default:
+          break;
+      }
     }
   }
 
@@ -85,7 +94,7 @@ const PasswordModal = () => {
         </CardContent>
       </div>
     </div>
-  );
+  )
 }
 
 export default PasswordModal

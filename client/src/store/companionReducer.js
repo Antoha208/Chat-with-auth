@@ -12,6 +12,7 @@ const defaultState = {
 }
 
 const COMPANION = 'COMPANION'
+const CHATID = 'CHATID'
 const RESET_COMPANION = 'RESET_COMPANION'
 
 export const companionReducer = ( state = defaultState, action ) => {
@@ -20,16 +21,20 @@ export const companionReducer = ( state = defaultState, action ) => {
             return Object.assign({}, state, {
                 companion: {
                     ...state.companion,
-                    id: action.id,
-                    username: action.username,
-                    roles: action.roles,
-                    iat: action.iat,
-                    exp: action.exp,
-                    avatar: action.avatar,
-                    about: action.about,
-                    registrationDate: action.registrationDate
+                    id: action.payload.id || action.payload._id,
+                    username: action.payload.username,
+                    roles: action.payload.roles,
+                    iat: action.payload.iat,
+                    exp: action.payload.exp,
+                    avatar: action.payload.avatar,
+                    about: action.payload.about,
+                    registrationDate: action.payload.registrationDate
                 }
             })
+        case CHATID:
+            return {
+                ...state, companion: {...state.companion, chatId: action.payload}
+            }
         case RESET_COMPANION:
             return {
                 ...state, companion: defaultState.companion
@@ -38,5 +43,6 @@ export const companionReducer = ( state = defaultState, action ) => {
             return state
     }
 }
-export const setCompanion = (id, username, roles, iat, exp, avatar, about, registrationDate) => ({type: COMPANION, id, username, roles, iat, exp, avatar, about, registrationDate})
+export const setCompanion = (payload) => ({type: COMPANION, payload})
+export const setChatId = (payload) => ({type: CHATID, payload})
 export const resetCompanion = () => ({type: RESET_COMPANION})

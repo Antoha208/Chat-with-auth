@@ -1,0 +1,16 @@
+.icon__visible {
+    cursor: pointer;
+    left: 0;
+    width: 30px;
+    opacity: 0.8;
+    transition: 0.5s;
+}
+
+.icon {
+    width: 40px;
+}
+
+.icon__visible:hover {
+    opacity: 1;
+    transition: 0.5s;
+}

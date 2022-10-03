@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-import { authRoutes, allRoutes } from "./routes";
+import { authRoutes, allRoutes } from './routes'
 import {REGISTRATION_ROUTE} from '../../utils/consts'
 
 const AppRouter = () => {
@@ -22,4 +22,4 @@ const AppRouter = () => {
 
 }
 
-export default AppRouter;
+export default AppRouter

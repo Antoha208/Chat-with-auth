@@ -9,14 +9,13 @@ import { messagesReducer } from './messagesReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-
 const rootReducer = combineReducers({
     isAuth: authReducer,
     user: userReducer,
     companion: companionReducer,
     users: usersListReducer,
     chats: chatsReducer,
-    messages: messagesReducer
+    messages: messagesReducer,
 })
 
 const RESET = 'RESET'
@@ -28,7 +27,6 @@ const wrapRootReducer = (state, action) => {
 
   return rootReducer(state, action);
 }
-
 
 const persistConfig = {
     key: 'root',

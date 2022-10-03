@@ -18,22 +18,13 @@ const MessageRequest = ({mess, applyToRequest}) => {
     return (
         <>
             {mess.id === userStore.id ?
-                !messagesStore.some(el => el.event === 'request' && el.answer !== undefined) ?
+                !messagesStore.some(el => el.event === 'request' && el.answer !== undefined && el.answer !== 'cancel') && (
                     <div className = {styles.message__request}>{t ('description.MessageRequest1')} {compStore.username} {t ('description.MessageRequest2')} '{mess.message}'                       
                         <div className = {styles.message__requestCont}>
                             <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageRequest3')}</Button>
                         </div>
                     </div>
-                :
-                    mess.answer === false && (
-                        <div className = {styles.wrapper}>
-                            <div className = {styles.message__answerFalse}>{t ('description.MessageConnection1')} {compStore.username} {t ('description.MessageStartTexting1')}
-                                <div className = {styles.message__requestCont}>
-                                    <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageDeletingChat7')}</Button>
-                                </div>
-                            </div>
-                        </div>
-                    )
+                )
             :
                 mess.answer === 'cancel' ?
                     <div className = {styles.wrapper}>
@@ -49,15 +40,24 @@ const MessageRequest = ({mess, applyToRequest}) => {
                             </div>
                         </div>
                     :
-                        messagesStore.every(el => el.answer === undefined) && (
-                            <div className = {styles.message__request}>{t ('description.MessageConnection1')} {mess.username} {t ('description.MessageRequest4')} '{mess.message}'                            
-                                <div>{t ('description.MessageRequest5')}</div>
-                                <div className = {styles.message__requestCont}>
-                                    <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageRequest6')}</Button>
-                                    <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageRequest7')}</Button>
+                        mess.answer === false ?
+                            <div className = {styles.wrapper}>
+                                <div className = {styles.message__answerFalse}>{t ('description.MessageConnection1')} {compStore.username} {t ('description.MessageStartTexting1')}
+                                    <div className = {styles.message__requestCont}>
+                                        <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageDeletingChat7')}</Button>
+                                    </div>
                                 </div>
                             </div>
-                        )
+                        :
+                            messagesStore.every(el => el.answer === undefined) && (
+                                <div className = {styles.message__request}>{t ('description.MessageConnection1')} {mess.username} {t ('description.MessageRequest4')} '{mess.message}'                            
+                                    <div>{t ('description.MessageRequest5')}</div>
+                                    <div className = {styles.message__requestCont}>
+                                        <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageRequest6')}</Button>
+                                        <Button className = {styles.message__requestBtn} onClick={applyToRequest}>{t ('description.MessageRequest7')}</Button>
+                                    </div>
+                                </div>
+                            )
             }
         </>     
     )

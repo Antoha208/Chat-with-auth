@@ -18,7 +18,7 @@ const Shortcuts = () => {
 
     const openModal = () => {
         shortcuts()
-      }
+    }
 
     return (
         <div className = { styles.mode__container }>

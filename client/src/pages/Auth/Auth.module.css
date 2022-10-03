@@ -1,6 +1,7 @@
 body {
     margin: 0;
 }
+
 .wrapper {
     background-image: url(./img/bcg.png);
     background-size: cover;
@@ -22,68 +23,39 @@ h2 {
     color: black;
     font-size: 3rem;
     text-shadow: 0 0 40px white;
+    font-family: 'Steclo'
 }
 
 .card {
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    min-width: 500px;
-    min-height: 300px;
+    min-width: 450px;
+    min-height: 450px;
     padding: 5px;
     opacity: 0.9;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgb(255, 255, 255);
-    background-color:aliceblue;
+    box-shadow: 0 0 30px rgb(255, 255, 255);
+    background-color: #2a2626;
 }
 
-.card__buttons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.card__sign {
-    font-size: 1.5rem;
-    padding: 10px;
-    cursor: pointer;
-    margin: 10px;
-    border: 1px gray solid;
-}
-
-.icon__visible {
-    cursor: pointer;
-    left: 0;
-    width: 30px;
-    opacity: 0.8;
-    transition: 0.5s;
-}
-
-.icon {
-    width: 40px;
-}
-
-.icon__visible:hover {
-    opacity: 1;
-    transition: 0.5s;
-}
-
-.card__reg {
-    font-size: 1rem;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.card__reg:hover {
-    text-decoration: underline;
-    transition: 0.3s;
-}
-
-.card__sign:hover {
-    background-color: white;
-    transition: 0.3s;
+.card::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    bottom: -15px;
+    left: -15px;
+    z-index: -1;
+    background: linear-gradient(60deg, #3c4143, #b1a5ac, #3c4143, #fafbfc, #3c4143);
+    background-size: 175%;
+    border-radius: 40px;
+    transition: .5s;
+    filter: blur(20px);
+    opacity: 0.5;
+    animation: animate 6s linear infinite;
 }
 
 .table {
@@ -93,4 +65,16 @@ h2 {
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0;
+}
+
+@keyframes animate {
+    0% {
+      background-position: 0%;
+    }
+    50% {
+      background-position: 100%;
+    }
+    100% {
+        background-position: 0%;
+    }
 }

@@ -23,7 +23,7 @@ const SimpleModal = () => {
   const classes = useStyles()
   const { t } = useTranslation()
   const userStore = useSelector(state => state.user.user )
-  const { closeCheckBar, selected } = useContext(Context)
+  const { closeCheckBar, states } = useContext(Context)
   const [password, setPassword] = useState('')
   const [checked, setChecked] = useState(false)
 
@@ -38,7 +38,7 @@ const SimpleModal = () => {
         }
 
     } catch (error) {
-      alert(error)
+      alert(`${t ('description.BackendErrorAuth2')}`)
     }
   }
 
@@ -49,7 +49,7 @@ const SimpleModal = () => {
   return (
     <div>
       {checked ?
-        selected === 'username' ? <UsernameModal /> : <PasswordModal />
+        states.selected === 'username' ? <UsernameModal /> : <PasswordModal />
       :
         <div className={styles.container}>
           <div className={styles.title}>
@@ -77,7 +77,7 @@ const SimpleModal = () => {
         </div>
       }
     </div>   
-  );
+  )
 }
 
 export default SimpleModal

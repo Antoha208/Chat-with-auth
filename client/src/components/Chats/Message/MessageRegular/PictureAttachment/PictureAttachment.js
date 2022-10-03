@@ -13,7 +13,7 @@ import styles from './../MessageRegular.module.css'
 import useStyles from './../makeStyles'
 
 
-const PictureAttachment = ({mess, zoom, setZoom}) => {
+const PictureAttachment = ({mess, zoom, localDispatch}) => {
     const classes = useStyles()
     const { t } = useTranslation()
 
@@ -22,12 +22,12 @@ const PictureAttachment = ({mess, zoom, setZoom}) => {
             {zoom ?
                 <Modal
                     open={zoom}
-                    onClose={() => setZoom(false)}
+                    onClose={() => localDispatch({type: '!zoom'})}
                 >
                     <img 
                         className={classes.paper} 
                         src={`${process.env.REACT_APP_URL_API}` + mess.attachment.fileName}
-                        onClick={() => setZoom(false)}
+                        onClick={() => localDispatch({type: '!zoom'})}
                     />
                 </Modal>
             :
@@ -35,7 +35,7 @@ const PictureAttachment = ({mess, zoom, setZoom}) => {
                     <img 
                         className={styles.attachment__file} 
                         src={`${process.env.REACT_APP_URL_API}` + mess.attachment.fileName}
-                        onClick={() => setZoom(true)}
+                        onClick={() => localDispatch({type: 'zoom'})}
                     />
                     <Button className = {styles.attachment__btn} onClick={() => {FileSaver.saveAs(`${process.env.REACT_APP_URL_API}` + mess.attachment.fileName, mess.attachment.fileName)}}>
                         <Tooltip title={t ('description.GetAttachmentTooltip')} arrow>

@@ -11,7 +11,7 @@ const Message = new Schema ({
     avatar: {type: String},
     id: {type: String},
     chatId: {type: String},
-    isUpdate: {type: Boolean, default: false},
+    isUpdated: {type: Boolean, default: false},
     time: {type: Date, default: Date.now()}
 })
 

@@ -11,6 +11,15 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    transition: 0.5s;
+    opacity: 1;
+}
+
+.logo:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: 0.5s;
+    opacity: 0.7;
 }
 
 .username__container {

@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
-import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
 import Tooltip from '@material-ui/core/Tooltip'
+
 
 import useStyles from './makeStyles'
 import styles from './NavBar.module.css'
 import AvatarComponent from '../AvatarComponent/AvatarComponent'
-import logo from './img/logo.png';
-import { CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, LOGIN_ROUTE, ADMIN_ROUTE } from '../../../utils/consts'
+import MenuComp from '../MenuComp/MenuComp'
+import logo from './img/logo.png'
+import { ContextMain } from '../../../pages/Chats/contextMain'
+import { LOGIN_ROUTE, CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, ADMIN_ROUTE } from '../../../utils/consts'
+import { disconnect } from '../../../WebSocket/webSocket'
 import { resetApp } from '../../../store/index'
 import { removeLogInfo } from '../../../http/userApi'
-import { resetCompanion } from '../../../store/companionReducer'
-import { resetAllMessages } from '../../../store/messagesReducer'
-
 
 const NavBar = () => {
   const classes = useStyles()
@@ -27,66 +27,70 @@ const NavBar = () => {
   const [anchorEl, setAnchorEl] = useState(null)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const open = Boolean(anchorEl)
-  const username = useSelector(state => state.user.user.username)
-  const roles = useSelector(state => state.user.user.roles)
-  const auth = useSelector(state => state.isAuth.isAuth)
+  const { setConnected } = useContext(ContextMain)
+  const userStore = useSelector(state => state.user.user)
+  const compStore = useSelector(state => state.companion.companion)
+  const messagesStore = useSelector(state => state.messages.messages) 
 
-  const checkRole = roles.includes('Admin')
+  useEffect(() => {
+      window.addEventListener('unload', handleClosing)
+    return () => {
+      window.removeEventListener('unload', handleClosing)
+    }
+  })
+
+  const handleClosing = () => {
+    navigateTo('logout')
+  }
 
   const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget)
+    // if (compStore.id !== null) {
+    //   alert(`${t ('description.NavBarAlert')}`)
+    // } else {
+      setAnchorEl(event.currentTarget)
+    // }
   }
 
-  const handleClose = () => {
+  const navigateTo = useCallback(async (page) => {
     setAnchorEl(null)
-  }
-
-  const handleChats = () => {
-    setAnchorEl(null)
-    dispatch(resetAllMessages())
-    navigate(CHATS_ROUTE)
-  }
-
-  const handleProfile = () => {
-    setAnchorEl(null)
-    dispatch(resetCompanion())
-    dispatch(resetAllMessages())
-    navigate(PROFILE_ROUTE)
-  }
-
-  const handleSettings = () => {
-    setAnchorEl(null)
-    dispatch(resetCompanion())
-    dispatch(resetAllMessages())
-    navigate(SETTINGS_ROUTE)
-  }
-
-  const handleAdmin = () => {
-    setAnchorEl(null)
-    dispatch(resetCompanion())
-    dispatch(resetAllMessages())
-    navigate(ADMIN_ROUTE)
-  }
-
-  const logout = async () => {
-    await removeLogInfo()
-    dispatch(resetApp())
-    localStorage.clear()
-    navigate(LOGIN_ROUTE)
-  }
+    switch (page) {
+      case 'chats':
+        navigate(CHATS_ROUTE)
+        break;
+      case 'profile':
+        navigate(PROFILE_ROUTE)
+        break;
+      case 'settings':
+        navigate(SETTINGS_ROUTE)
+        break;
+      case 'admin':
+        navigate(ADMIN_ROUTE)
+        break;
+      case 'logout':
+        await removeLogInfo()
+        disconnect(dispatch, setConnected, userStore, compStore, messagesStore, t)
+        dispatch(resetApp())
+        window.localStorage.clear()
+        navigate(LOGIN_ROUTE)
+        break;
+      default:
+        break;
+    }
+  }, [anchorEl])
 
   return (
     <div className={classes.upBar}>
       <AppBar position="static" color='transparent'>
         <Toolbar className = {styles.toolbar}>
           <div>
-            <img  src = { logo } onClick={handleChats} alt = 'logo' className = { styles.logo } />
+            <img  src = { logo } alt = 'logo' className = { styles.logo }
+              onClick={() => navigateTo('chats')}
+            />
           </div>
           {(
             <div className = {styles.username__container}>
               <div className = {styles.username}>
-                {username || 'username'}
+                {userStore.username || 'username'}
               </div>
               <Tooltip title={t ('description.NavBarMenuTooltip')} arrow>
                 <IconButton
@@ -97,42 +101,16 @@ const NavBar = () => {
                   <AvatarComponent />
                 </IconButton>
               </Tooltip>
-              <Menu
+              <MenuComp
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleChats}>{t ('description.NavBarChats')}</MenuItem>
-                <MenuItem onClick={handleProfile}>{t ('description.NavBarProfile')}</MenuItem>
-                <MenuItem onClick={handleSettings}>{t ('description.NavBarSettings')}</MenuItem>
-                {auth ?
-                  <MenuItem onClick={logout}>{t ('description.NavBarLogout')}</MenuItem>
-                :
-                  <MenuItem />
-                }
-                {checkRole ?
-                  <MenuItem onClick={handleAdmin}>{t ('description.NavBarAdmin')}</MenuItem>
-                :
-                  ''
-                }
-              </Menu>
+                navigateTo={navigateTo}
+              />
             </div>
           )}
         </Toolbar>
       </AppBar>
     </div>
   )
-
 }
-
 
 export default NavBar

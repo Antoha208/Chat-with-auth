@@ -4,7 +4,7 @@
     justify-content: flex-start;
 }
 
-.text__container {
+.text__container { 
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -79,4 +79,17 @@
     font-style: italic;
     padding-left: 4px;
     margin-left: 8px;
+}
+
+.icon {
+    opacity: .3;
+    transition: .5s ease-in-out;
+    width: 30px;
+
+}
+
+.icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
 }

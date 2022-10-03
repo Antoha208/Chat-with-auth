@@ -14,15 +14,6 @@ const useStyles = makeStyles((theme) => ({
       padding: '2px 0px',
     },
 
-    listItem: {
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'flex-start',
-      flexWrap: 'nowrap',
-      borderBottom: '1px solid gray',
-    },
-
     inputWrap: {
       display: 'flex',
       width: '97%',

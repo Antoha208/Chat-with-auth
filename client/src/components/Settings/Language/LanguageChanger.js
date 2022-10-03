@@ -13,14 +13,14 @@ import styles from './LanguageChanger.module.css'
 
 
 const LanguageChanger = () => {
-    const { changeThemeOrLanguage, setSelected } = useContext(Context)
+    const { changeThemeOrLanguage, localDispatch } = useContext(Context)
     const { t } = useTranslation()
 
     const openModal = (e) => {
         changeThemeOrLanguage()
         const target = e.target.id
         console.log(target)
-        setSelected(target)
+        localDispatch({type: 'selected', payload: target})
     }
 
     return (
@@ -43,4 +43,4 @@ const LanguageChanger = () => {
     )
 }
 
-export default LanguageChanger;
+export default LanguageChanger

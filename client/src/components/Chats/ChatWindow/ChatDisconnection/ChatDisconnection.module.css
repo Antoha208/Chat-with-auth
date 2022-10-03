@@ -1,0 +1,17 @@
+.sample {
+    position: absolute;
+    top: 0;
+    right: 3%;
+}
+
+.icon {
+    opacity: .3;
+    transition: .5s ease-in-out;
+    width: 20px;
+}
+
+.icon:hover {
+    opacity: 1;
+    transition: .5s;
+    cursor: pointer;
+}

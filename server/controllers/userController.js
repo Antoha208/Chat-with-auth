@@ -29,7 +29,7 @@ class userController {
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).json({message: 'Ошибка! Убедитесь в том, что поле Username не пустое, содержит два слова, пароль содержит от 6и до 12и символов.', errors})
+                return res.status(400).json({message: 'Ошибка! Убедитесь в том, что поле Username не пустое, содержит два слова, пароль содержит от 6и до 12и символов', errors})
             }
             const {username, password} = req.body
             const condidate = await User.findOne({username})
@@ -39,11 +39,10 @@ class userController {
             const hashedPassword = bcryptjs.hashSync(password, 5)
             const userRole = await Role.findOne({value: 'User'})
             const userTheme = await Theme.findOne({value: 'Dark'})
-            const userLanguage = await Language.findOne({value: 'English'})
+            const userLanguage = await Language.findOne({value: 'Russian'})
             const avatar = ''
             const about = ''
             const registrationDate = Date.now()
-            // const chats = await Chat.find()
             const chats = []
             const user = new User({
                 username, 
@@ -70,7 +69,6 @@ class userController {
             )
             return res.json({token, user})
         } catch (error) {
-            console.log(error)
             res.status(400).json({message: 'Registration failed'})
         }
     }
@@ -85,6 +83,10 @@ class userController {
             const passwordCheck = bcryptjs.compareSync(password, user.password)
             if (!passwordCheck) {
                 return res.status(400).json({message: 'Пароль введен неверно!'})
+            }
+            const isOnline = user.iat !== 0
+            if (isOnline) {
+                return res.status(400).json({message: 'Данный аккаунт уже авторизован с другого устройства!'})
             }
             const token = generateToken(
                 user._id, 

@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
   cardContent: {
@@ -14,6 +14,6 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontSize: '1.1rem'
   }
-}));
+}))
 
   export default useStyles

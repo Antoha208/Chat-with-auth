@@ -21,7 +21,7 @@ class messageController {
                     id: message.id,
                     compId: message._id,
                     chatId: _id,
-                    isUpdate: message.isUpdate,
+                    isUpdated: message.isUpdated,
                     time: message.time
                 })
 

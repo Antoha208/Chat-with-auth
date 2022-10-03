@@ -14,6 +14,11 @@ export const login = async (username, password) => {
     return jwt_decode(data.token)
 } 
 
+export const getUsers = async () => {
+    const {data} = await $host.get('/api/users')
+    return data
+} 
+
 export const check = async () => {
     const {data} = await $authHost.get('/api/auth')
     localStorage.setItem('token', data.token)
@@ -43,11 +48,6 @@ export const addLogInfo = async (iat, exp) => {
 export const removeLogInfo = async () => {
     const {data} = await $authHost.delete('/api/removeLogInfo')
     return data 
-} 
-
-export const getUsers = async () => {
-    const {data} = await $authHost.get('/api/users')
-    return data
 } 
 
 export const getOneUser = async (_id) => {

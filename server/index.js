@@ -10,11 +10,10 @@ import fileRouter from './routes/fileRouter.js'
 import chatsRouter from './routes/chatsRouter.js'
 import messageRouter from './routes/messageRouter.js'
 import errorHandler from './middleware/ErrorHandlerMiddleware.js'
-import { wsProtocol } from './websocket.js'
+import { wsProtocol } from './webSocket.js'
+import { DB_URL } from './config.js'
 
 const PORT = process.env.PORT || 4000
-
-const DB_URL = `mongodb+srv://<user>:<password>@chatapp.c6phm.mongodb.net/Chat_with_auth?retryWrites=true&w=majority`
 
 const app = express()
 

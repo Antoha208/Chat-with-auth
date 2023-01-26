@@ -1,9 +1,8 @@
-import { withStyles } from '@material-ui/core/styles';
+import { styled } from '@mui/material/styles'
+import Badge from '@mui/material/Badge'
 
-import Badge from '@material-ui/core/Badge';
-
-const StyledBadge = withStyles((theme) => ({
-    badge: {
+const StyledBadge = styled(Badge)(({ theme }) => ({
+    '& .MuiBadge-badge': {
       backgroundColor: '#44b700',
       color: '#44b700',
       boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
@@ -14,7 +13,7 @@ const StyledBadge = withStyles((theme) => ({
         width: '100%',
         height: '100%',
         borderRadius: '50%',
-        animation: '$ripple 1.2s infinite ease-in-out',
+        animation: 'ripple 1.2s infinite ease-in-out',
         border: '1px solid currentColor',
         content: '""',
       },
@@ -29,6 +28,6 @@ const StyledBadge = withStyles((theme) => ({
         opacity: 0,
       },
     },
-  }))(Badge);
+}))
 
 export default StyledBadge

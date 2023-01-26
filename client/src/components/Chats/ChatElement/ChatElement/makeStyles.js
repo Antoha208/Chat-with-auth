@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
     rootTabs: {
         flexGrow: 1,
         backgroundColor: theme.palette.background.paper,
@@ -18,6 +16,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'space-between',
     }
-  }))
+})
 
-  export default useStyles
+export default stylesJS

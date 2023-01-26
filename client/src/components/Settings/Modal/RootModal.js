@@ -1,18 +1,19 @@
 import React, { useState, useContext } from 'react'
 
 
-import Modal from '@material-ui/core/Modal'
+import Modal from '@mui/material/Modal'
 
 
-import useStyles from './makeStyles'
-import { Context } from '../context'
-import SimpleModal from './SimpleModal/SimpleModal'
-import AcceptModal from '../Modal/AcceptModal/AcceptModal'
-import ShortcutsModal from './ShortcutsModal/ShortcutsModal'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
+import { Context } from '../context.js'
+import SimpleModal from './SimpleModal/SimpleModal.js'
+import AcceptModal from '../Modal/AcceptModal/AcceptModal.js'
+import ShortcutsModal from './ShortcutsModal/ShortcutsModal.js'
 
 
 const RootModal = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { states, closeCheckBar, closeAcceptBar, closeShortcuts } = useContext(Context)
   const [modalStyle] = useState(getModalStyle)
 

@@ -1,17 +1,18 @@
-import React, { useEffect, useState, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 
 
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import Avatar from '@material-ui/core/Avatar'
-import { ListItemText } from '@material-ui/core'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import Avatar from '@mui/material/Avatar'
+import ListItemText from '@mui/material/ListItemText'
 
 
-import useStyles from './makeStyles.js'
-import localReducer from './localReducer'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
+import localReducer from './localReducer.js'
 import LoaderInside from '../../LoaderInside/LoaderInside.js'
 
 const AvatarComp = ({getAvatar}) => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const [states, localDispatch] = useReducer(localReducer, {avatar: '', role: '', loading: true})
     
     useEffect(() => {

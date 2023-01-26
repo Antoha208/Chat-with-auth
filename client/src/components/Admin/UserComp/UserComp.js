@@ -3,21 +3,22 @@ import moment from 'moment'
 import { useTranslation } from 'react-i18next'
 
 
-import Avatar from '@material-ui/core/Avatar'
-import Tooltip from '@material-ui/core/Tooltip'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import Checkbox from '@material-ui/core/Checkbox'
+import Avatar from '@mui/material/Avatar'
+import Tooltip from '@mui/material/Tooltip'
+import ListItem from '@mui/material/ListItem'
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import Checkbox from '@mui/material/Checkbox'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
 import styles from './UserComp.module.css'
 
 const UserComp = ({user, index, states, localDispatch}) => {
   const { t } = useTranslation()
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
 
   const chooseUser = (user) => () => {
     const currentIndex = states.checked.indexOf(user)

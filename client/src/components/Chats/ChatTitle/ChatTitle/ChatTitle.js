@@ -3,17 +3,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 
 
 import styles from './ChatTitle.module.css'
-import AvatarComp from '../AvatarComp/AvatarComp'
-import ModalComp from '../ModalComp/ModalComp'
-import MenuComp from '../MenuComp/MenuComp'
-import { Context } from '../../context'
-import { getWebSocket, socketOnMessage } from '../../../../WebSocket/webSocket'
-import { modelMessage } from '../../../../WebSocket/Models'
+import AvatarComp from '../AvatarComp/AvatarComp.js'
+import ModalComp from '../ModalComp/ModalComp.js'
+import MenuComp from '../MenuComp/MenuComp.js'
+import { Context } from '../../context.js'
+import { getWebSocket, socketOnMessage } from '../../../../WebSocket/webSocket.js'
+import { modelMessage } from '../../../../WebSocket/Models.js'
 
 
 const ChatTitle = () => {

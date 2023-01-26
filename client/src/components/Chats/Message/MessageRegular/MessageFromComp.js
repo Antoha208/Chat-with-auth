@@ -3,13 +3,13 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
 
-import ListItemText from '@material-ui/core/ListItemText'
+import ListItemText from '@mui/material/ListItemText'
 
 
 import styles from './MessageRegular.module.css'
-import PictureAttachment from './PictureAttachment/PictureAttachment'
-import OtherAttachment from './OtherAttachment/OtherAttachment'
-import AvatarComp from './AvatarComp/AvatarComp'
+import PictureAttachment from './PictureAttachment/PictureAttachment.js'
+import OtherAttachment from './OtherAttachment/OtherAttachment.js'
+import AvatarComp from './AvatarComp/AvatarComp.js'
 
 const MessageFromComp = ({mess, states, localDispatch}) => {
     const { t } = useTranslation()

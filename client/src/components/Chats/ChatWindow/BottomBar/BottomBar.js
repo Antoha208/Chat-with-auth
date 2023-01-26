@@ -3,21 +3,22 @@ import { useTranslation } from 'react-i18next'
 import InputEmoji from 'react-input-emoji'
 
 
-import Paper from '@material-ui/core/Paper'
-import Tooltip from '@material-ui/core/Tooltip'
-import Divider from '@material-ui/core/Divider'
-import IconButton from '@material-ui/core/IconButton'
-import AttachFileRoundedIcon from '@material-ui/icons/AttachFileRounded'
-import SendRoundedIcon from '@material-ui/icons/SendRounded'
+import Paper from '@mui/material/Paper'
+import Tooltip from '@mui/material/Tooltip'
+import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
+import SendRoundedIcon from '@mui/icons-material/SendRounded'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './BottomBar.module.css'
-import { uploadAttachment } from '../../../../http/fileApi'
+import { uploadAttachment } from '../../../../http/fileApi.js'
 
 
 const BottomBar = ({localDispatch, sendMessage}) => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const { t } = useTranslation()
     const [text, setText] = useState('')
 

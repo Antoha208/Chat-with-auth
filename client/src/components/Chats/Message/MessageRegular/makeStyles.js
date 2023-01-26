@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
   paper: {
     position: 'absolute',
     maxWidth: '600px',
@@ -20,6 +18,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '0 15px ',
     fontSize: '1.3rem',
   }
-}))
+})
 
-export default useStyles
+export default stylesJS

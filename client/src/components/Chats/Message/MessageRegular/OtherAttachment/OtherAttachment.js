@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 import FileSaver from 'file-saver'
 
 
-import { Button } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip'
-import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
-import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import GetAppRoundedIcon from '@mui/icons-material/GetAppRounded'
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
 
 import styles from './../MessageRegular.module.css'
@@ -27,6 +27,7 @@ const OtherAttachment = ({mess}) => {
         <div className={styles.attachment__wrapper}>
             <div className={styles.attachment__wrapperCont}>
                 <img 
+                    alt = ''
                     className={styles.attachment__file} 
                     src=
                         {mess.attachment.fileName.match(/[^.]+$/gm)[0] === 'pdf' ?

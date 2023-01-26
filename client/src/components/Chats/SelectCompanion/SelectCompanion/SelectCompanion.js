@@ -3,26 +3,27 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-import List from '@material-ui/core/List'
-import Button from '@material-ui/core/Button'
-import Paper from '@material-ui/core/Paper'
-import InputBase from '@material-ui/core/InputBase'
-import SearchIcon from '@material-ui/icons/Search'
-import IconButton from '@material-ui/core/IconButton'
+import List from '@mui/material/List'
+import Button from '@mui/material/Button'
+import Paper from '@mui/material/Paper'
+import InputBase from '@mui/material/InputBase'
+import IconButton from '@mui/material/IconButton'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 
 
 import styles from './SelectCompanion.module.css'
-import useStyles from './makeStyles'
-import ListElement from '../ListElement/ListElement'
-import { ContextMain } from '../../../../pages/Chats/contextMain'
-import { Context } from '../../context'
-import { setChatId, setCompanion } from '../../../../store/companionReducer'
-import { setChat } from '../../../../store/chatsReducer'
-import { createNewChat } from '../../../../http/chatsApi'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
+import ListElement from '../ListElement/ListElement.js'
+import { ContextMain } from '../../../../pages/Chats/contextMain.js'
+import { Context } from '../../context.js'
+import { setChatId, setCompanion } from '../../../../store/companionReducer.js'
+import { setChat } from '../../../../store/chatsReducer.js'
+import { createNewChat } from '../../../../http/chatsApi.js'
 
 const SelectCompanion = () => {
   const dispatch = useDispatch()
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { t } = useTranslation()
   const userStore = useSelector(state => state.user.user)
   const allUsers = useSelector(state => state.users.users)
@@ -77,7 +78,7 @@ const SelectCompanion = () => {
           onChange={(e) => setSearch(e.target.value)}
         />
         <IconButton disabled className={classes.iconButton}>
-          <SearchIcon className={styles.icon} />
+          <SearchRoundedIcon className={styles.icon} />
         </IconButton>
       </Paper>
         {filterUsers.map((user, index) => {

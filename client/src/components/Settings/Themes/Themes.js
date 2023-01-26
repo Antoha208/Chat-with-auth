@@ -1,5 +1,4 @@
-import { createTheme } from '@material-ui/core/styles';
-
+import { createTheme } from '@mui/material/styles'
 
 export const themeDark = createTheme({
     palette: {
@@ -116,17 +115,4 @@ export const themeDark = createTheme({
         disableRipple: true
       },
     }  
-  });
-
-  // export const useStyles = makeStyles((theme) => ({
-  //   formControl: {
-  //     margin: theme.spacing(1),
-  //     maxWidth: 120,
-  //     minWidth: 52,
-  //   },
-
-  //   selectEmpty: {
-  //     marginTop: theme.spacing(2),
-  //   },
-
-  // }));
+  })

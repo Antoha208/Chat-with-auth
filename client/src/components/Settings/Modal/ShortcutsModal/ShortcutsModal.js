@@ -2,22 +2,21 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-import { Button, IconButton } from '@material-ui/core'
-import CardContent from '@material-ui/core/CardContent'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
-import Grid from '@material-ui/core/Grid'
-import LiveHelpRoundedIcon from '@material-ui/icons/LiveHelpRounded';
+import IconButton from '@mui/material/IconButton'
+import CardContent from '@mui/material/CardContent'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './ShortcutsModal.module.css'
-import { Context } from '../../context'
+import { Context } from '../../context.js'
 
 
 const ShortcutsModal = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { t } = useTranslation()
-  const { shortcuts, closeShortcuts } = useContext(Context)
+  const { closeShortcuts } = useContext(Context)
   
 
   const handleCloseAccept = () => {

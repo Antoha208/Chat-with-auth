@@ -5,14 +5,13 @@ import { LOGIN_ROUTE,
          ONECHAT_ROUTE, 
          PROFILE_ROUTE, 
          SETTINGS_ROUTE,
-        } from '../../utils/consts'
-
-import Admin from '../../pages/Admin/Admin'
-import Chats from '../../pages/Chats/Chats'
-import OneChat from '../../pages/OneChat/OneChat'
-import Profile from '../../pages/Profile/Profile'
-import Settings from '../../pages/Settings/Settings'
-import Auth from '../../pages/Auth/Auth'
+        } from '../../utils/consts.js'
+import Admin from '../../pages/Admin/Admin.js'
+import Chats from '../../pages/Chats/Chats.js'
+import OneChat from '../../pages/OneChat/OneChat.js'
+import Profile from '../../pages/Profile/Profile.js'
+import Settings from '../../pages/Settings/Settings.js'
+import Auth from '../../pages/Auth/Auth.js'
 
 
 export const authRoutes = [

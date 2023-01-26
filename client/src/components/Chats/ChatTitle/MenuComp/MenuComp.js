@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-import { Menu } from '@material-ui/core'
-import MenuItem from '@material-ui/core/MenuItem'
-import Tooltip from '@material-ui/core/Tooltip'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
-import DeleteForeverRoundedIcon from '@material-ui/icons/DeleteForeverRounded'
-import ZoomInRoundedIcon from '@material-ui/icons/ZoomInRounded'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
+import Tooltip from '@mui/material/Tooltip'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded'
+import ZoomInRoundedIcon from '@mui/icons-material/ZoomInRounded'
 
 
 import styles from './MenuComp.module.css'
-import { Context } from '../../context'
+import { Context } from '../../context.js'
 
 const MenuComp = ({deleteChat, setAvatar, handleClose}) => {
     const {states, open} = useContext(Context)

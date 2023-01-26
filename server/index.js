@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import fileUpload from 'express-fileupload'
 import { WebSocketServer } from 'ws'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 import userRouter from './routes/userRouter.js'
@@ -11,7 +13,6 @@ import chatsRouter from './routes/chatsRouter.js'
 import messageRouter from './routes/messageRouter.js'
 import errorHandler from './middleware/ErrorHandlerMiddleware.js'
 import { wsProtocol } from './webSocket.js'
-import { DB_URL } from './config.js'
 
 const PORT = process.env.PORT || 4000
 
@@ -29,7 +30,7 @@ app.use(errorHandler)
 
 const startApp = async () => {
     try {
-        await mongoose.connect(DB_URL)
+        await mongoose.connect(process.env.DB_URL)
         const server = app.listen(PORT, () => console.log(`server started on PORT: ${PORT}`))
         
         const wss = new WebSocketServer({server})

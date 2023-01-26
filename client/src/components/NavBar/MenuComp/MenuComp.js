@@ -3,8 +3,8 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 
-import { Menu } from '@material-ui/core'
-import MenuItem from '@material-ui/core/MenuItem'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 
 const MenuComp = ({anchorEl, navigateTo}) => {
     const { t } = useTranslation()

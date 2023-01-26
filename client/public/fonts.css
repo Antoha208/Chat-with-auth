@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'StecloFont';
+    src: url('/client/src/fonts/Steclo.eot');
+    src: url('/client/src/fonts/Steclo.otf') format('embedded-opentype'),
+         url('/client/src/fonts/Steclo.otf') format('otf'),
+         url('/client/src/fonts/Steclo.ttf') format('truetype'),
+         url('/client/src/fonts/Steclo.woff') format('woff'),
+         url('/client/src/fonts/Steclo.woff2') format('woff2'),
+         url('/client/src/fonts/Steclo.svg') format('svg');
+    font-weight: normal;
+	font-style: normal;
+}

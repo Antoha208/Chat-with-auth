@@ -3,24 +3,26 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 
-import { Button, IconButton } from '@material-ui/core'
-import CardContent from '@material-ui/core/CardContent'
-import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import CardContent from '@mui/material/CardContent'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './SimpleModal.module.css'
-import { Context } from '../../context'
-import { checkPassword } from '../../../../http/userApi'
-import UsernameModal from '../UsernameModal/UsernameModal'
-import PasswordModal from '../PasswordModal/PasswordModal'
+import { Context } from '../../context.js'
+import { checkPassword } from '../../../../http/userApi.js'
+import UsernameModal from '../UsernameModal/UsernameModal.js'
+import PasswordModal from '../PasswordModal/PasswordModal.js'
 
 
 const SimpleModal = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { t } = useTranslation()
   const userStore = useSelector(state => state.user.user )
   const { closeCheckBar, states } = useContext(Context)
@@ -61,10 +63,11 @@ const SimpleModal = () => {
           <CardContent className={classes.cardContent}>
             <Grid container spacing={1} alignItems="flex-end">
               <Grid item>
-                <AccountCircle className={styles.icon__disabled} />
+                <AccountCircleRoundedIcon className={styles.icon__disabled} />
               </Grid>
               <Grid item>
                 <TextField 
+                  variant="standard"
                   label={t ('description.SimpleModalPassword')}
                   type='password'
                   value = {password}

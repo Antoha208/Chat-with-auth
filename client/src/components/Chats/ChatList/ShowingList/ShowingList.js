@@ -3,26 +3,27 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 
-import Tooltip from '@material-ui/core/Tooltip'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
-import Paper from '@material-ui/core/Paper'
-import InputBase from '@material-ui/core/InputBase'
-import IconButton from '@material-ui/core/IconButton'
-import Divider from '@material-ui/core/Divider'
-import SearchIcon from '@material-ui/icons/Search'
-import AddRoundedIcon from '@material-ui/icons/AddRounded'
-import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded'
-import MenuOpenRoundedIcon from '@material-ui/icons/MenuOpenRounded'
+import Tooltip from '@mui/material/Tooltip'
+import Paper from '@mui/material/Paper'
+import InputBase from '@mui/material/InputBase'
+import IconButton from '@mui/material/IconButton'
+import Divider from '@mui/material/Divider'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
+import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutlineRounded'
+import MenuOpenRoundedIcon from '@mui/icons-material/MenuOpenRounded'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './ShowingList.module.css'
-import { Context } from '../../context'
+import { Context } from '../../context.js'
 
 const ShowingList = ({addChatWith, deleteAll}) => {
     const { closeBar, states, localDispatch } = useContext(Context)
     const { t } = useTranslation()
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const chatsStore = useSelector(state => state.chats.chats)
 
     return (
@@ -34,7 +35,7 @@ const ShowingList = ({addChatWith, deleteAll}) => {
                 onChange={(e) => localDispatch({type: 'search', payload: e.target.value})}
             />
             <IconButton disabled className={classes.iconButton}>
-                <SearchIcon className={styles.icon__disabled} />
+                <SearchRoundedIcon className={styles.icon__disabled} />
             </IconButton>
             {!states.menuOpen ?
                 <Tooltip title={t ('description.NavBarMenuTooltip')} arrow>

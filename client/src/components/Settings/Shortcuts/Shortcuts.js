@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import classnames from 'classnames'
 
 
-import KeyboardRoundedIcon from '@material-ui/icons/KeyboardRounded'
-import { Button } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import KeyboardRoundedIcon from '@mui/icons-material/KeyboardRounded'
 
 
-import { Context } from '../context'
+import { Context } from '../context.js'
 import styles from './Shortcuts.module.css'
 
 

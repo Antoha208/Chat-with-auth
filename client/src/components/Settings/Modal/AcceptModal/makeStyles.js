@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
   cardContent: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -13,6 +11,6 @@ const useStyles = makeStyles((theme) => ({
   button: {
     fontSize: '1.1rem'
   }
-}));
+})
 
-  export default useStyles
+export default stylesJS

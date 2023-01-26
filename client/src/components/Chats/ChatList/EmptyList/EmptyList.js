@@ -11,6 +11,7 @@ const EmptyList = () => {
     return (
         <div className = {styles.chats__wrapper}>
             <img 
+                alt = ''
                 className = {styles.chats} 
                 src = {CHATS}
             />

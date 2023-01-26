@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 
 import styles from './BcgElements.module.css'
-import { getTime } from './getTime'
+import { getTime } from './getTime.js'
 
 const BcgElements = () => {
     const [date, setDate] = useState(getTime())

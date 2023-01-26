@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
     upBar: {
       backgroundColor: '#053b98',
       display: 'flex',
@@ -8,6 +6,6 @@ const useStyles = makeStyles((theme) => ({
       alignItems: 'center',
       width: '100%',
     },
-  }));
+  })
 
-  export default useStyles
+  export default stylesJS

@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles'
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
     listItem: {
       display: 'flex',
       flexDirection: 'column',
@@ -9,6 +7,6 @@ const useStyles = makeStyles((theme) => ({
       flexWrap: 'nowrap',
       borderBottom: '1px solid gray',
     }
-  }))
+})
 
-  export default useStyles
+export default stylesJS

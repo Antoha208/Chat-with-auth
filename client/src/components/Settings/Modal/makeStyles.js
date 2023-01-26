@@ -1,7 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-
+const stylesJS = theme => ({
 paper: {
     position: 'absolute',
     width: 400,
@@ -15,6 +12,6 @@ paper: {
     alignItems: 'center',
     flexDirection: 'column'
   },
-}));
+})
 
-export default useStyles
+export default stylesJS

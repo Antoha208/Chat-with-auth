@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect } from 'react'
 
 
-import CardContent from '@material-ui/core/CardContent'
-import TextField from '@material-ui/core/TextField'
-import Grid from '@material-ui/core/Grid'
-import AccountCircle from '@material-ui/icons/AccountCircle'
-import VisibilityRoundedIcon from '@material-ui/icons/VisibilityRounded'
+import CardContent from '@mui/material/CardContent'
+import TextField from '@mui/material/TextField'
+import Grid from '@mui/material/Grid'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
 
 import styles from './AuthData.module.css'
-import AvatarComp from '../AvatarComp/AvatarComp'
-import { getUsers } from '../../../http/userApi'
+import AvatarComp from '../AvatarComp/AvatarComp.js'
+import { getUsers } from '../../../http/userApi.js'
 
 const AuthData = ({isLogin, states, localDispatch}) => {
 
@@ -48,10 +48,11 @@ const AuthData = ({isLogin, states, localDispatch}) => {
                 )}
                 <Grid container spacing={1} alignItems="flex-end">
                     <Grid item>
-                        <AccountCircle className = {styles.icon} />
+                        <AccountCircleRoundedIcon className = {styles.icon} />
                     </Grid>
                     <Grid item>
-                        <TextField 
+                        <TextField
+                            variant="standard" 
                             label="Username"
                             value = {states.username}
                             onChange = {e => localDispatch({type: 'username', payload: e.target.value})} 
@@ -66,6 +67,7 @@ const AuthData = ({isLogin, states, localDispatch}) => {
                     </Grid>
                     <Grid item>
                         <TextField
+                            variant="standard"
                             className = {styles.password}
                             label="Password"
                             type={`${states.visible && ("password")}`}
@@ -86,6 +88,7 @@ const AuthData = ({isLogin, states, localDispatch}) => {
                                 <TextField
                                     error
                                     className = {styles.password}
+                                    variant="standard"
                                     label="Confirmation"
                                     type={`${states.visible && ("password")}`}
                                     value = {states.passwordConf}
@@ -94,6 +97,7 @@ const AuthData = ({isLogin, states, localDispatch}) => {
                             :
                                 <TextField
                                     className = {styles.password}
+                                    variant="standard"
                                     label="Confirmation"
                                     type={`${states.visible && ("password")}`}
                                     value = {states.passwordConf}

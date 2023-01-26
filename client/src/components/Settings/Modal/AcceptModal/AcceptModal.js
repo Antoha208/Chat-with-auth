@@ -1,25 +1,27 @@
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
-import i18n from '../../Language/i18n'
+import i18n from '../../Language/i18n.js'
 
 
-import { Button, IconButton } from '@material-ui/core'
-import CardContent from '@material-ui/core/CardContent'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
-import Grid from '@material-ui/core/Grid'
-import LiveHelpRoundedIcon from '@material-ui/icons/LiveHelpRounded'
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import CardContent from '@mui/material/CardContent'
+import Grid from '@mui/material/Grid'
+import LiveHelpRoundedIcon from '@mui/icons-material/LiveHelpRounded'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './AcceptModal.module.css'
-import { Context } from '../../context'
-import { changeTheme, changeLanguage } from '../../../../store/userReducer'
-import { setTheme, setLanguage } from '../../../../http/userApi' 
+import { Context } from '../../context.js'
+import { changeTheme, changeLanguage } from '../../../../store/userReducer.js'
+import { setTheme, setLanguage } from '../../../../http/userApi.js' 
 
 
 const AcceptModal = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const userStore = useSelector(state => state.user.user )
@@ -53,6 +55,7 @@ const AcceptModal = () => {
         break;
       case '':
         alert(`${t ('description.AcceptModalAlert')}`)
+        break;
       default:
         break;
     }

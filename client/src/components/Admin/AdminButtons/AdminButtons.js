@@ -3,20 +3,21 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import Button from '@material-ui/core/Button'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
 
 
-import useStyles from './makeStyles'
-import { getUsers } from '../../../http/userApi'
-import { setAllUsers, resetAllUsers } from '../../../store/usersListReducer'
-import UsersList from '../UsersList/UsersList'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
+import { getUsers } from '../../../http/userApi.js'
+import { setAllUsers, resetAllUsers } from '../../../store/usersListReducer.js'
+import UsersList from '../UsersList/UsersList.js'
 
 const AdminButtons = () => {
     const { t } = useTranslation()
     const dispatch = useDispatch()
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const [showButton, setShowButton] = useState(true)
     const userStore = useSelector(state => state.user.user)
     const allUsers = useSelector(state => state.users.users)

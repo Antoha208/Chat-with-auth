@@ -3,18 +3,19 @@ import { useTranslation } from 'react-i18next'
 import FileSaver from 'file-saver'
 
 
-import Modal from '@material-ui/core/Modal'
-import { Button } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip'
-import GetAppRoundedIcon from '@material-ui/icons/GetAppRounded'
+import Modal from '@mui/material/Modal'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import GetAppRoundedIcon from '@mui/icons-material/GetAppRounded'
 
 
 import styles from './../MessageRegular.module.css'
-import useStyles from './../makeStyles'
+import stylesJS from './../makeStyles.js'
+import useClasses from '../../../../../CustomHooks/useClasses.js'
 
 
 const PictureAttachment = ({mess, zoom, localDispatch}) => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const { t } = useTranslation()
 
     return (    
@@ -25,6 +26,7 @@ const PictureAttachment = ({mess, zoom, localDispatch}) => {
                     onClose={() => localDispatch({type: '!zoom'})}
                 >
                     <img 
+                        alt = ''
                         className={classes.paper} 
                         src={`${process.env.REACT_APP_URL_API}` + mess.attachment.fileName}
                         onClick={() => localDispatch({type: '!zoom'})}
@@ -33,6 +35,7 @@ const PictureAttachment = ({mess, zoom, localDispatch}) => {
             :
                 <div className={styles.attachment__wrapperCont}>
                     <img 
+                        alt = ''
                         className={styles.attachment__file} 
                         src={`${process.env.REACT_APP_URL_API}` + mess.attachment.fileName}
                         onClick={() => localDispatch({type: 'zoom'})}

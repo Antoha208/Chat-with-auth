@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
     sideBar: {
         backgroundColor: theme.palette.background.paper,
         width: '18%',
@@ -15,6 +13,6 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1.3rem',
         padding: 0
     }
-  }))
+})
 
-  export default useStyles
+export default stylesJS

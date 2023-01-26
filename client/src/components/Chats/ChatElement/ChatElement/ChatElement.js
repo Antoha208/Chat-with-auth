@@ -2,19 +2,20 @@ import React, { useContext } from 'react'
 import { useSelector } from 'react-redux'
 
 
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
-import ListItemText from '@material-ui/core/ListItemText'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import ListItemText from '@mui/material/ListItemText'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './ChatElement.module.css'
-import AvatarComp from '../AvatarComp/AvatarComp'
-import { Context } from '../../context'
+import AvatarComp from '../AvatarComp/AvatarComp.js'
+import { Context } from '../../context.js'
 
 const ChatElement = () => {
     const { tabProps, handleChangeTab, states, filterChats } = useContext(Context)
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const compStore = useSelector(state => state.companion.companion)
     const userStore = useSelector(state => state.user.user)
     const chatsStore = useSelector(state => state.chats.chats)

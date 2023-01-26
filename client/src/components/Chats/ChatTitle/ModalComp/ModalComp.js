@@ -1,13 +1,15 @@
 import React from 'react'
 
-import Modal from '@material-ui/core/Modal'
-import Avatar from '@material-ui/core/Avatar'
+
+import Modal from '@mui/material/Modal'
+import Avatar from '@mui/material/Avatar'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 
 const ModalComp = ({chat, avatar, setAvatar, handleClose}) => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     
     return (
         <Modal

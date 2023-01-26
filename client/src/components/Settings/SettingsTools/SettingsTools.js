@@ -3,24 +3,26 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 
-import Tooltip from '@material-ui/core/Tooltip'
-import Paper from '@material-ui/core/Paper'
-import { Card, IconButton } from '@material-ui/core'
-import Grid from '@material-ui/core/Grid'
-import EditRoundedIcon from '@material-ui/icons/EditRounded'
+import Tooltip from '@mui/material/Tooltip'
+import Paper from '@mui/material/Paper'
+import Card from '@mui/material/Card'
+import IconButton from '@mui/material/IconButton'
+import Grid from '@mui/material/Grid'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
 
 
-import RootModal from '../../Settings/Modal/RootModal'
-import ThemeChanger from '../../Settings/Themes/ThemeChanger'
-import LanguageChanger from '../../Settings/Language/LanguageChanger'
-import Shortcuts from '../../Settings/Shortcuts/Shortcuts'
-import { Context } from '../context'
+import RootModal from '../../Settings/Modal/RootModal.js'
+import ThemeChanger from '../../Settings/Themes/ThemeChanger.js'
+import LanguageChanger from '../../Settings/Language/LanguageChanger.js'
+import Shortcuts from '../../Settings/Shortcuts/Shortcuts.js'
+import { Context } from '../context.js'
 import styles from './SettingsTools.module.css'
-import useStyles from './makeStyles.js'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
 
 const SettingsTools = () => {
     const { states, localDispatch } = useContext(Context)
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const { t } = useTranslation()
     const userStore = useSelector(state => state.user.user)
 

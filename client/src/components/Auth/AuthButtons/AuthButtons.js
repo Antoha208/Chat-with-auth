@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next'
 
 
 import styles from './AuthButtons.module.css'
-import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../../utils/consts'
-import { registration, login, addLogInfo } from '../../../http/userApi'
-import { changeIsAuth } from '../../../store/authReducer'
-import { setUser } from '../../../store/userReducer'
-import { catchError } from './ErrorHandler'
+import { CHATS_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE } from '../../../utils/consts.js'
+import { registration, login, addLogInfo } from '../../../http/userApi.js'
+import { changeIsAuth } from '../../../store/authReducer.js'
+import { setUser } from '../../../store/userReducer.js'
+import { catchError } from './ErrorHandler.js'
 
 const AuthButtons = ({isLogin, states, localDispatch}) => {
     const { t } = useTranslation()

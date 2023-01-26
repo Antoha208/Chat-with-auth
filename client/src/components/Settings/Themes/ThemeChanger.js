@@ -2,12 +2,12 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-import Brightness4RoundedIcon from '@material-ui/icons/Brightness4Rounded'
-import { Button } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import Brightness4RoundedIcon from '@mui/icons-material/Brightness4Rounded'
 
 
-import { Context } from '../context'
+import { Context } from '../context.js'
 import styles from './ThemeChanger.module.css'
 
 

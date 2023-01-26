@@ -11,6 +11,7 @@ const EmptyChat = () => {
     return (
         <div className = {styles.img__wrapper}>
             <img 
+                alt = ''
                 src = {EMPTYCHAT}
                 className = { styles.img }
             />

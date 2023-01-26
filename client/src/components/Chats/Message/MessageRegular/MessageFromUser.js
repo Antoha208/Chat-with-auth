@@ -4,23 +4,25 @@ import { useTranslation } from 'react-i18next'
 import moment from 'moment'
 
 
-import ListItemText from '@material-ui/core/ListItemText'
-import { InputBase, Button } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
-import SpellcheckRoundedIcon from '@material-ui/icons/SpellcheckRounded'
+import ListItemText from '@mui/material/ListItemText'
+import InputBase from '@mui/material/InputBase'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
+import SpellcheckRoundedIcon from '@mui/icons-material/SpellcheckRounded'
 
 
 import styles from './MessageRegular.module.css'
-import useStyles from './makeStyles'
-import { cancelUpdating } from '../../../../store/messagesReducer'
-import PictureAttachment from './PictureAttachment/PictureAttachment'
-import OtherAttachment from './OtherAttachment/OtherAttachment'
-import AvatarUser from './AvatarComp/AvatarUser'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
+import { cancelUpdating } from '../../../../store/messagesReducer.js'
+import PictureAttachment from './PictureAttachment/PictureAttachment.js'
+import OtherAttachment from './OtherAttachment/OtherAttachment.js'
+import AvatarUser from './AvatarComp/AvatarUser.js'
 
 
 const MessageFromUser = ({mess, editMessage, acceptMessage, states, localDispatch}) => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const userStore = useSelector(state => state.user.user)
     const dispatch = useDispatch()
     const { t } = useTranslation()

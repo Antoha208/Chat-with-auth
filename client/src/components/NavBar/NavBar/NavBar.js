@@ -1,33 +1,32 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
-import IconButton from '@material-ui/core/IconButton'
-import Tooltip from '@material-ui/core/Tooltip'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
 import styles from './NavBar.module.css'
-import AvatarComponent from '../AvatarComponent/AvatarComponent'
-import MenuComp from '../MenuComp/MenuComp'
+import AvatarComponent from '../AvatarComponent/AvatarComponent.js'
+import MenuComp from '../MenuComp/MenuComp.js'
 import logo from './img/logo.png'
-import { ContextMain } from '../../../pages/Chats/contextMain'
-import { LOGIN_ROUTE, CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, ADMIN_ROUTE } from '../../../utils/consts'
-import { disconnect } from '../../../WebSocket/webSocket'
-import { resetApp } from '../../../store/index'
-import { removeLogInfo } from '../../../http/userApi'
+import { LOGIN_ROUTE, CHATS_ROUTE, PROFILE_ROUTE, SETTINGS_ROUTE, ADMIN_ROUTE } from '../../../utils/consts.js'
+import { disconnect } from '../../../WebSocket/webSocket.js'
+import { resetApp } from '../../../store/index.js'
+import { removeLogInfo } from '../../../http/userApi.js'
 
-const NavBar = () => {
-  const classes = useStyles()
+const NavBar = ({setConnected}) => {
+  const classes = useClasses(stylesJS)
   const { t } = useTranslation()
   const [anchorEl, setAnchorEl] = useState(null)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { setConnected } = useContext(ContextMain)
   const userStore = useSelector(state => state.user.user)
   const compStore = useSelector(state => state.companion.companion)
   const messagesStore = useSelector(state => state.messages.messages) 
@@ -44,11 +43,11 @@ const NavBar = () => {
   }
 
   const handleMenu = (event) => {
-    // if (compStore.id !== null) {
-    //   alert(`${t ('description.NavBarAlert')}`)
-    // } else {
+    if (compStore.id !== null) {
+      alert(`${t ('description.NavBarAlert')}`)
+    } else {
       setAnchorEl(event.currentTarget)
-    // }
+    }
   }
 
   const navigateTo = useCallback(async (page) => {
@@ -68,7 +67,7 @@ const NavBar = () => {
         break;
       case 'logout':
         await removeLogInfo()
-        disconnect(dispatch, setConnected, userStore, compStore, messagesStore, t)
+        disconnect(dispatch, setConnected(), userStore, compStore, messagesStore, t)
         dispatch(resetApp())
         window.localStorage.clear()
         navigate(LOGIN_ROUTE)

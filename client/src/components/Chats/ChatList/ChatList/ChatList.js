@@ -3,28 +3,29 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 
-import Toolbar from '@material-ui/core/Toolbar'
-import Box from '@material-ui/core/Box'
+import Toolbar from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
 
 
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './ChatList.module.css'
-import { ContextMain } from '../../../../pages/Chats/contextMain'
-import localReducer from './localReducer'
-import { Context } from '../../context'
-import { setAllUsers } from '../../../../store/usersListReducer'
-import { resetAllChats, setArrayChats } from '../../../../store/chatsReducer'
-import { setCompanion, setChatId } from '../../../../store/companionReducer'
-import { setArrayMessages, resetAllMessages } from '../../../../store/messagesReducer'
-import { getUsers, getOneUser } from '../../../../http/userApi'
-import { getChats, deleteAllChats } from '../../../../http/chatsApi'
-import { getMessages } from '../../../../http/messagesApi'
-import { disconnect } from '../../../../WebSocket/webSocket'
-import ShowingList from '../ShowingList/ShowingList'
-import SelectCompanion from '../../SelectCompanion/SelectCompanion/SelectCompanion'
-import ChatTitle from '../../ChatTitle/ChatTitle/ChatTitle'
-import ChatElement from '../../ChatElement/ChatElement/ChatElement'
-import EmptyList from '../EmptyList/EmptyList'
+import { ContextMain } from '../../../../pages/Chats/contextMain.js'
+import localReducer from './localReducer.js'
+import { Context } from '../../context.js'
+import { setAllUsers } from '../../../../store/usersListReducer.js'
+import { resetAllChats, setArrayChats } from '../../../../store/chatsReducer.js'
+import { setCompanion, setChatId } from '../../../../store/companionReducer.js'
+import { setArrayMessages, resetAllMessages } from '../../../../store/messagesReducer.js'
+import { getUsers, getOneUser } from '../../../../http/userApi.js'
+import { getChats, deleteAllChats } from '../../../../http/chatsApi.js'
+import { getMessages } from '../../../../http/messagesApi.js'
+import { disconnect } from '../../../../WebSocket/webSocket.js'
+import ShowingList from '../ShowingList/ShowingList.js'
+import SelectCompanion from '../../SelectCompanion/SelectCompanion/SelectCompanion.js'
+import ChatTitle from '../../ChatTitle/ChatTitle/ChatTitle.js'
+import ChatElement from '../../ChatElement/ChatElement/ChatElement.js'
+import EmptyList from '../EmptyList/EmptyList.js'
 
 
 const ChatList = () => {
@@ -35,7 +36,7 @@ const ChatList = () => {
   const chatsStore = useSelector(state => state.chats.chats)
   const compStore = useSelector(state => state.companion.companion)
   const messagesStore = useSelector(state => state.messages.messages) 
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { chats, setChats, setConnected } = useContext(ContextMain)
   const [states, localDispatch] = useReducer(localReducer, {value: 0, chosenTab: {}, anchorEl: null, search: '', plus: false, menuOpen: false})
   const open = Boolean(states.anchorEl)

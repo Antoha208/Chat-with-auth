@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 
 
-import LinearProgress from '@material-ui/core/LinearProgress'
+import LinearProgress from '@mui/material/LinearProgress'
 
 
 import styles from './App.module.css'

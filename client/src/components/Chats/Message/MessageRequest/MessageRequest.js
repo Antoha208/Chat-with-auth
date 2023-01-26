@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 
-import { Button } from '@material-ui/core'
+import Button from '@mui/material/Button'
 
 
 import styles from './MessageRequest.module.css'

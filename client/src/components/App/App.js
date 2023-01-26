@@ -3,15 +3,15 @@ import { BrowserRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 
-import { ThemeProvider } from '@material-ui/core/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
 
 import AppRouter from './AppRouter.js'
 import styles from './App.module.css'
-import { changeIsAuth } from '../../store/authReducer'
+import { changeIsAuth } from '../../store/authReducer.js'
 import { check } from '../../http/userApi.js'
 import Loader from './Loader.js'
-import { themeDark, themeLight } from '../Settings/Themes/Themes'
+import { themeDark, themeLight } from '../Settings/Themes/Themes.js'
 
 const App = () => {
   const dispatch = useDispatch()

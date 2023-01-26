@@ -2,20 +2,21 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-import Tooltip from '@material-ui/core/Tooltip'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemText from '@material-ui/core/ListItemText'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import { Stack } from '@mui/material'
+import Tooltip from '@mui/material/Tooltip'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemAvatar from '@mui/material/ListItemAvatar'
+import Stack from '@mui/material/Stack'
 
 
-import StyledBadge from '../../../NavBar/AvatarComponent/withStyles'
-import useStyles from './makeStyles'
+import StyledBadge from '../../../NavBar/AvatarComponent/withStyles.js'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../../CustomHooks/useClasses.js'
 import styles from './ListElement.module.css'
-import AvatarComp from './AvatarComp/AvatarComp'
+import AvatarComp from './AvatarComp/AvatarComp.js'
 
 const ListElement = ({user}) => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const { t } = useTranslation()
 
     return (
@@ -31,10 +32,7 @@ const ListElement = ({user}) => {
                             <Stack direction="row" spacing={2}>        
                                 <StyledBadge
                                     overlap="circular"
-                                    anchorOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'right',
-                                    }}
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                                     variant="dot"
                                 >
                                     <AvatarComp 

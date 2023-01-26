@@ -1,15 +1,18 @@
-import React from 'react';
+import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { Avatar } from '@mui/material'
-import { Stack } from '@mui/material'
 
-import useStyles from './makeStyles.js'
+import Avatar from '@mui/material/Avatar'
+import Stack from '@mui/material/Stack'
+
+
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
 import StyledBadge from './withStyles.js'
 
 
 const AvatarComponent = () => {
-    const classes = useStyles();
+    const classes = useClasses(stylesJS)
 
     const userStore = useSelector(state => state.user.user)
 
@@ -44,10 +47,7 @@ const AvatarComponent = () => {
         <Stack direction="row" spacing={2}>        
             <StyledBadge
                 overlap="circular"
-                anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-                }}
+                anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                 variant="dot"
             >
                 {userStore.avatar === '' || undefined || null ? 
@@ -57,7 +57,7 @@ const AvatarComponent = () => {
                 }
             </StyledBadge>
         </Stack>
-    );
+    )
 }
 
 export default AvatarComponent

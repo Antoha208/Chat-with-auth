@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import classnames from 'classnames'
 
 
-import LanguageRoundedIcon from '@material-ui/icons/LanguageRounded'
-import { Button } from "@material-ui/core"
-import Tooltip from '@material-ui/core/Tooltip'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 
 
-import { Context } from '../context'
+import { Context } from '../context.js'
 import styles from './LanguageChanger.module.css'
 
 

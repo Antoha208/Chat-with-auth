@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 
 
-import Button from '@material-ui/core/Button'
-import Tooltip from '@material-ui/core/Tooltip'
-import ClearRoundedIcon from '@material-ui/icons/ClearRounded'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import ClearRoundedIcon from '@mui/icons-material/ClearRounded'
 
 
 import styles from './ChatDisconnection.module.css'
-import { ContextMain } from '../../../../pages/Chats/contextMain'
-import { disconnect } from '../../../../WebSocket/webSocket'
+import { ContextMain } from '../../../../pages/Chats/contextMain.js'
+import { disconnect } from '../../../../WebSocket/webSocket.js'
 
 const ChatDisconnection = () => {
     const { t } = useTranslation()

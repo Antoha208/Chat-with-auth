@@ -5,24 +5,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 
-import { Button, InputBase } from '@material-ui/core'
-import Tooltip from '@material-ui/core/Tooltip'
-import Paper from '@material-ui/core/Paper'
-import Grid from '@material-ui/core/Grid'
-import EditRoundedIcon from '@material-ui/icons/EditRounded'
-import SpellcheckRoundedIcon from '@material-ui/icons/SpellcheckRounded'
+import Button from '@mui/material/Button'
+import InputBase from '@mui/material/InputBase'
+import Tooltip from '@mui/material/Tooltip'
+import Paper from '@mui/material/Paper'
+import Grid from '@mui/material/Grid'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import SpellcheckRoundedIcon from '@mui/icons-material/SpellcheckRounded'
 
 
 import styles from './ProfileInfo.module.css'
-import useStyles from './makeStyles.js'
-import { addAboutInfo, deleteOneUser } from '../../../http/userApi'
-import { resetApp } from '../../../store/index'
-import { REGISTRATION_ROUTE } from '../../../utils/consts'
-import { changeAbout } from '../../../store/userReducer'
-import { deleteAllChats } from '../../../http/chatsApi'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../../CustomHooks/useClasses.js'
+import { addAboutInfo, deleteOneUser } from '../../../http/userApi.js'
+import { resetApp } from '../../../store/index.js'
+import { REGISTRATION_ROUTE } from '../../../utils/consts.js'
+import { changeAbout } from '../../../store/userReducer.js'
+import { deleteAllChats } from '../../../http/chatsApi.js'
 
 const ProfileInfo = () => {
-    const classes = useStyles()
+    const classes = useClasses(stylesJS)
     const { t } = useTranslation()
     const userStore = useSelector(state => state.user.user)
     const dispatch = useDispatch()

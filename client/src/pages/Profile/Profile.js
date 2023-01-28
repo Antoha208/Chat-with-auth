@@ -1,18 +1,19 @@
 import React from 'react'
 
 
-import { Card } from '@material-ui/core'
+import Card from '@mui/material/Card'
 
 
 import styles from './Profile.module.css'
-import useStyles from './makeStyles'
-import ProfilePhoto from '../../components/Profile/ProfilePhoto/ProfilePhoto'
-import ProfileInfo from '../../components/Profile/ProfileInfo/ProfileInfo'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../CustomHooks/useClasses.js'
+import ProfilePhoto from '../../components/Profile/ProfilePhoto/ProfilePhoto.js'
+import ProfileInfo from '../../components/Profile/ProfileInfo/ProfileInfo.js'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
 
 
 const Profile = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   
   return (
     <Card className={styles.container}>

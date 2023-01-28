@@ -3,19 +3,20 @@ import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 
 
-import { Card } from '@material-ui/core'
+import Card from '@mui/material/Card'
 
 
 import styles from './Settings.module.css'
-import useStyles from './makeStyles'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../CustomHooks/useClasses.js'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
-import SettingsPic from '../../components/Settings/Picture/SettingsPic'
-import SettingsTools from '../../components/Settings/SettingsTools/SettingsTools'
-import { Context } from '../../components/Settings/context'
-import localReducer from './localReducer'
+import SettingsPic from '../../components/Settings/Picture/SettingsPic.js'
+import SettingsTools from '../../components/Settings/SettingsTools/SettingsTools.js'
+import { Context } from '../../components/Settings/context.js'
+import localReducer from './localReducer.js'
 
 const Settings = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
   const { t } = useTranslation()
   const userStore = useSelector(state => state.user.user)
   const [states, localDispatch] = useReducer(localReducer, {openCheckModal: false, openAcceptModal: false, openShortcutsModal: false, selected: ''})

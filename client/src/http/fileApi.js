@@ -1,4 +1,4 @@
-import {$authHost} from './index'
+import {$authHost} from './index.js'
 
 export const uploadAvatar = async (file) => {
     const formData = new FormData()

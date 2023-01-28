@@ -9,7 +9,7 @@ import { modelMessage } from '../WebSocket/Models.js'
 let client
 
 export const initWebSocket = () => {
-  client = new WebSocket('ws://chat-with-auth-server.vercel.app')
+  client = new WebSocket('wss://chat-with-auth-server.vercel.app')
   return client
 }
 

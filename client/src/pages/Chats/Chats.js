@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 
 
-import { Card } from '@material-ui/core'
+import Card from '@mui/material/Card'
 
 
-import ChatWindow from '../../components/Chats/ChatWindow/ChatWindow/ChatWindow'
-import NavBar from '../../components/NavBar/NavBar/NavBar'
-import ChatList from '../../components/Chats/ChatList/ChatList/ChatList'
-import { ContextMain } from './contextMain'
+import ChatWindow from '../../components/Chats/ChatWindow/ChatWindow/ChatWindow.js'
+import NavBar from '../../components/NavBar/NavBar/NavBar.js'
+import ChatList from '../../components/Chats/ChatList/ChatList/ChatList.js'
+import { ContextMain } from './contextMain.js'
 import styles from './Chats.module.css'
 
 
@@ -21,7 +21,9 @@ const Chats = () => {
     }}
     >
       <Card className={styles.card}>
-        <NavBar />
+        <NavBar 
+          setConnected={setConnected}
+        />
         <div className = {styles.content}>
           <ChatList />
           <Card className = {styles.onechat}>

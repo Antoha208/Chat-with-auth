@@ -1,4 +1,4 @@
-import {$authHost} from './index'
+import {$authHost} from './index.js'
 
 
 export const addMessage = async (_id, event, username, message, avatar, id) => {

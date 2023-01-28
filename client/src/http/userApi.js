@@ -1,6 +1,6 @@
 import jwt_decode from 'jwt-decode'
 
-import {$host , $authHost} from './index'
+import {$host , $authHost} from './index.js'
 
 export const registration = async (username, password) => {
     const {data} = await $host.post('api/registration', {username, password, role: 'User'})
@@ -85,5 +85,3 @@ export const setLanguage = async (_id) => {
     const {data} = await $authHost.put('/api/updateLanguage/' + _id)
     return data
 } 
-
-

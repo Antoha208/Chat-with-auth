@@ -1,10 +1,10 @@
-import { setMessage, removeMessage, updateMessage, resetAllMessages } from '../store/messagesReducer'
-import { resetCompanion } from '../store/companionReducer'
-import { resetChat } from '../store/chatsReducer'
-import { changeSocket } from '../store/authReducer'
-import { deleteOneChat } from '../http/chatsApi'
-import { addMessage } from '../http/messagesApi'
-import { modelMessage } from '../WebSocket/Models'
+import { setMessage, removeMessage, updateMessage, resetAllMessages } from '../store/messagesReducer.js'
+import { resetCompanion } from '../store/companionReducer.js'
+import { resetChat } from '../store/chatsReducer.js'
+import { changeSocket } from '../store/authReducer.js'
+import { deleteOneChat } from '../http/chatsApi.js'
+import { addMessage } from '../http/messagesApi.js'
+import { modelMessage } from '../WebSocket/Models.js'
 
 let client
 
@@ -37,6 +37,7 @@ export const socketOnMessage = (socket, dispatch, disconnectToo, id) => {
         if (message.id !== id) {
           disconnectToo()
         }
+        break;
       default:
         dispatch(setMessage(message))
     }
@@ -77,4 +78,3 @@ export const fullDeletingChat = async (dispatch, userStore, chatId, chat, discon
     disconnect(dispatch, setConnected, userStore, compStore, messagesStore, t)
   }
 }
-

@@ -1,4 +1,4 @@
-import {$authHost} from './index'
+import {$authHost} from './index.js'
 
 
 export const createNewChat = async (_id, ids, usernames, avatars) => {

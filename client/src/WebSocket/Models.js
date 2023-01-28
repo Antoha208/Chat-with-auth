@@ -61,6 +61,7 @@ export const modelMessage = (event, userStore, compStore, text, answer, oldKey) 
             default:
                 break;
         }
+        break;
     case EDIT:
         return {
             event: 'edit',
@@ -134,6 +135,7 @@ export const modelMessage = (event, userStore, compStore, text, answer, oldKey) 
             default:
                 break;
         }
+        break;
     case DISCONNECT:
         return {
             event: 'disconnect',

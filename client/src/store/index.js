@@ -1,13 +1,15 @@
 import { createStore, combineReducers} from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { authReducer } from './authReducer'
-import { userReducer } from './userReducer'
-import { usersListReducer } from './usersListReducer'
-import { companionReducer } from './companionReducer'
-import { chatsReducer } from './chatsReducer'
-import { messagesReducer } from './messagesReducer'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+
+
+import { authReducer } from './authReducer.js'
+import { userReducer } from './userReducer.js'
+import { usersListReducer } from './usersListReducer.js'
+import { companionReducer } from './companionReducer.js'
+import { chatsReducer } from './chatsReducer.js'
+import { messagesReducer } from './messagesReducer.js'
 
 const rootReducer = combineReducers({
     isAuth: authReducer,

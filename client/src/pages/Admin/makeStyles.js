@@ -1,6 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
+const stylesJS = theme => ({
   avatarContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -18,6 +16,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '0px 20px',
     borderRadius: '15px',
   }
-  }))
+})
 
-  export default useStyles
+export default stylesJS

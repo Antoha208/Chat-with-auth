@@ -1,17 +1,18 @@
 import React from 'react'
 
 
-import { Card } from '@material-ui/core'
+import Card from '@mui/material/Card'
 
 
 import styles from './Admin.module.css'
-import useStyles from './makeStyles'
-import AdminButtons from '../../components/Admin/AdminButtons/AdminButtons'
-import AdminPic from '../../components/Admin/Picture/AdminPic'
+import stylesJS from './makeStyles.js'
+import useClasses from '../../CustomHooks/useClasses.js'
+import AdminButtons from '../../components/Admin/AdminButtons/AdminButtons.js'
+import AdminPic from '../../components/Admin/Picture/AdminPic.js'
 import NavBar from '../../components/NavBar/NavBar/NavBar.js'
 
 const Admin = () => {
-  const classes = useStyles()
+  const classes = useClasses(stylesJS)
 
   return (
     <Card className={styles.container}>

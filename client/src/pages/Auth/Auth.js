@@ -3,11 +3,11 @@ import { useLocation } from 'react-router-dom'
 
 
 import styles from './Auth.module.css'
-import localReducer from './localReducer'
-import { LOGIN_ROUTE } from '../../utils/consts'
-import AuthData from '../../components/Auth/AuthData/AuthData'
-import BcgElements from '../../components/Auth/Bcg/BcgElements'
-import AuthButtons from '../../components/Auth/AuthButtons/AuthButtons'
+import localReducer from './localReducer.js'
+import { LOGIN_ROUTE } from '../../utils/consts.js'
+import AuthData from '../../components/Auth/AuthData/AuthData.js'
+import BcgElements from '../../components/Auth/Bcg/BcgElements.js'
+import AuthButtons from '../../components/Auth/AuthButtons/AuthButtons.js'
 
 const Auth = () => {
   const location = useLocation()

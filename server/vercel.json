@@ -7,6 +7,11 @@
         }
     ],
     "routes": [
+        {
+          "src": "/chats",
+          "status": 308,
+          "headers": { "Location": "wss://chat-with-auth-server.vercel.app" }
+        },
         { 
             "src": "/(.*)", 
             "dest": "/"
